@@ -7,7 +7,6 @@ import android.widget.Button;
 import android.widget.EditText;
 import com.example.movie.mvp.view.IView;
 import com.example.onlymycinema.R;
-
 import butterknife.BindView;
 
 public class RegisterActivity extends AppCompatActivity implements IView {
