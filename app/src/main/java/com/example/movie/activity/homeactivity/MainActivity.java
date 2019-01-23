@@ -1,4 +1,4 @@
-package com.example.movie.activity.activity;
+package com.example.movie.activity.homeactivity;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;

@@ -1,4 +1,4 @@
-package com.example.movie.activity.activity;
+package com.example.movie.activity.useractivity;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -29,6 +29,7 @@ public class RegisterActivity extends AppCompatActivity implements IView {
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register);
+
 
 
     }

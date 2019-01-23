@@ -93,6 +93,7 @@
         android:layout_below="@+id/login_line_five"
         android:layout_marginTop="@dimen/dp_10"
         android:text="记住密码"
+        android:textSize="@dimen/sp_14"
         android:buttonTint="#fff"
         android:textColor="#fff"
         android:layout_alignLeft="@+id/login_line_five"
@@ -106,6 +107,7 @@
         android:layout_below="@+id/login_line_five"
         android:layout_marginTop="@dimen/dp_10"
         android:text="自动登录"
+        android:textSize="@dimen/sp_14"
         android:buttonTint="#fff"
         android:textColor="#fff"
         />

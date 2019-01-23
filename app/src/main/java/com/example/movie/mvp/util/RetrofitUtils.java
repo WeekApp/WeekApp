@@ -27,7 +27,7 @@ import rx.schedulers.Schedulers;
 public class RetrofitUtils {
     private static  RetrofitUtils instance;
     private OkHttpClient client;
-    private final String BASE_URL="http://mobile.bwstudent.com/small/";
+    private final String BASE_URL="http://mobile.bwstudent.com/";
     private BaseApis baseApis;
     //创建单例
     public static RetrofitUtils getInstance(){
@@ -65,6 +65,8 @@ public class RetrofitUtils {
                         if(!TextUtils.isEmpty(userId)&&!TextUtils.isEmpty(sessionId)){
                             builder.addHeader("userId",userId);
                             builder.addHeader("sessionId",sessionId);
+                            builder.addHeader("ak","0110010010000");
+                            builder.addHeader("Content-Type","application/x-www-form-urlencoded");
                         }
                         Request build = builder.build();
                         return chain.proceed(build);
