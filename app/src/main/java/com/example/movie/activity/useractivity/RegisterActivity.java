@@ -69,6 +69,7 @@ public class RegisterActivity extends AppCompatActivity implements IView {
                 String mpass = EncryptUtil.encrypt(pass);
 
                 ///asfdghjuhkl
+                //SADFBGNBM
                 Map<String, String> map = new HashMap<>();
                         map.put("nickName", name);
                         map.put("phone", number);
