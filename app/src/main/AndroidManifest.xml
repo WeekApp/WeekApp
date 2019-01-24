@@ -25,7 +25,8 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name="com.example.movie.activity.useractivity.RegisterActivity"/>
+        <activity android:name="com.example.movie.activity.useractivity.RegisterActivity" />
+        <activity android:name="com.example.movie.activity.homeactivity.HomeActivity"></activity>
     </application>
 
 </manifest>
