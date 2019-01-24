@@ -35,10 +35,10 @@ public class RegisterActivity extends AppCompatActivity implements IView {
     EditText mRnumber;
     @BindView(R.id.register_edit_pass)
     EditText mRpass;
-    @BindView(R.id.register_cb)
+    /*@BindView(R.id.register_cb)
     RadioButton mBoy;
     @BindView(R.id.register_cb_nv)
-    RadioButton mGirls;
+    RadioButton mGirls;*/
     @BindView(R.id.register_ok)
     Button mRegister;
 
