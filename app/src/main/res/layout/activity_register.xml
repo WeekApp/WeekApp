@@ -49,19 +49,40 @@
         android:layout_marginTop="@dimen/dp_10"
         android:layout_marginLeft="@dimen/dp_30"
         />
-    <EditText
-        android:id="@+id/register_edit_sex"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@null"
-        android:textColor="#fff"
-        android:hint="性别"
-        android:textColorHint="#fff"
-        android:layout_toRightOf="@id/register_icon_sex"
-        android:layout_alignTop="@id/register_icon_sex"
+
+
+
+    <RadioGroup
+        android:layout_alignTop="@+id/register_icon_sex"
+        android:layout_width="wrap_content"
+        android:layout_toRightOf="@+id/register_icon_sex"
         android:layout_marginLeft="@dimen/dp_20"
-        android:layout_marginRight="@dimen/dp_30"
-        />
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        >
+
+        <RadioButton
+            android:id="@+id/register_cb_nan"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="男"
+            android:textSize="@dimen/sp_14"
+            android:textColor="#fff"
+            android:buttonTint="#fff"
+            />
+        <RadioButton
+            android:id="@+id/register_cb_nv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="女"
+            android:textSize="@dimen/sp_14"
+            android:textColor="#fff"
+            android:buttonTint="#fff"
+            />
+
+
+    </RadioGroup>
+
     <TextView
         android:id="@+id/register_line_two"
         android:layout_width="match_parent"
@@ -70,9 +91,9 @@
         android:layout_below="@id/register_icon_sex"
         android:layout_marginTop="@dimen/dp_10"
         android:layout_alignLeft="@id/register_icon_sex"
-        android:layout_alignRight="@id/register_edit_sex"
+        android:layout_alignRight="@id/register_line_one"
         />
-    <ImageView
+   <ImageView
         android:id="@+id/register_icon_date"
         android:layout_width="@dimen/dp_25"
         android:layout_height="@dimen/dp_25"
@@ -102,7 +123,7 @@
         android:layout_below="@id/register_icon_date"
         android:layout_marginTop="@dimen/dp_10"
         android:layout_alignLeft="@id/register_icon_sex"
-        android:layout_alignRight="@id/register_edit_sex"
+        android:layout_alignRight="@id/register_line_two"
         />
     <ImageView
         android:id="@+id/register_icon_number"
@@ -136,7 +157,7 @@
         android:layout_below="@id/register_edit_number"
         android:layout_marginTop="@dimen/dp_10"
         android:layout_alignLeft="@id/register_icon_sex"
-        android:layout_alignRight="@id/register_edit_sex"
+        android:layout_alignRight="@id/register_line_two"
         />
 
     <ImageView
@@ -169,7 +190,7 @@
         android:layout_below="@id/register_edit_email"
         android:layout_marginTop="@dimen/dp_10"
         android:layout_alignLeft="@id/register_icon_sex"
-        android:layout_alignRight="@id/register_edit_sex"
+        android:layout_alignRight="@id/register_line_two"
         />
 
     <ImageView
@@ -188,6 +209,7 @@
         android:background="@null"
         android:textColor="#fff"
         android:hint="密码"
+        android:password="true"
         android:textColorHint="#fff"
         android:layout_toRightOf="@id/register_icon_sex"
         android:layout_alignTop="@id/register_icon_pass"
@@ -202,9 +224,8 @@
         android:layout_below="@id/register_edit_pass"
         android:layout_marginTop="@dimen/dp_10"
         android:layout_alignLeft="@id/register_icon_sex"
-        android:layout_alignRight="@id/register_edit_sex"
+        android:layout_alignRight="@id/register_line_two"
         />
-
     <Button
         android:id="@+id/register_ok"
         android:layout_width="match_parent"

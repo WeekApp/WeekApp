@@ -35,8 +35,6 @@ public class IPersenter implements ImplPersenter{
         });
     }
 
-
-
     @Override
     public void requestGetBack(String url, Class aClass) {
         mImodel.startGetRequest(url, aClass, new MyCallBack() {
