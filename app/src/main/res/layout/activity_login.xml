@@ -58,6 +58,7 @@
         android:background="@null"
         android:textColor="#fff"
         android:hint="登录密码"
+        android:password="true"
         android:textColorHint="#fff"
         android:layout_toLeftOf="@+id/login_icon_eye"
         android:layout_toRightOf="@id/login_icon_pass"
@@ -143,9 +144,9 @@
         android:layout_width="match_parent"
         android:layout_height="@dimen/dp_1"
         android:background="#fff"
-        android:layout_below="@+id/login_sure"
+        android:layout_below="@id/login_sure"
         android:layout_marginTop="@dimen/dp_40"
-        android:layout_alignLeft="@+id/login_sure"
+        android:layout_alignLeft="@id/login_sure"
         android:layout_marginRight="@dimen/dp_10"
         android:layout_toLeftOf="@+id/disanfang_text_whchat"
         />
@@ -156,7 +157,7 @@
         android:textSize="@dimen/sp_14"
         android:textColor="#fff"
         android:text="第三方账号快速登录"
-        android:layout_below="@+id/login_sure"
+        android:layout_below="@id/login_sure"
         android:layout_marginTop="@dimen/dp_30"
         android:layout_centerHorizontal="true"
         />

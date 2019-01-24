@@ -52,36 +52,21 @@
 
 
 
-    <RadioGroup
-        android:layout_alignTop="@+id/register_icon_sex"
-        android:layout_width="wrap_content"
-        android:layout_toRightOf="@+id/register_icon_sex"
-        android:layout_marginLeft="@dimen/dp_20"
+    <EditText
+        android:id="@+id/register_edit_sex"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        >
-
-        <RadioButton
-            android:id="@+id/register_cb_nan"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="男"
-            android:textSize="@dimen/sp_14"
-            android:textColor="#fff"
-            android:buttonTint="#fff"
-            />
-        <RadioButton
-            android:id="@+id/register_cb_nv"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="女"
-            android:textSize="@dimen/sp_14"
-            android:textColor="#fff"
-            android:buttonTint="#fff"
-            />
+        android:background="@null"
+        android:textColor="#fff"
+        android:hint="性别"
+        android:textColorHint="#fff"
+        android:layout_toRightOf="@id/register_icon_sex"
+        android:layout_alignTop="@id/register_icon_sex"
+        android:layout_marginLeft="@dimen/dp_20"
+        android:layout_marginRight="@dimen/dp_30"
+        />
 
 
-    </RadioGroup>
 
     <TextView
         android:id="@+id/register_line_two"
