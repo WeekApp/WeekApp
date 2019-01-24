@@ -59,7 +59,9 @@ public class LoginActivity extends BaseActivity {
                 Map<String,String> map = new HashMap<>();
                 map.put("phone",number);
                 map.put("pwd",encrypt);
-                doNetPost(Apis.URL_POST_LOGIN,map,LoginBean.class);
+                //doNetPost(Apis.URL_POST_LOGIN,map,LoginBean.class);
+
+                startActivity(new Intent(LoginActivity.this,HomeActivity.class));
             }
         });
     }
@@ -67,6 +69,7 @@ public class LoginActivity extends BaseActivity {
     @Override
     protected void initView() {
         ButterKnife.bind(this);
+        sharedPreferences = getSharedPreferences("user",MODE_PRIVATE);
         editor = sharedPreferences.edit();
     }
 
@@ -81,7 +84,7 @@ public class LoginActivity extends BaseActivity {
         if(data instanceof LoginBean){
             LoginBean user = (LoginBean) data;
             if(user.getStatus().equals("0000")){
-                sharedPreferences = getSharedPreferences("user",MODE_PRIVATE);
+
                 //取出个人账户的状态值
                 editor.putString("userId",user.getResult().getUserId()+"")
                         .putString("sessionId",user.getResult().getSessionId()).commit();
@@ -89,6 +92,7 @@ public class LoginActivity extends BaseActivity {
             }else{
                 ToastUtils.show(this,user.getMessage());
             }
+
         }
     }
 

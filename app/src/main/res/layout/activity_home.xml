@@ -31,6 +31,7 @@
                 android:layout_height="@dimen/dp_60"
                 android:layout_weight="1"
                 android:button="@null"
+                android:visibility="visible"
                 android:background="@mipmap/com_icon_film_selected"/>
             <RadioButton
                 android:id="@+id/homeactivity_radiobutton_filmTwo"
@@ -46,8 +47,9 @@
                 android:layout_width="@dimen/dp_0"
                 android:layout_marginLeft="@dimen/dp_35"
                 android:layout_weight="1"
-                android:layout_height="@dimen/dp_70"
+                android:layout_height="@dimen/dp_60"
                 android:button="@null"
+                android:visibility="visible"
                 android:background="@mipmap/com_icon_cinema_default"/>
             <RadioButton
                 android:id="@+id/homeactivity_radiobutton_cinemaTwo"
@@ -55,7 +57,7 @@
                 android:layout_width="@dimen/dp_0"
                 android:layout_marginLeft="@dimen/dp_35"
                 android:layout_weight="1"
-                android:layout_height="@dimen/dp_60"
+                android:layout_height="@dimen/dp_70"
                 android:button="@null"
                 android:background="@mipmap/com_icon_cinema_default"/>
             <RadioButton
@@ -66,6 +68,7 @@
                 android:layout_weight="1"
                 android:layout_marginRight="@dimen/dp_18"
                 android:button="@null"
+                android:visibility="visible"
                 android:background="@mipmap/com_icon_my_default"/>
             <RadioButton
                 android:id="@+id/homeactivity_radiobutton_myTwo"
