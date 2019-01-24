@@ -28,7 +28,7 @@ public class Imodel implements ImplModel{
 
            @Override
            public void onFail(String error) {
-
+                    myCallBack.setError(error);
            }
        });
     }

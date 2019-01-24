@@ -53,8 +53,8 @@ public class RetrofitUtils {
                         Request request = chain.request();
 
                         SharedPreferences sharedPreferences = App.getApplication().getSharedPreferences("user",Context.MODE_PRIVATE);
-                        String userId = sharedPreferences.getString("userId", null);
-                        String sessionId = sharedPreferences.getString("sessionId",null);
+                        String userId = sharedPreferences.getString("userId", "");
+                        String sessionId = sharedPreferences.getString("sessionId","");
                         Log.i("TTTT",userId);
                         Log.i("TTTT",sessionId);
                         //重新构造方法
@@ -131,7 +131,6 @@ public class RetrofitUtils {
                 .subscribe(getObserver(httpCallBack));
     }
 
-
     private Observer getObserver(final HttpCallBack callBack) {
         Observer observer=new Observer<ResponseBody>() {
 
@@ -141,11 +140,12 @@ public class RetrofitUtils {
             }
             @Override
             public void onError(Throwable e) {
+                e.printStackTrace();
                 if(callBack!=null){
                     callBack.onFail(e.getMessage());
                 }
-                System.out.print(e.getMessage());
-            }
+                Log.i("TTT",e.getMessage());
+        }
 
             @Override
             public void onNext(ResponseBody responseBody) {
