@@ -68,6 +68,7 @@ public class RegisterActivity extends AppCompatActivity implements IView {
                 //MD5进行加密
                 String mpass = EncryptUtil.encrypt(pass);
 
+                ///asfdghjuhkl
                 Map<String, String> map = new HashMap<>();
                         map.put("nickName", name);
                         map.put("phone", number);
