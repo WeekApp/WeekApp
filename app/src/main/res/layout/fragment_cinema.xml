@@ -1,23 +1,108 @@
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
     tools:context="com.bw.movie.fragment.cinemafragment.CinemaFragment">
 
-    <ImageView
-        android:layout_width="@dimen/dp_24"
-        android:layout_height="@dimen/dp_24"
-        android:layout_marginTop="@dimen/dp_30"
-        android:layout_marginLeft="@dimen/dp_24"
-        android:src="@mipmap/cinemadetail_icon_location_default"/>
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="@dimen/dp_54"
-        android:layout_marginTop="@dimen/dp_32"
-        android:text="北京"
-        android:textSize="@dimen/sp_14"
-        android:textColor="#333333"/>
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
 
-</RelativeLayout>
+            <ImageView
+                android:layout_width="@dimen/dp_24"
+                android:layout_height="@dimen/dp_24"
+                android:layout_marginTop="@dimen/dp_30"
+                android:layout_marginLeft="@dimen/dp_24"
+                android:src="@mipmap/cinemadetail_icon_location_default"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/dp_54"
+                android:layout_marginTop="@dimen/dp_32"
+                android:text="北京"
+                android:textSize="@dimen/sp_14"
+                android:textColor="#333333"/>
+
+            <EditText
+                android:layout_width="@dimen/dp_48"
+                android:layout_height="@dimen/dp_24"
+                android:layout_marginTop="@dimen/dp_30"
+                android:background="@drawable/shapecinemasearch"
+                android:layout_alignParentRight="true"/>
+
+        </RelativeLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:orientation="vertical"
+            android:layout_height="match_parent">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_marginTop="@dimen/dp_10"
+                android:layout_weight="1">
+
+
+
+                    <RadioGroup
+                        android:orientation="horizontal"
+
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent">
+
+                        <RelativeLayout
+                            android:layout_width="0dp"
+                            android:layout_weight="1"
+                            android:layout_height="wrap_content">
+                        <RadioButton
+                            android:layout_width="@dimen/dp_85"
+                            android:layout_alignParentRight="true"
+                            android:layout_marginRight="@dimen/dp_18"
+                            android:gravity="center"
+                            android:layout_gravity="center"
+                            android:textSize="14sp"
+                            android:textColor="#333333"
+                            android:layout_height="25dp"
+                            android:button="@null"
+                            android:text="推荐影院"/>
+
+                        </RelativeLayout>
+                        <RelativeLayout
+                            android:layout_width="0dp"
+                            android:layout_weight="1"
+                            android:layout_height="wrap_content">
+                        <RadioButton
+                            android:layout_width="@dimen/dp_85"
+                            android:layout_marginLeft="@dimen/dp_17"
+                            android:textSize="14sp"
+                            android:gravity="center"
+                            android:layout_gravity="center"
+                            android:textColor="#333333"
+                            android:layout_height="@dimen/dp_25"
+                            android:button="@null"
+                            android:text="附近影院"/>
+                        </RelativeLayout>
+                    </RadioGroup>
+
+
+
+
+
+            </LinearLayout>
+
+            <android.support.v4.view.ViewPager
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="9"></android.support.v4.view.ViewPager>
+
+        </LinearLayout>
+
+
+
+
+
+
+</LinearLayout>
