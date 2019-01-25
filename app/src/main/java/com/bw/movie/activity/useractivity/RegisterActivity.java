@@ -1,15 +1,19 @@
 package com.bw.movie.activity.useractivity;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 
+import com.bw.movie.activity.homeactivity.HomeActivity;
 import com.bw.movie.base.BaseActivity;
+import com.bw.movie.bean.userbean.LoginBean;
 import com.bw.movie.bean.userbean.RegisterBean;
 import com.bw.movie.mvp.util.Apis;
 import com.bw.movie.util.EncryptUtil;
+import com.bw.movie.util.NetworkUtils;
 import com.bw.movie.util.ToastUtils;
 import com.bw.onlymycinema.R;
 
@@ -38,6 +42,11 @@ public class RegisterActivity extends BaseActivity {
     Button mRegister;
 
     int sexboy;
+    String number;
+    String mpass;
+
+    SharedPreferences sharedPreferences;
+    SharedPreferences.Editor editor;
 
     @Override
     protected void initData() {
@@ -50,24 +59,28 @@ public class RegisterActivity extends BaseActivity {
                 String sex = mRsex.getText().toString();
                 String emial = mRemail.getText().toString();
                 String pass = mRpass.getText().toString();
-                String number = mRnumber.getText().toString();
+                number = mRnumber.getText().toString();
                 //MD5进行加密
-                String mpass = EncryptUtil.encrypt(pass);
+                mpass = EncryptUtil.encrypt(pass);
 
                 if(sex.equals("男")){
                     sexboy = 1;
                 }else if(sex.equals("女")){
                     sexboy = 2;
                 }
-                Map<String, String> map = new HashMap<>();
-                map.put("nickName", name);
-                map.put("phone", number);
-                map.put("pwd", mpass);
-                map.put("birthday", date);
-                map.put("email", emial);
-                map.put("sex",sexboy+"");
-                map.put("pwd2",mpass);
-                doNetPost(Apis.URL_POST_REGISTER,map,RegisterBean.class);
+                if(NetworkUtils.hasNetwork(RegisterActivity.this)) {
+                    Map<String,String> map = new HashMap<>();
+                    map.put("nickName", name);
+                    map.put("phone", number);
+                    map.put("pwd", mpass);
+                    map.put("birthday", date);
+                    map.put("email", emial);
+                    map.put("sex", sexboy + "");
+                    map.put("pwd2", mpass);
+                    doNetPost(Apis.URL_POST_REGISTER, map, RegisterBean.class);
+                }else{
+                    ToastUtils.show(RegisterActivity.this,"当前网络不可用，请检查网络");
+                }
             }
         });
     }
@@ -76,6 +89,10 @@ public class RegisterActivity extends BaseActivity {
     @Override
     protected void initView() {
         ButterKnife.bind(this);
+
+        //储存方式
+        sharedPreferences = getSharedPreferences("user",MODE_PRIVATE);
+        editor = sharedPreferences.edit();
     }
 
     @Override
@@ -89,16 +106,34 @@ public class RegisterActivity extends BaseActivity {
             RegisterBean user = (RegisterBean) data;
             ToastUtils.show(this,user.getMessage());
             if(user.getStatus().equals("0000")){
-                ToastUtils.show(this,user.getMessage());
-                startActivity(new Intent(this,LoginActivity.class));
+                //注册成功并立马执行登录的接口
+                startRequest();
             }else{
                 ToastUtils.show(this,user.getMessage());
             }
         }
+
+        if(data instanceof LoginBean){
+            LoginBean user = (LoginBean) data;
+            if(user.getStatus().equals("0000")){
+                ToastUtils.show(this,"注册并登陆成功");
+                //取出个人信息的状态值
+                editor.putString("userId",user.getResult().getUserId()+"")
+                        .putString("sessionId",user.getResult().getSessionId()).commit();
+                startActivity(new Intent(this,HomeActivity.class));
+            }
+        }
+    }
+
+    private void startRequest() {
+        Map<String,String> map = new HashMap<>();
+        map.put("phone",number);
+        map.put("pwd",mpass);
+        doNetPost(Apis.URL_POST_LOGIN,map,LoginBean.class);
     }
 
     @Override
     protected void netFail(Object data) {
-
+        ToastUtils.show(this,data.toString());
     }
 }

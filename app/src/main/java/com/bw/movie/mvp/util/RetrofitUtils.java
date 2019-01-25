@@ -72,7 +72,6 @@ public class RetrofitUtils {
                         return chain.proceed(build);
                     }
                 })
-
                 .build();
 
         Retrofit retrofit = new Retrofit.Builder()
