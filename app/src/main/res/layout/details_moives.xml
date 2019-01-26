@@ -27,9 +27,14 @@
 
     <ImageView
         android:id="@+id/details_icon_"
+        android:layout_marginRight="@dimen/dp_24"
+        android:layout_alignTop="@id/details_icon"
         android:layout_width="@dimen/dp_24"
         android:layout_height="@dimen/dp_24"
         android:src="@mipmap/com_icon_collection_default"
         android:layout_alignParentRight="true"
         />
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
 </RelativeLayout>
