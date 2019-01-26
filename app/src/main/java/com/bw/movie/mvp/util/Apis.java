@@ -6,4 +6,6 @@ public class Apis {
     public static final String URL_POST_REGISTER = "movieApi/user/v1/registerUser";
     //登录
     public static final String URL_POST_LOGIN = "movieApi/user/v1/login";
+    //查询推荐影院
+    public static final String URL_GET_REMMOND = "movieApi/cinema/v1/findRecommendCinemas?page=1&count=10";
 }

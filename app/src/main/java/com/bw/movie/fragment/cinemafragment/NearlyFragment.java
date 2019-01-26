@@ -1,4 +1,4 @@
-package com.bw.movie.fragment.filmfragment;
+package com.bw.movie.fragment.cinemafragment;
 
 
 import android.os.Bundle;
@@ -10,34 +10,33 @@ import android.view.ViewGroup;
 import com.bw.movie.base.BaseFragment;
 import com.bw.onlymycinema.R;
 
+
 /**
  * A simple {@link Fragment} subclass.
- *
- *  电影页面
  */
-public class FilmFragment extends BaseFragment {
+public class NearlyFragment extends BaseFragment {
 
-    //初始化数据
+
     @Override
     protected void initData() {
 
     }
-    //初始化控件
+
     @Override
     protected void initView(View view) {
 
     }
-    //获取布局
+
     @Override
     protected int getLayout() {
-        return R.layout.fragment_film;
+        return R.layout.fragment_nearly;
     }
-    //请求成功
+
     @Override
     protected void netSuccess(Object data) {
 
     }
-    //请求失败
+
     @Override
     protected void netFail(Object data) {
 
