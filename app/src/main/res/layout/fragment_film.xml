@@ -1,13 +1,200 @@
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context="com.bw.movie.fragment.filmfragment.FilmFragment">
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="@string/hello_blank_fragment" />
+        android:layout_height="match_parent">
 
-</FrameLayout>
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+                <ImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@mipmap/hdpi_2"
+                    />
+
+                <ImageView
+                    android:id="@+id/location_icon"
+                    android:layout_width="@dimen/dp_20"
+                    android:layout_height="@dimen/dp_20"
+                    android:layout_marginTop="@dimen/dp_30"
+                    android:layout_alignLeft="@id/film_banner_icon"
+                    android:src="@mipmap/com_icon_loc_white_default"
+                    />
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="北京"
+                    android:layout_marginLeft="@dimen/dp_10"
+                    android:textColor="#fff"
+                    android:layout_toRightOf="@id/location_icon"
+                    android:layout_alignTop="@id/location_icon"
+                    android:textSize="@dimen/sp_14"
+                    />
+
+                <RelativeLayout
+                    android:id="@+id/mrelative"
+                    android:layout_width="@dimen/dp_150"
+                    android:layout_height="@dimen/dp_30"
+                    android:layout_marginRight="-110dp"
+                    android:layout_alignParentRight="true"
+                    android:layout_marginTop="@dimen/dp_30"
+                    android:background="@drawable/shape_film_search_edit"
+                    >
+
+                    <ImageView
+                        android:id="@+id/film_icon_search"
+                        android:layout_width="@dimen/dp_20"
+                        android:layout_height="@dimen/dp_20"
+                        android:layout_centerVertical="true"
+                        android:src="@mipmap/com_icon_search_default"
+                        android:layout_marginLeft="@dimen/dp_5"
+                        />
+                    <EditText
+                        android:id="@+id/film_edit_search"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:ems="5"
+                        android:visibility="invisible"
+                        android:background="@null"
+                        android:layout_toRightOf="@+id/film_icon_search"
+                        />
+                </RelativeLayout>
+
+                <recycler.coverflow.RecyclerCoverFlow
+                    android:id="@+id/film_banner_icon"
+                    android:layout_width="match_parent"
+                    android:layout_marginLeft="@dimen/dp_20"
+                    android:layout_marginRight="@dimen/dp_20"
+                    android:layout_marginTop="@dimen/dp_85"
+                    android:layout_height="@dimen/dp_180"/>
+
+                <TextView
+                    android:id="@+id/flem_text_hot_moive"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="@dimen/sp_16"
+                    android:layout_marginTop="@dimen/dp_20"
+                    android:text="热门电影"
+                    android:textColor="#060606"
+                    android:layout_below="@id/film_banner_icon"
+                    android:layout_alignLeft="@id/film_banner_icon"
+                    />
+                <ImageView
+                    android:id="@+id/flem_icon_hot_movie"
+                    android:layout_width="@dimen/dp_30"
+                    android:layout_height="@dimen/dp_3"
+                    android:layout_below="@id/flem_text_hot_moive"
+                    android:layout_marginTop="@dimen/dp_3"
+                    android:background="#220689"
+                    android:layout_alignLeft="@id/flem_text_hot_moive"
+                    />
+                <ImageView
+                    android:id="@+id/flem_icon_next_hotmoive"
+                    android:layout_width="@dimen/dp_24"
+                    android:layout_height="@dimen/dp_24"
+                    android:src="@mipmap/com_icon_next_default"
+                    android:layout_alignTop="@id/flem_text_hot_moive"
+                    android:layout_alignParentRight="true"
+                    android:layout_marginRight="@dimen/dp_24"
+                    />
+                <android.support.v7.widget.RecyclerView
+                    android:id="@+id/flem_hot_contents"
+                    android:layout_width="match_parent"
+                    android:layout_marginTop="@dimen/dp_10"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/flem_icon_hot_movie"
+                    />
+
+                <TextView
+                    android:id="@+id/flem_text_ing_moive"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="@dimen/sp_16"
+                    android:layout_marginTop="@dimen/dp_20"
+                    android:text="正在上映"
+                    android:textColor="#060606"
+                    android:layout_below="@id/flem_hot_contents"
+                    android:layout_alignLeft="@id/film_banner_icon"
+                    />
+
+                <ImageView
+                    android:id="@+id/flem_icon_ing_movie"
+                    android:layout_width="@dimen/dp_30"
+                    android:layout_height="@dimen/dp_3"
+                    android:layout_below="@id/flem_text_ing_moive"
+                    android:layout_marginTop="@dimen/dp_3"
+                    android:background="#220689"
+                    android:layout_alignLeft="@id/flem_text_hot_moive"
+                    />
+
+                <ImageView
+                    android:id="@+id/flem_icon_int_hotmoive"
+                    android:layout_width="@dimen/dp_24"
+                    android:layout_height="@dimen/dp_24"
+                    android:src="@mipmap/com_icon_next_default"
+                    android:layout_alignTop="@id/flem_text_ing_moive"
+                    android:layout_alignParentRight="true"
+                    android:layout_marginRight="@dimen/dp_24"
+                    />
+
+
+                <android.support.v7.widget.RecyclerView
+                    android:id="@+id/flem_inf_contents"
+                    android:layout_width="match_parent"
+                    android:layout_marginTop="@dimen/dp_10"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/flem_icon_ing_movie"
+                    />
+
+            <TextView
+                android:id="@+id/flem_text_jij_moive"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="@dimen/sp_16"
+                android:layout_marginTop="@dimen/dp_20"
+                android:text="即将上映"
+                android:textColor="#060606"
+                android:layout_below="@id/flem_inf_contents"
+                android:layout_alignLeft="@id/film_banner_icon"
+                />
+
+            <ImageView
+                android:id="@+id/flem_icon_jij_movie"
+                android:layout_width="@dimen/dp_30"
+                android:layout_height="@dimen/dp_3"
+                android:layout_below="@id/flem_text_jij_moive"
+                android:layout_marginTop="@dimen/dp_3"
+                android:background="#220689"
+                android:layout_alignLeft="@id/flem_text_hot_moive"
+                />
+
+            <ImageView
+                android:id="@+id/flem_icon_jij_hotmoive"
+                android:layout_width="@dimen/dp_24"
+                android:layout_height="@dimen/dp_24"
+                android:src="@mipmap/com_icon_next_default"
+                android:layout_alignTop="@id/flem_text_jij_moive"
+                android:layout_alignParentRight="true"
+                android:layout_marginRight="@dimen/dp_24"
+                />
+
+
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/flem_jij_contents"
+                android:layout_width="match_parent"
+                android:layout_marginTop="@dimen/dp_10"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/flem_icon_jij_movie"
+                />
+
+        </RelativeLayout>
+
+    </ScrollView>
+
+</RelativeLayout>

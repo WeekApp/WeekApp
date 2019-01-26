@@ -17,7 +17,6 @@ import com.bw.onlymycinema.R;
  */
 public class MyFragment extends BaseFragment {
 
-
     //初始化数据
     @Override
     protected void initData() {
@@ -25,7 +24,7 @@ public class MyFragment extends BaseFragment {
     }
     //初始化控件
     @Override
-    protected void initView() {
+    protected void initView(View view) {
 
     }
     //获取布局

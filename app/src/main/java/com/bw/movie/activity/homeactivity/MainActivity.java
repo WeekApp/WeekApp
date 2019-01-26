@@ -13,7 +13,7 @@ import com.bw.onlymycinema.R;
 
 public class MainActivity extends AppCompatActivity {
 
-    int i=4;
+    int i=1;
     Handler handler = new Handler(){
         @Override
         public void handleMessage(Message msg) {

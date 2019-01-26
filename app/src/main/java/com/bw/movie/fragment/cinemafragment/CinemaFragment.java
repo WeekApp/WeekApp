@@ -23,7 +23,7 @@ public class CinemaFragment extends BaseFragment {
     }
     //初始化控件
     @Override
-    protected void initView() {
+    protected void initView(View view) {
 
     }
     //获取布局

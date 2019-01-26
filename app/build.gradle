@@ -45,7 +45,8 @@ dependencies {
     implementation 'liji.library.dev:citypickerview:0.7.0'
     implementation 'com.github.xiaohaibin:XBanner:1.6.1'
     implementation 'com.contrarywind:Android-PickerView:3.2.6'
-    implementation 'com.chenlittleping:recyclercoverflow:1.0.6'
+    implementation 'com.chenlittleping:recyclercoverflow:1.0.5'
+    implementation 'me.jessyan:autosize:1.1.2'
     // 网络请求Retrofit & OkHttp & Rxjava
     implementation "com.squareup.okhttp3:logging-interceptor:$rootProject.interceptor"
     implementation "com.squareup.retrofit2:converter-gson:$rootProject.converterGson"

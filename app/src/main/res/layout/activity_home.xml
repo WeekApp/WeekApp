@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
     tools:context="com.bw.movie.activity.homeactivity.HomeActivity">
 
@@ -11,77 +12,37 @@
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="7"></android.support.v4.view.ViewPager>
-    <LinearLayout
+    <RadioGroup
+        android:id="@+id/home_group"
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1">
-
-        <RadioGroup
-            android:id="@+id/homeactivity_radiogroup"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_gravity="bottom"
-            android:gravity="center_vertical"
-            android:orientation="horizontal" >
-
-            <RadioButton
-                android:id="@+id/homeactivity_radiobutton_film"
-                android:layout_marginLeft="@dimen/dp_35"
-                android:layout_width="@dimen/dp_0"
-                android:layout_height="@dimen/dp_60"
-                android:layout_weight="1"
-                android:button="@null"
-                android:visibility="visible"
-                android:background="@mipmap/com_icon_film_selected"/>
-            <RadioButton
-                android:id="@+id/homeactivity_radiobutton_filmTwo"
-                android:layout_marginLeft="@dimen/dp_35"
-                android:layout_width="@dimen/dp_0"
-                android:layout_height="@dimen/dp_70"
-                android:visibility="gone"
-                android:layout_weight="1"
-                android:button="@null"
-                android:background="@mipmap/com_icon_film_selected"/>
-            <RadioButton
-                android:id="@+id/homeactivity_radiobutton_cinema"
-                android:layout_width="@dimen/dp_0"
-                android:layout_marginLeft="@dimen/dp_35"
-                android:layout_weight="1"
-                android:layout_height="@dimen/dp_60"
-                android:button="@null"
-                android:visibility="visible"
-                android:background="@mipmap/com_icon_cinema_default"/>
-            <RadioButton
-                android:id="@+id/homeactivity_radiobutton_cinemaTwo"
-                android:visibility="gone"
-                android:layout_width="@dimen/dp_0"
-                android:layout_marginLeft="@dimen/dp_35"
-                android:layout_weight="1"
-                android:layout_height="@dimen/dp_70"
-                android:button="@null"
-                android:background="@mipmap/com_icon_cinema_default"/>
-            <RadioButton
-                android:id="@+id/homeactivity_radiobutton_my"
-                android:layout_width="@dimen/dp_0"
-                android:layout_marginLeft="@dimen/dp_35"
-                android:layout_height="@dimen/dp_60"
-                android:layout_weight="1"
-                android:layout_marginRight="@dimen/dp_18"
-                android:button="@null"
-                android:visibility="visible"
-                android:background="@mipmap/com_icon_my_default"/>
-            <RadioButton
-                android:id="@+id/homeactivity_radiobutton_myTwo"
-                android:visibility="gone"
-                android:layout_width="@dimen/dp_0"
-                android:layout_marginLeft="@dimen/dp_35"
-                android:layout_height="@dimen/dp_70"
-                android:layout_weight="1"
-                android:layout_marginRight="@dimen/dp_18"
-                android:button="@null"
-                android:background="@mipmap/com_icon_my_default"/>
-
-        </RadioGroup>
-
-    </LinearLayout>
-</LinearLayout>
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center_horizontal"
+        app:layout_constraintBottom_toBottomOf="parent"
+        >
+        <RadioButton
+            android:id="@+id/home_film"
+            android:layout_width="@dimen/dp_60"
+            android:layout_height="@dimen/dp_60"
+            android:button="@null"
+            android:layout_margin="@dimen/dp_30"
+            android:background="@drawable/home_film_selected"
+            />
+        <RadioButton
+            android:id="@+id/home_cinema"
+            android:layout_width="@dimen/dp_60"
+            android:layout_height="@dimen/dp_60"
+            android:button="@null"
+            android:layout_margin="@dimen/dp_30"
+            android:background="@drawable/home_cinema_selected"
+            />
+        <RadioButton
+            android:id="@+id/home_my"
+            android:layout_width="@dimen/dp_60"
+            android:layout_height="@dimen/dp_60"
+            android:button="@null"
+            android:layout_margin="@dimen/dp_30"
+            android:background="@drawable/home_my_selected"
+            />
+    </RadioGroup>
+</android.support.constraint.ConstraintLayout>

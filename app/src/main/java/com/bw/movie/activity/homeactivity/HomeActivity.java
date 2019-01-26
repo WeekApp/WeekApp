@@ -1,5 +1,7 @@
 package com.bw.movie.activity.homeactivity;
 
+import android.animation.AnimatorSet;
+import android.animation.ObjectAnimator;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentPagerAdapter;
@@ -19,25 +21,20 @@ import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 
 public class HomeActivity extends AppCompatActivity {
 
     @BindView(R.id.homeactivity_viewpager)
     ViewPager homeactivityViewpager;
-    @BindView(R.id.homeactivity_radiobutton_film)
-    RadioButton homeactivityRadiobuttonFilm;
-    @BindView(R.id.homeactivity_radiobutton_filmTwo)
-    RadioButton homeactivityRadiobuttonFilmTwo;
-    @BindView(R.id.homeactivity_radiobutton_cinema)
-    RadioButton homeactivityRadiobuttonCinema;
-    @BindView(R.id.homeactivity_radiobutton_cinemaTwo)
-    RadioButton homeactivityRadiobuttonCinemaTwo;
-    @BindView(R.id.homeactivity_radiobutton_my)
-    RadioButton homeactivityRadiobuttonMy;
-    @BindView(R.id.homeactivity_radiobutton_myTwo)
-    RadioButton homeactivityRadiobuttonMyTwo;
-    @BindView(R.id.homeactivity_radiogroup)
-    RadioGroup homeactivityRadiogroup;
+    @BindView(R.id.home_film)
+    RadioButton homeFilm;
+    @BindView(R.id.home_cinema)
+    RadioButton homeCinema;
+    @BindView(R.id.home_my)
+    RadioButton homeMy;
+    @BindView(R.id.home_group)
+    RadioGroup homeGroup;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -54,97 +51,72 @@ public class HomeActivity extends AppCompatActivity {
         list.add(new CinemaFragment());
         list.add(new MyFragment());
 
+
         homeactivityViewpager.setAdapter(new FragmentPagerAdapter(getSupportFragmentManager()) {
             @Override
             public Fragment getItem(int i) {
-                return list.get(i);
+                switch (i) {
+                    case 0:
+                        return new FilmFragment();
+                    case 1:
+                        return new CinemaFragment();
+                    case 2:
+                        return new MyFragment();
+                    default:
+                        return null;
+                }
             }
-
             @Override
             public int getCount() {
-                return list.size();
+                return 3;
             }
         });
+        homeactivityViewpager.setCurrentItem(0);
+        homeGroup.check(R.id.home_film);
+    }
 
-        homeactivityViewpager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
-            @Override
-            public void onPageScrolled(int i, float v, int i1) {
+    //点击放大
+    private void setAddAnimator(View view) {
+        ObjectAnimator scaleX = ObjectAnimator.ofFloat(view, "scaleX", 1f, 1.17f);
+        ObjectAnimator scaleY = ObjectAnimator.ofFloat(view, "scaleY", 1f, 1.17f);
+        AnimatorSet animatorSet = new AnimatorSet();
+        animatorSet.setDuration(0);
+        animatorSet.playTogether(scaleX, scaleY);
+        animatorSet.start();
+    }
 
-            }
+    //点击缩小
+    private void setCutAnimator(View view) {
+        ObjectAnimator scaleX = ObjectAnimator.ofFloat(view, "scaleX", 1f);
+        ObjectAnimator scaleY = ObjectAnimator.ofFloat(view, "scaleY", 1f);
+        AnimatorSet animatorSet = new AnimatorSet();
+        animatorSet.setDuration(0);
+        animatorSet.playTogether(scaleX, scaleY);
+        animatorSet.start();
+    }
 
-            @Override
-            public void onPageSelected(int i) {
-                switch (i){
-                    case 0:
-                        homeactivityRadiogroup.check(R.id.homeactivity_radiobutton_film);
-                        break;
-                    case 1:
-                        homeactivityRadiogroup.check(R.id.homeactivity_radiobutton_cinema);
-                        break;
-                    case 2:
-                        homeactivityRadiogroup.check(R.id.homeactivity_radiobutton_my);
-                        break;
-                }
-            }
-
-            @Override
-            public void onPageScrollStateChanged(int i) {
-
-            }
-        });
-
-        homeactivityRadiogroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(RadioGroup group, int checkedId) {
-                switch (checkedId){
-                    case R.id.homeactivity_radiobutton_film:
-                        homeactivityViewpager.setCurrentItem(0);
-                        homeactivityRadiobuttonFilm.setVisibility(View.GONE);
-                        homeactivityRadiobuttonFilmTwo.setVisibility(View.VISIBLE);
-                        homeactivityRadiobuttonCinema.setVisibility(View.VISIBLE);
-                        homeactivityRadiobuttonCinemaTwo.setVisibility(View.GONE);
-                        homeactivityRadiobuttonMy.setVisibility(View.VISIBLE);
-                        homeactivityRadiobuttonMyTwo.setVisibility(View.GONE);
-                        homeactivityRadiobuttonFilm.setBackgroundResource(R.mipmap.com_icon_film_selected);
-                        homeactivityRadiobuttonFilmTwo.setBackgroundResource(R.mipmap.com_icon_film_selected);
-                        homeactivityRadiobuttonCinema.setBackgroundResource(R.mipmap.com_icon_cinema_default);
-                        homeactivityRadiobuttonCinemaTwo.setBackgroundResource(R.mipmap.com_icon_cinema_default);
-                        homeactivityRadiobuttonMy.setBackgroundResource(R.mipmap.com_icon_my_default);
-                        homeactivityRadiobuttonMyTwo.setBackgroundResource(R.mipmap.com_icon_my_default);
-                        break;
-                    case R.id.homeactivity_radiobutton_cinema:
-                        homeactivityViewpager.setCurrentItem(1);
-                        homeactivityRadiobuttonFilm.setVisibility(View.VISIBLE);
-                        homeactivityRadiobuttonFilmTwo.setVisibility(View.GONE);
-                        homeactivityRadiobuttonCinema.setVisibility(View.GONE);
-                        homeactivityRadiobuttonCinemaTwo.setVisibility(View.VISIBLE);
-                        homeactivityRadiobuttonMy.setVisibility(View.VISIBLE);
-                        homeactivityRadiobuttonMyTwo.setVisibility(View.GONE);
-                        homeactivityRadiobuttonFilm.setBackgroundResource(R.mipmap.com_icon_film_fault);
-                        homeactivityRadiobuttonFilmTwo.setBackgroundResource(R.mipmap.com_icon_film_fault);
-                        homeactivityRadiobuttonCinema.setBackgroundResource(R.mipmap.com_icon_cinema_selected);
-                        homeactivityRadiobuttonCinemaTwo.setBackgroundResource(R.mipmap.com_icon_cinema_selected);
-                        homeactivityRadiobuttonMy.setBackgroundResource(R.mipmap.com_icon_my_default);
-                        homeactivityRadiobuttonMyTwo.setBackgroundResource(R.mipmap.com_icon_my_default);
-                        break;
-                    case R.id.homeactivity_radiobutton_my:
-                        homeactivityViewpager.setCurrentItem(2);
-
-                        homeactivityRadiobuttonFilm.setVisibility(View.VISIBLE);
-                        homeactivityRadiobuttonFilmTwo.setVisibility(View.GONE);
-                        homeactivityRadiobuttonCinema.setVisibility(View.VISIBLE);
-                        homeactivityRadiobuttonCinemaTwo.setVisibility(View.GONE);
-                        homeactivityRadiobuttonMy.setVisibility(View.GONE);
-                        homeactivityRadiobuttonMyTwo.setVisibility(View.VISIBLE);
-                        homeactivityRadiobuttonFilm.setBackgroundResource(R.mipmap.com_icon_film_fault);
-                        homeactivityRadiobuttonFilmTwo.setBackgroundResource(R.mipmap.com_icon_film_fault);
-                        homeactivityRadiobuttonCinema.setBackgroundResource(R.mipmap.com_icon_cinema_default);
-                        homeactivityRadiobuttonCinemaTwo.setBackgroundResource(R.mipmap.com_icon_cinema_default);
-                        homeactivityRadiobuttonMy.setBackgroundResource(R.mipmap.com_icon_my_selected);
-                        homeactivityRadiobuttonMyTwo.setBackgroundResource(R.mipmap.com_icon_my_selected);
-                        break;
-                }
-            }
-        });
+    @OnClick({R.id.home_film, R.id.home_cinema, R.id.home_my})
+    public void onViewClicked(View view) {
+        switch (view.getId()) {
+            case R.id.home_film:
+                homeactivityViewpager.setCurrentItem(0);
+                setAddAnimator(view);
+                setCutAnimator(homeCinema);
+                setCutAnimator(homeMy);
+                break;
+            case R.id.home_cinema:
+                homeactivityViewpager.setCurrentItem(1);
+                setAddAnimator(view);
+                setCutAnimator(homeFilm);
+                setCutAnimator(homeMy);
+                break;
+            case R.id.home_my:
+                homeactivityViewpager.setCurrentItem(2);
+                setAddAnimator(view);
+                setCutAnimator(homeCinema);
+                setCutAnimator(homeFilm);
+                break;
+            default:break;
+        }
     }
 }
