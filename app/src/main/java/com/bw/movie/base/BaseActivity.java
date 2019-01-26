@@ -1,16 +1,21 @@
 package com.bw.movie.base;
 
+import android.app.AlertDialog;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.FragmentActivity;
+import android.view.View;
 
 import com.bw.movie.mvp.persenter.IPersenter;
 import com.bw.movie.mvp.view.IView;
+import com.bw.onlymycinema.R;
 
 import java.util.Map;
 
 public  abstract class BaseActivity extends FragmentActivity implements IView {
+
     IPersenter mPersenter;
+    private AlertDialog.Builder builder;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -34,10 +39,12 @@ public  abstract class BaseActivity extends FragmentActivity implements IView {
 
     protected void doNetGet(String url, Class aClass){
         //TODO:弹出loading
+        hideLoading();
         mPersenter.requestGetBack(url, aClass);
     }
 
     protected void doNetPost(String url, Map<String,String> map,Class aClass){
+        hideLoading();
         mPersenter.requestPostBack(url,map,aClass);
     }
 
@@ -62,6 +69,9 @@ public  abstract class BaseActivity extends FragmentActivity implements IView {
     }
 
     private void hideLoading(){
-        //TODO:收起loading
+       /* builder = new AlertDialog.Builder(this);
+        View view = View.inflate(this,R.layout.activity_loading,null);
+        builder.setView(view);
+        builder.show();*/
     }
 }

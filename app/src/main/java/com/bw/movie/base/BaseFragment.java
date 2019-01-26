@@ -21,9 +21,10 @@ public  abstract class BaseFragment extends Fragment implements IView {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         mPersenter = new IPersenter(this);
-        View view=View.inflate(getContext(),getLayout(), null);
 
-        initView(view);
+
+        View view=View.inflate(getContext(),getLayout(), null);
+        initView();
         initData();
 
         return view;
@@ -34,7 +35,7 @@ public  abstract class BaseFragment extends Fragment implements IView {
     //开始网络请求
     protected abstract void initData();
 
-    protected abstract void initView(View view);
+    protected abstract void initView();
     protected abstract int getLayout();
 
     protected abstract void netSuccess(Object data);

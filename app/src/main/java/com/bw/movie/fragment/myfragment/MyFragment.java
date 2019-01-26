@@ -17,7 +17,6 @@ import com.bw.onlymycinema.R;
  */
 public class MyFragment extends BaseFragment {
 
-
     //初始化数据
     @Override
     protected void initData() {

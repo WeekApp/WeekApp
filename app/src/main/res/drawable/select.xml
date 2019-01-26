@@ -1,5 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <selector xmlns:android="http://schemas.android.com/apk/res/android">
+<<<<<<< HEAD
     <item android:state_checked="true" android:drawable="@drawable/shapecinametuijian"/>
     <item android:state_checked="false" android:drawable="@color/white"/>
+=======
+
+    <item android:state_selected="true" android:drawable="@drawable/shixin_shape"></item>
+    <item android:state_selected="false" android:drawable="@drawable/kongxin"></item>
+
+>>>>>>> 3a894895891cc90c6c7718b6725d51cccd6d308b
 </selector>

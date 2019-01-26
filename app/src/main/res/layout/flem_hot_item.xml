@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_marginLeft="@dimen/dp_20">
+
+    <RelativeLayout
+        android:layout_width="@dimen/dp_126"
+        android:layout_height="@dimen/dp_164">
+
+        <com.facebook.drawee.view.SimpleDraweeView
+            android:id="@+id/hot_item_icon"
+            app:roundedCornerRadius="@dimen/dp_10"
+            android:layout_width="@dimen/dp_126"
+            android:layout_height="@dimen/dp_164"/>
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dp_30"
+            android:layout_alignParentBottom="true"
+            android:background="@drawable/cover_item_bg_shape"
+            >
+
+            <TextView
+                android:id="@+id/hot_icon_text"
+                android:layout_width="@dimen/dp_3"
+                android:layout_height="@dimen/dp_18"
+                android:background="#5e20af"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="@dimen/dp_10"
+                />
+            <TextView
+                android:id="@+id/hot_item_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="@dimen/sp_14"
+                android:maxLength="6"
+                android:textColor="#fff"
+                android:layout_centerVertical="true"
+                android:layout_toRightOf="@id/hot_icon_text"
+                android:layout_marginLeft="@dimen/dp_10"
+                />
+
+        </RelativeLayout>
+    </RelativeLayout>
+
+</RelativeLayout>

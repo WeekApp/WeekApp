@@ -52,7 +52,7 @@ public class RetrofitUtils {
 
                         Request request = chain.request();
 
-                        SharedPreferences sharedPreferences = App.getApplication().getSharedPreferences("user",Context.MODE_PRIVATE);
+                        SharedPreferences sharedPreferences = App.getApplication().getSharedPreferences("userName",Context.MODE_PRIVATE);
                         String userId = sharedPreferences.getString("userId", "");
                         String sessionId = sharedPreferences.getString("sessionId","");
                         Log.i("TTTT",userId);
@@ -72,7 +72,6 @@ public class RetrofitUtils {
                         return chain.proceed(build);
                     }
                 })
-
                 .build();
 
         Retrofit retrofit = new Retrofit.Builder()
