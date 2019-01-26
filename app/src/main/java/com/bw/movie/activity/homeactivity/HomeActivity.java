@@ -101,7 +101,10 @@ public class HomeActivity extends AppCompatActivity {
                         homeactivityViewpager.setCurrentItem(0);
                         homeactivityRadiobuttonFilm.setVisibility(View.GONE);
                         homeactivityRadiobuttonFilmTwo.setVisibility(View.VISIBLE);
-
+                        homeactivityRadiobuttonCinema.setVisibility(View.VISIBLE);
+                        homeactivityRadiobuttonCinemaTwo.setVisibility(View.GONE);
+                        homeactivityRadiobuttonMy.setVisibility(View.VISIBLE);
+                        homeactivityRadiobuttonMyTwo.setVisibility(View.GONE);
                         homeactivityRadiobuttonFilm.setBackgroundResource(R.mipmap.com_icon_film_selected);
                         homeactivityRadiobuttonFilmTwo.setBackgroundResource(R.mipmap.com_icon_film_selected);
                         homeactivityRadiobuttonCinema.setBackgroundResource(R.mipmap.com_icon_cinema_default);
@@ -111,10 +114,12 @@ public class HomeActivity extends AppCompatActivity {
                         break;
                     case R.id.homeactivity_radiobutton_cinema:
                         homeactivityViewpager.setCurrentItem(1);
-
+                        homeactivityRadiobuttonFilm.setVisibility(View.VISIBLE);
+                        homeactivityRadiobuttonFilmTwo.setVisibility(View.GONE);
                         homeactivityRadiobuttonCinema.setVisibility(View.GONE);
                         homeactivityRadiobuttonCinemaTwo.setVisibility(View.VISIBLE);
-
+                        homeactivityRadiobuttonMy.setVisibility(View.VISIBLE);
+                        homeactivityRadiobuttonMyTwo.setVisibility(View.GONE);
                         homeactivityRadiobuttonFilm.setBackgroundResource(R.mipmap.com_icon_film_fault);
                         homeactivityRadiobuttonFilmTwo.setBackgroundResource(R.mipmap.com_icon_film_fault);
                         homeactivityRadiobuttonCinema.setBackgroundResource(R.mipmap.com_icon_cinema_selected);
@@ -125,7 +130,10 @@ public class HomeActivity extends AppCompatActivity {
                     case R.id.homeactivity_radiobutton_my:
                         homeactivityViewpager.setCurrentItem(2);
 
-
+                        homeactivityRadiobuttonFilm.setVisibility(View.VISIBLE);
+                        homeactivityRadiobuttonFilmTwo.setVisibility(View.GONE);
+                        homeactivityRadiobuttonCinema.setVisibility(View.VISIBLE);
+                        homeactivityRadiobuttonCinemaTwo.setVisibility(View.GONE);
                         homeactivityRadiobuttonMy.setVisibility(View.GONE);
                         homeactivityRadiobuttonMyTwo.setVisibility(View.VISIBLE);
                         homeactivityRadiobuttonFilm.setBackgroundResource(R.mipmap.com_icon_film_fault);
