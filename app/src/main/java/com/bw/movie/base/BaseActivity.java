@@ -20,7 +20,6 @@ public  abstract class BaseActivity extends FragmentActivity implements IView {
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
         setContentView(getLayout());
         mPersenter = new IPersenter(this);
         initView();

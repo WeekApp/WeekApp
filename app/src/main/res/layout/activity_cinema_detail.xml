@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:fresco="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.bw.movie.activity.cinemaactivity.CinemaDetailActivity">
+    <ImageView
+        android:layout_width="match_parent"
+        android:background="@mipmap/hdpi_2"
+        android:layout_height="@dimen/dp_250" />
+        
+        <com.facebook.drawee.view.SimpleDraweeView
+            android:id="@+id/cinemadetail_simple_logo"
+            android:layout_width="@dimen/dp_80"
+            android:layout_height="@dimen/dp_80"
+            fresco:placeholderImage="@mipmap/ic_launcher"
+            android:layout_marginTop="@dimen/dp_24"
+            android:layout_marginLeft="@dimen/dp_24"/>
+        
+        <TextView
+            android:id="@+id/cinemadetail_tv_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="CGV影城"
+            android:textSize="@dimen/sp_14"
+            android:textColor="#ffffff"
+            android:layout_toRightOf="@+id/cinemadetail_simple_logo"
+            android:layout_marginLeft="@dimen/dp_24"
+            android:layout_marginTop="@dimen/dp_30"/>
+
+    <ImageView
+        android:id="@+id/cinemadetail_iv_detail"
+        android:layout_width="@dimen/dp_24"
+        android:layout_height="@dimen/dp_24"
+        android:layout_alignParentRight="true"
+        android:layout_marginTop="@dimen/dp_30"
+        android:layout_marginRight="@dimen/dp_24"
+        android:src="@mipmap/com_icon_navigation_default" />
+
+        <TextView
+            android:id="@+id/cinemadetail_tv_address"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="asd"
+            android:layout_toRightOf="@+id/cinemadetail_simple_logo"
+            android:textSize="@dimen/sp_12"
+            android:textColor="#ffffff"
+            android:layout_below="@+id/cinemadetail_tv_name"
+            android:layout_marginTop="@dimen/dp_20"
+            android:layout_marginLeft="@dimen/dp_24"
+            />
+        <recycler.coverflow.RecyclerCoverFlow
+            android:id="@+id/cinemadetail_recy_banner"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dp_200"
+            android:layout_marginTop="@dimen/dp_20"
+            android:layout_below="@+id/cinemadetail_simple_logo" />
+
+        <RadioGroup
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dp_5"
+            android:layout_below="@+id/cinemadetail_recy_banner"
+            android:layout_marginTop="@dimen/dp_5">
+
+
+
+        </RadioGroup>
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/cinemadetail_recy"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/cinemadetail_recy_banner"
+            android:layout_marginTop="@dimen/dp_20"></android.support.v7.widget.RecyclerView>
+
+
+
+
+</RelativeLayout>

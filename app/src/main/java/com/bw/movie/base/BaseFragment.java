@@ -13,6 +13,8 @@ import com.bw.movie.mvp.view.IView;
 
 import java.util.Map;
 
+import retrofit2.http.HEAD;
+
 public  abstract class BaseFragment extends Fragment implements IView {
 
     IPersenter mPersenter;
