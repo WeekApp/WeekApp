@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/xcvbn"
+        android:layout_marginTop="@dimen/dp_10"
+        >
+
+        <com.facebook.drawee.view.SimpleDraweeView
+            android:id="@+id/flim_pop_icon"
+            android:layout_width="@dimen/dp_40"
+            android:layout_height="@dimen/dp_40"
+            app:roundAsCircle="true"
+            />
+        <TextView
+            android:id="@+id/flim_pop_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="@dimen/sp_14"
+            android:layout_marginTop="@dimen/dp_10"
+            android:layout_toRightOf="@id/flim_pop_icon"
+            android:layout_marginLeft="@dimen/dp_10"
+            />
+
+        <TextView
+            android:id="@+id/flim_pop_title"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textSize="@dimen/sp_12"
+            android:layout_below="@id/flim_pop_icon"
+            android:layout_marginTop="@dimen/dp_12"
+            android:maxLines="4"
+            />
+
+
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/dp_5"
+            android:layout_below="@id/flim_pop_title"
+            android:layout_marginTop="@dimen/dp_10"
+            >
+
+            <TextView
+                android:id="@+id/film_pop_data"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/dp_10"
+                android:layout_centerVertical="true"
+                android:textSize="@dimen/sp_12"
+                android:textColor="#acaaaa"
+                />
+
+            <TextView
+                android:id="@+id/flim_pop_ment_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="@dimen/sp_12"
+                android:layout_centerVertical="true"
+                android:layout_alignParentRight="true"
+                />
+
+            <ImageView
+                android:id="@+id/file_pop_icon_ment"
+                android:layout_width="@dimen/dp_20"
+                android:layout_height="@dimen/dp_20"
+                android:layout_centerVertical="true"
+                android:src="@mipmap/com_icon_comment_default"
+                android:layout_toLeftOf="@id/flim_pop_ment_text"
+                android:layout_marginRight="@dimen/sp_10"
+                />
+
+            <TextView
+                android:id="@+id/flim_pop_zan_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="@dimen/sp_12"
+                android:layout_centerVertical="true"
+                android:layout_toLeftOf="@+id/file_pop_icon_ment"
+                android:layout_marginRight="@dimen/dp_20"
+                />
+            <ImageView
+                android:id="@+id/flim_pop_icon_zan"
+                android:layout_width="@dimen/dp_20"
+                android:layout_centerVertical="true"
+                android:layout_height="@dimen/dp_20"
+                android:layout_marginRight="@dimen/dp_5"
+                android:layout_toLeftOf="@id/flim_pop_zan_text"
+                android:src="@mipmap/com_icon_praise_default"
+                />
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/dp_1"
+                android:background="#ccc"
+                android:layout_below="@id/flim_pop_icon_zan"
+                android:layout_marginTop="@dimen/dp_10"
+                />
+        </RelativeLayout>
+
+    </RelativeLayout>
+
+</RelativeLayout>

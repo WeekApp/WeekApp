@@ -5,16 +5,15 @@ import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.OrientationHelper;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.RelativeLayout;
 
 import com.bw.movie.activity.filmactivity.DetailsActivity;
-import com.bw.movie.adapter.filmadatper.FilmHotContentAdapter;
-import com.bw.movie.adapter.filmadatper.FilmIngContentAdapter;
-import com.bw.movie.adapter.filmadatper.FilmJijContentAdapter;
-import com.bw.movie.adapter.filmadatper.RecyclerCoverAdapter;
+import com.bw.movie.adapter.filmadatper.detailsadapter.FilmHotContentAdapter;
+import com.bw.movie.adapter.filmadatper.detailsadapter.FilmIngContentAdapter;
+import com.bw.movie.adapter.filmadatper.detailsadapter.FilmJijContentAdapter;
+import com.bw.movie.adapter.filmadatper.detailsadapter.RecyclerCoverAdapter;
 import com.bw.movie.base.BaseFragment;
 import com.bw.movie.bean.filmbean.FilmHotBean;
 import com.bw.movie.bean.filmbean.FilmIngBean;
@@ -22,7 +21,6 @@ import com.bw.movie.bean.filmbean.FilmJijBean;
 import com.bw.movie.mvp.util.Apis;
 import com.bw.onlymycinema.R;
 
-import recycler.coverflow.CoverFlowLayoutManger;
 import recycler.coverflow.RecyclerCoverFlow;
 /**
  * A simple {@link Fragment} subclass.
@@ -50,8 +48,6 @@ public class FilmFragment extends BaseFragment {
         initAdapter();
         //设置布局管理器你
         initManager();
-        //滑动获取下标
-        initBnnaer();
         //弹出搜索框
         initPopup();
         //点击进行跳转到详情
@@ -78,6 +74,15 @@ public class FilmFragment extends BaseFragment {
         });
 
         mFilmJijContentAdapter.setOnItemClick(new FilmJijContentAdapter.OnItemClick() {
+            @Override
+            public void success(String id) {
+                Intent intent = new Intent(getActivity(),DetailsActivity.class);
+                intent.putExtra("id",id);
+                startActivity(intent);
+            }
+        });
+
+        mCoverAdapter.setOnItemClick(new RecyclerCoverAdapter.OnItemClick() {
             @Override
             public void success(String id) {
                 Intent intent = new Intent(getActivity(),DetailsActivity.class);
@@ -115,15 +120,6 @@ public class FilmFragment extends BaseFragment {
 
                     mRela.animate().xBy(-100).setDuration(300).start();
                     mTsearch.setVisibility(View.VISIBLE);
-            }
-        });
-    }
-
-    private void initBnnaer() {
-        mContent.setOnItemSelectedListener(new CoverFlowLayoutManger.OnSelected() {
-            @Override
-            public void onItemSelected(int position) {
-                Log.i("TTT",position+"");
             }
         });
     }

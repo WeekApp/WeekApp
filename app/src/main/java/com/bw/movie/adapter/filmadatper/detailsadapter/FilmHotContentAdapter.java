@@ -1,4 +1,4 @@
-package com.bw.movie.adapter.filmadatper;
+package com.bw.movie.adapter.filmadatper.detailsadapter;
 
 import android.content.Context;
 import android.support.annotation.NonNull;

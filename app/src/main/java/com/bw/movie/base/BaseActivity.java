@@ -39,7 +39,7 @@ public  abstract class BaseActivity extends FragmentActivity implements IView {
 
     protected void doNetGet(String url, Class aClass){
         //TODO:弹出loading
-        hideLoading();
+       // hideLoading();
         mPersenter.requestGetBack(url, aClass);
     }
 

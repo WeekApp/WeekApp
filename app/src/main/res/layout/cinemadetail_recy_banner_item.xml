@@ -39,7 +39,6 @@
                 android:layout_marginRight="@dimen/dp_10"
                 android:layout_weight="1"
                 android:gravity="center"
-
                 android:textColor="#D8d8d8"
                 android:textSize="@dimen/sp_12" />
         </LinearLayout>

@@ -41,6 +41,7 @@ public class NearlyAdapter extends RecyclerView.Adapter<NearlyAdapter.ViewHolder
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder viewHolder, int i) {
+
         final String logo = list.get(i).getLogo();
         final String name = list.get(i).getName();
         final String address = list.get(i).getAddress();

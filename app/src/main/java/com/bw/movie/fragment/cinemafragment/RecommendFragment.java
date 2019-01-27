@@ -2,13 +2,11 @@ package com.bw.movie.fragment.cinemafragment;
 
 
 import android.content.Intent;
-import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.view.LayoutInflater;
+import android.util.Log;
 import android.view.View;
-import android.view.ViewGroup;
 
 import com.bw.movie.activity.cinemaactivity.CinemaDetailActivity;
 import com.bw.movie.adapter.cinemaadapter.RecommendAdapter;
@@ -17,7 +15,6 @@ import com.bw.movie.bean.cinemabean.RemmondBean;
 import com.bw.movie.mvp.persenter.IPersenter;
 import com.bw.movie.mvp.util.Apis;
 import com.bw.onlymycinema.R;
-import com.jcodecraeer.xrecyclerview.XRecyclerView;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -43,7 +40,6 @@ public class RecommendFragment extends BaseFragment {
         unbinder = ButterKnife.bind(this, view);
         mIPersenter = new IPersenter(this);
 
-
         mRecommendAdapter = new RecommendAdapter(getContext());
         recommendfragmentXrecy.setAdapter(mRecommendAdapter);
         recommendfragmentXrecy.setLayoutManager(new LinearLayoutManager(getContext(),LinearLayoutManager.VERTICAL,false));
@@ -56,7 +52,6 @@ public class RecommendFragment extends BaseFragment {
                 intent.putExtra("logo",logo);
                 intent.putExtra("name",name);
                 intent.putExtra("address",address);
-
                 startActivity(intent);
             }
 
@@ -82,8 +77,6 @@ public class RecommendFragment extends BaseFragment {
     protected void netSuccess(Object data) {
         if (data instanceof RemmondBean){
             RemmondBean remmondBean= (RemmondBean) data;
-
-
             mRecommendAdapter.setData(remmondBean.getResult());
         }
     }
@@ -91,7 +84,6 @@ public class RecommendFragment extends BaseFragment {
     //失败的方法
     @Override
     protected void netFail(Object data) {
-
     }
 
     //销毁布局

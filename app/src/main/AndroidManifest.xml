@@ -40,7 +40,6 @@
             android:name="design_height_in_dp"
             android:value="667" />
 
-        <activity android:name="com.bw.movie.activity.cinemaactivity.CinemaDetailActivity"></activity>
     </application>
 
 </manifest>

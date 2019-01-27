@@ -1,18 +1,16 @@
 package com.bw.movie.fragment.cinemafragment;
 
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.bw.movie.activity.cinemaactivity.CinemaDetailActivity;
 import com.bw.movie.adapter.cinemaadapter.NearlyAdapter;
-import com.bw.movie.adapter.cinemaadapter.RecommendAdapter;
 import com.bw.movie.base.BaseFragment;
 import com.bw.movie.bean.cinemabean.RemmondBean;
 import com.bw.movie.mvp.persenter.IPersenter;
@@ -34,37 +32,22 @@ public class NearlyFragment extends BaseFragment {
     @BindView(R.id.NearlyFragment_recy)
     RecyclerView NearlyFragmentRecy;
     Unbinder unbinder;
-    private IPersenter mIPersenter;
     private NearlyAdapter mNearlyAdapter;
 
     //初始化布局
     @Override
     protected void initView(View view) {
         unbinder = ButterKnife.bind(this, view);
-        mIPersenter = new IPersenter(this);
 
         mNearlyAdapter = new NearlyAdapter(getContext());
         NearlyFragmentRecy.setAdapter(mNearlyAdapter);
         NearlyFragmentRecy.setLayoutManager(new LinearLayoutManager(getContext(),LinearLayoutManager.VERTICAL,false));
-        mNearlyAdapter.setGetData(new NearlyAdapter.GetData() {
-            @Override
-            public void onClick(int id, String logo, String name, String address) {
-                Intent intent=new Intent(getContext(),CinemaDetailActivity.class);
-                intent.putExtra("id",id+"");
-                intent.putExtra("logo",logo);
-                intent.putExtra("name",name);
-                intent.putExtra("address",address);
-
-                startActivity(intent);
-            }
-        });
-
     }
 
     //请求数据
     @Override
     protected void initData() {
-        mIPersenter.requestGetBack(Apis.URL_GET_NEARLY,RemmondBean.class);
+        doNetGet(Apis.URL_GET_NEARLY,RemmondBean.class);
     }
 
     //返回布局
@@ -86,7 +69,7 @@ public class NearlyFragment extends BaseFragment {
     //请求失败
     @Override
     protected void netFail(Object data) {
-
+        Log.i("TTTERROR",data.toString());
     }
 
 
