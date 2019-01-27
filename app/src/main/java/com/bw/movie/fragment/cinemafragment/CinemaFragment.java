@@ -235,7 +235,7 @@ public class CinemaFragment extends BaseFragment {
                 startActivityForResult(new Intent(getContext(),CityActivity.class),RequestCodeInfo.GETCITY);
                 break;
             case R.id.cinemaFragment_edit_search:
-                ValueAnimator valueAnimator = ValueAnimator.ofInt(cinemaFragmentEditSearch.getLayoutParams().width, 200);
+                ValueAnimator valueAnimator = ValueAnimator.ofInt(cinemaFragmentEditSearch.getLayoutParams().width, 600);
                 valueAnimator.setDuration(2000);
 
                 valueAnimator.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {

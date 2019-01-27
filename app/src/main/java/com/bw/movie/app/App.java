@@ -25,7 +25,6 @@ public class App extends Application {
         super.onCreate();
 
         mContext = getApplicationContext();
-        Fresco.initialize(this);
         initData();
         //屏幕适配
         initPing();
