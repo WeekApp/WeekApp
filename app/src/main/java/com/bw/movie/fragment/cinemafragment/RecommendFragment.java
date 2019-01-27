@@ -1,6 +1,7 @@
 package com.bw.movie.fragment.cinemafragment;
 
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
@@ -9,6 +10,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.bw.movie.activity.cinemaactivity.CinemaDetailActivity;
 import com.bw.movie.adapter.cinemaadapter.RecommendAdapter;
 import com.bw.movie.base.BaseFragment;
 import com.bw.movie.bean.cinemabean.RemmondBean;
@@ -24,6 +26,8 @@ import butterknife.Unbinder;
 
 /**
  * A simple {@link Fragment} subclass.
+ *
+ * 推荐影院
  */
 public class RecommendFragment extends BaseFragment {
 
@@ -43,6 +47,21 @@ public class RecommendFragment extends BaseFragment {
         mRecommendAdapter = new RecommendAdapter(getContext());
         recommendfragmentXrecy.setAdapter(mRecommendAdapter);
         recommendfragmentXrecy.setLayoutManager(new LinearLayoutManager(getContext(),LinearLayoutManager.VERTICAL,false));
+
+        mRecommendAdapter.setGetData(new RecommendAdapter.GetData() {
+            @Override
+            public void onClick(int id, String logo, String name, String address) {
+                Intent intent=new Intent(getContext(),CinemaDetailActivity.class);
+                intent.putExtra("id",id+"");
+                intent.putExtra("logo",logo);
+                intent.putExtra("name",name);
+                intent.putExtra("address",address);
+
+                startActivity(intent);
+            }
+
+
+        });
     }
 
     //请求

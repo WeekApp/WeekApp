@@ -111,7 +111,7 @@ public class CinemaFragment extends BaseFragment {
         });
 
 
-        cinemaFragmentVp.setOnPageChangeListener(new ViewPager.OnPageChangeListener() {
+        cinemaFragmentVp.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
             @Override
             public void onPageScrolled(int i, float v, int i1) {
 

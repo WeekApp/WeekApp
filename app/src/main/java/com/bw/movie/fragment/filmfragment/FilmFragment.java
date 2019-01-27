@@ -148,12 +148,14 @@ public class FilmFragment extends BaseFragment {
     //初始化控件
     @Override
     protected void initView(View view) {
+
         mContent = view.findViewById(R.id.film_banner_icon);
         mRela = view.findViewById(R.id.mrelative);
         mTsearch = view.findViewById(R.id.film_edit_search);
         mHotContents = view.findViewById(R.id.flem_hot_contents);
         mIngContents = view.findViewById(R.id.flem_inf_contents);
         mJijContents = view.findViewById(R.id.flem_jij_contents);
+
     }
 
     //获取布局

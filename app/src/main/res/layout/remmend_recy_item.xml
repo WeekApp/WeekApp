@@ -5,13 +5,14 @@
     xmlns:fresco="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="@dimen/dp_90"
-    android:layout_marginBottom="@dimen/dp_20"
-    android:layout_marginTop="@dimen/dp_44"
+    android:layout_marginBottom="@dimen/dp_24"
+    android:layout_marginTop="@dimen/dp_14"
     android:layout_marginLeft="@dimen/dp_30"
     android:layout_marginRight="@dimen/dp_30"
     app:cardCornerRadius="@dimen/sp_9"
     app:cardElevation="@dimen/dp_4"
-
+    app:cardUseCompatPadding="true"
+    app:cardPreventCornerOverlap="false"
     >
 
     <RelativeLayout
