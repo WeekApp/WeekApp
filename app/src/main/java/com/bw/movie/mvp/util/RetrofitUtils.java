@@ -143,7 +143,7 @@ public class RetrofitUtils {
                 if(callBack!=null){
                     callBack.onFail(e.getMessage());
                 }
-                Log.i("TTT",e.getMessage());
+                Log.i("TTTOK",e.getMessage());
         }
 
             @Override

@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -31,14 +32,12 @@ public class NearlyFragment extends BaseFragment {
     @BindView(R.id.NearlyFragment_recy)
     RecyclerView NearlyFragmentRecy;
     Unbinder unbinder;
-    private IPersenter mIPersenter;
     private NearlyAdapter mNearlyAdapter;
 
     //初始化布局
     @Override
     protected void initView(View view) {
         unbinder = ButterKnife.bind(this, view);
-        mIPersenter = new IPersenter(this);
 
         mNearlyAdapter = new NearlyAdapter(getContext());
         NearlyFragmentRecy.setAdapter(mNearlyAdapter);
@@ -48,7 +47,7 @@ public class NearlyFragment extends BaseFragment {
     //请求数据
     @Override
     protected void initData() {
-        mIPersenter.requestGetBack(Apis.URL_GET_NEARLY,RemmondBean.class);
+        doNetGet(Apis.URL_GET_NEARLY,RemmondBean.class);
     }
 
     //返回布局
@@ -70,7 +69,7 @@ public class NearlyFragment extends BaseFragment {
     //请求失败
     @Override
     protected void netFail(Object data) {
-
+        Log.i("TTTERROR",data.toString());
     }
 
 

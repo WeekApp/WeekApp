@@ -166,8 +166,8 @@ public class LoginActivity extends BaseActivity {
 
             if(user.getStatus().equals("0000")){
                 //取出个人信息的状态值
-                Log.i("TTTTT",user.getResult().getUserId()+"");
-                Log.i("TTTTT",user.getResult().getSessionId());
+                Log.i("TTTUSERID",user.getResult().getUserId()+"");
+                Log.i("TTTSESSIONID",user.getResult().getSessionId());
                 editor.putString("userId",user.getResult().getUserId()+"")
                         .putString("sessionId",user.getResult().getSessionId()).commit();
                 startActivity(new Intent(this,HomeActivity.class));

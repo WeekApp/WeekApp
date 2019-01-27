@@ -19,9 +19,9 @@ public class Apis {
     //即将上映
     public static final String URL_GET_JIJ = "/movieApi/movie/v1/findComingSoonMovieList?page=1&count=10";
     //查询推荐影院
-    public static final String URL_GET_REMMOND = "movieApi/cinema1/findRecommendCinemas?page=1&count=10";
+    public static final String URL_GET_REMMOND = "movieApi/cinema/v1/findRecommendCinemas?page=1&count=10";
     //查询附近影院
-    public static final String URL_GET_NEARLY = "movieApi/cinema1/findNearbyCinemas?longitude=116.30551391385724&latitude=40.04571807462411&page=1&count=10";
+    public static final String URL_GET_NEARLY = "movieApi/cinema/v1/findNearbyCinemas?longitude=116.30551391385724&latitude=40.04571807462411&page=1&count=10";
     //根据影院ID查询电影
     public static final String URL_GET_findMovieListByCinemaId = "movieApi/movie1/findMovieListByCinemaId";
     //根据影院ID电影Id查询电影排期
