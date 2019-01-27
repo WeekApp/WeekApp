@@ -55,8 +55,8 @@ public class RetrofitUtils {
                         SharedPreferences sharedPreferences = App.getApplication().getSharedPreferences("userName",Context.MODE_PRIVATE);
                         String userId = sharedPreferences.getString("userId", "");
                         String sessionId = sharedPreferences.getString("sessionId","");
-                        Log.i("TTTTX",userId);
-                        Log.i("TTTTX",sessionId);
+                        Log.i("TTTTXX",userId);
+                        Log.i("TTTTXX",sessionId);
                         //重新构造方法
                         Request.Builder builder = request.newBuilder();
                         //把原来的请求参数 原样的放进去

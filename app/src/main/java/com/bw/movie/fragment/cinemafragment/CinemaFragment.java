@@ -207,6 +207,7 @@ public class CinemaFragment extends BaseFragment {
     @Override
     protected void initData() {
 
+
     }
 
     //

@@ -11,7 +11,6 @@ import android.widget.TextView;
 import com.bw.movie.bean.cinemabean.CinemaDetailScheduleBean;
 import com.bw.onlymycinema.R;
 
-import org.w3c.dom.Text;
 
 import java.util.ArrayList;
 import java.util.List;

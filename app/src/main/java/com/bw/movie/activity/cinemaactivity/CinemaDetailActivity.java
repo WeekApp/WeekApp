@@ -42,7 +42,6 @@ public class CinemaDetailActivity extends BaseActivity {
     ImageView cinemadetailIvDetail;
     private String mId;
     private CinemaBannerAdapter mCinemaBannerAdapter;
-    private IPersenter mIPersenter;
     private CinemaScheduleAdapter mCinemaScheduleAdapter;
 
     @Override
