@@ -4,18 +4,14 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.bw.movie.adapter.cinemaadapter.CinemaBannerAdapter;
 import com.bw.movie.adapter.cinemaadapter.CinemaScheduleAdapter;
 import com.bw.movie.base.BaseActivity;
 import com.bw.movie.bean.cinemabean.CinemaDetailBannerBean;
 import com.bw.movie.bean.cinemabean.CinemaDetailScheduleBean;
-import com.bw.movie.bean.filmbean.FilmHotBean;
-import com.bw.movie.bean.filmbean.FilmIngBean;
 import com.bw.movie.mvp.persenter.IPersenter;
 import com.bw.movie.mvp.util.Apis;
 import com.bw.onlymycinema.R;
@@ -23,6 +19,7 @@ import com.facebook.drawee.view.SimpleDraweeView;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 import recycler.coverflow.CoverFlowLayoutManger;
 import recycler.coverflow.RecyclerCoverFlow;
 
@@ -40,8 +37,10 @@ public class CinemaDetailActivity extends BaseActivity {
     RecyclerView cinemadetailRecy;
     @BindView(R.id.cinemadetail_iv_detail)
     ImageView cinemadetailIvDetail;
+
     private String mId;
     private CinemaBannerAdapter mCinemaBannerAdapter;
+    private IPersenter mIPersenter;
     private CinemaScheduleAdapter mCinemaScheduleAdapter;
 
     @Override
@@ -51,6 +50,7 @@ public class CinemaDetailActivity extends BaseActivity {
         ButterKnife.bind(this);
 
     }
+
     @Override
     protected void initData() {
         Intent intent = getIntent();
@@ -66,19 +66,28 @@ public class CinemaDetailActivity extends BaseActivity {
         initBanner(mId);
 
     }
+
+
+    //点击事件
+    @OnClick(R.id.cinemadetail_iv_detail)
+    public void onViewClicked() {
+
+    }
+
+
     //排期
     private void initRecy(String mid, int id) {
-        doNetGet(Apis.URL_GET_findMovieScheduleList+"?cinemasId="+mid+"&movieId="+id,CinemaDetailScheduleBean.class);
+        doNetGet(Apis.URL_GET_findMovieScheduleList + "?cinemasId=" + mid + "&movieId=" + id, CinemaDetailScheduleBean.class);
 
         mCinemaScheduleAdapter = new CinemaScheduleAdapter(this);
         cinemadetailRecy.setAdapter(mCinemaScheduleAdapter);
-        cinemadetailRecy.setLayoutManager(new LinearLayoutManager(this,LinearLayoutManager.VERTICAL,false));
+        cinemadetailRecy.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false));
 
     }
 
     //轮播图
     private void initBanner(final String mid) {
-        doNetGet(Apis.URL_GET_findMovieListByCinemaId+"?cinemaId="+mid,CinemaDetailBannerBean.class);
+        doNetGet(Apis.URL_GET_findMovieListByCinemaId + "?cinemaId=" + mid, CinemaDetailBannerBean.class);
 
         mCinemaBannerAdapter = new CinemaBannerAdapter(this);
         cinemadetailRecyBanner.setAdapter(mCinemaBannerAdapter);
@@ -86,7 +95,7 @@ public class CinemaDetailActivity extends BaseActivity {
             @Override
             public void onItemSelected(int position) {
 
-                initRecy(mid,position);
+                initRecy(mid, position);
             }
         });
 
@@ -103,8 +112,8 @@ public class CinemaDetailActivity extends BaseActivity {
         if (data instanceof CinemaDetailBannerBean) {
             CinemaDetailBannerBean cinemaDetailBannerBean = (CinemaDetailBannerBean) data;
             mCinemaBannerAdapter.setData(cinemaDetailBannerBean.getResult());
-        }else if (data instanceof CinemaDetailScheduleBean){
-            CinemaDetailScheduleBean cinemaDetailScheduleBean= (CinemaDetailScheduleBean) data;
+        } else if (data instanceof CinemaDetailScheduleBean) {
+            CinemaDetailScheduleBean cinemaDetailScheduleBean = (CinemaDetailScheduleBean) data;
             mCinemaScheduleAdapter.setData(cinemaDetailScheduleBean.getResult());
         }
     }
@@ -113,7 +122,5 @@ public class CinemaDetailActivity extends BaseActivity {
     protected void netFail(Object data) {
 
     }
-
-
 
 }

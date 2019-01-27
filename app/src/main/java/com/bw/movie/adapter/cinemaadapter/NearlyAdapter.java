@@ -46,11 +46,23 @@ public class NearlyAdapter extends RecyclerView.Adapter<NearlyAdapter.ViewHolder
         String address = list.get(i).getAddress();
         int distance = list.get(i).getDistance();
 
+        final String logo = list.get(i).getLogo();
+        final String name = list.get(i).getName();
+        final String address = list.get(i).getAddress();
+        int distance = list.get(i).getDistance();
+        final int id = list.get(i).getId();
 
         viewHolder.remmend_simple_image.setImageURI(logo);
         viewHolder.remmend_tv_name.setText(name);
         viewHolder.remmend_tv_title.setText(address);
         viewHolder.remmend_tv_distance.setText(distance+"Km");
+
+        viewHolder.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mGetData.onClick(id,logo,name,address);
+            }
+        });
     }
 
     @Override
@@ -73,5 +85,14 @@ public class NearlyAdapter extends RecyclerView.Adapter<NearlyAdapter.ViewHolder
             remmend_iv_collection=itemView.findViewById(R.id.remmend_iv_collection);
             remmend_iv_collectionselect=itemView.findViewById(R.id.remmend_iv_collectionselect);
         }
+    }
+
+    public interface GetData{
+        void onClick(int id, String logo, String name, String address);
+    }
+    private GetData mGetData;
+
+    public void setGetData(GetData getData) {
+        mGetData = getData;
     }
 }
