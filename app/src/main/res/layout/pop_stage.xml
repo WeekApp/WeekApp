@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:background="#10dcdcdc"
+    android:layout_height="wrap_content"
+
+    >
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@drawable/pop_white"
+        android:layout_marginTop="@dimen/dp_100"
+        >
+
+        <TextView
+            android:id="@+id/sdfb"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="剧照"
+            android:textSize="@dimen/sp_16"
+            android:layout_marginTop="@dimen/sp_20"
+            android:layout_marginLeft="@dimen/dp_24"
+            />
+        <TextView
+            android:id="@+id/xcvbn"
+            android:layout_width="@dimen/dp_30"
+            android:layout_height="@dimen/dp_3"
+            android:layout_alignLeft="@id/sdfb"
+            android:layout_below="@id/sdfb"
+            android:layout_marginTop="@dimen/dp_3"
+            android:background="#344cd4"
+            />
+        <ImageView
+            android:id="@+id/stage_icon_down"
+            android:layout_width="@dimen/dp_54"
+            android:layout_height="@dimen/dp_54"
+            android:layout_alignParentRight="true"
+            android:src="@mipmap/com_icon_down_default"
+            />
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/stage_pop_contents"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_below="@id/xcvbn"
+            android:layout_marginLeft="@dimen/dp_24"
+            android:layout_marginRight="@dimen/dp_24"
+            android:layout_marginTop="@dimen/dp_10"
+            />
+
+    </RelativeLayout>
+
+</RelativeLayout>

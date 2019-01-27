@@ -22,9 +22,10 @@ public  abstract class BaseActivity extends FragmentActivity implements IView {
         super.onCreate(savedInstanceState);
 
         setContentView(getLayout());
+        mPersenter = new IPersenter(this);
         initView();
         initData();
-        mPersenter = new IPersenter(this);
+
     }
 
     //开始网络请求
@@ -39,7 +40,7 @@ public  abstract class BaseActivity extends FragmentActivity implements IView {
 
     protected void doNetGet(String url, Class aClass){
         //TODO:弹出loading
-        hideLoading();
+       // hideLoading();
         mPersenter.requestGetBack(url, aClass);
     }
 
