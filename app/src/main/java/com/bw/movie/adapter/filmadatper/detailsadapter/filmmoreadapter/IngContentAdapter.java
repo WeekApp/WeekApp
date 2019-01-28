@@ -6,6 +6,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.CheckBox;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -36,7 +37,7 @@ public class IngContentAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
     class ViewHolder extends RecyclerView.ViewHolder {
 
         SimpleDraweeView icon;
-        ImageView mXin;
+        CheckBox mXin;
         TextView title,name;
 
         public ViewHolder(@NonNull View itemView) {
@@ -63,6 +64,13 @@ public class IngContentAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
         holder.icon.setImageURI(mlist.get(i).getImageUrl());
         holder.title.setText(mlist.get(i).getSummary());
         holder.name.setText(mlist.get(i).getName());
+
+        int followMovie = mlist.get(i).getFollowMovie();
+        if(followMovie==1){
+            holder.mXin.setChecked(true);
+        }else{
+            holder.mXin.setChecked(false);
+        }
     }
 
     @Override

@@ -171,7 +171,7 @@
             android:id="@+id/pop_Item_but_right"
             android:layout_width="@dimen/dp_75"
             android:layout_height="@dimen/dp_32"
-            android:background="@drawable/pop_item_right"
+            android:background="@drawable/pop_item_left"
             android:layout_alignParentRight="true"
             android:layout_marginRight="@dimen/dp_50"
             android:layout_below="@id/sdfghtyj"

@@ -1,6 +1,7 @@
 package com.bw.movie.activity.filmactivity;
 
 
+import android.app.AlertDialog;
 import android.content.Intent;
 import android.graphics.drawable.BitmapDrawable;
 import android.support.v7.widget.LinearLayoutManager;
@@ -13,6 +14,7 @@ import android.view.View;
 import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.CheckBox;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.PopupWindow;
@@ -22,11 +24,13 @@ import com.bumptech.glide.Glide;
 import com.bw.movie.adapter.filmadatper.stageadapter.FlimContentAdapter;
 import com.bw.movie.adapter.filmadatper.stageadapter.StageContentAdapter;
 import com.bw.movie.base.BaseActivity;
-import com.bw.movie.bean.filmbean.details.CommentBean;
-import com.bw.movie.bean.filmbean.details.ConcrenBean;
-import com.bw.movie.bean.filmbean.details.DetailsBean;
-import com.bw.movie.bean.filmbean.details.MovieDetailsBean;
-import com.bw.movie.bean.filmbean.details.ZanBean;
+import com.bw.movie.bean.cinemabean.ToastUtil;
+import com.bw.movie.bean.filmbean.details.detailsbean.ComYesBean;
+import com.bw.movie.bean.filmbean.details.detailsbean.CommentBean;
+import com.bw.movie.bean.filmbean.details.detailsbean.ConcrenBean;
+import com.bw.movie.bean.filmbean.details.detailsbean.DetailsBean;
+import com.bw.movie.bean.filmbean.details.detailsbean.MovieDetailsBean;
+import com.bw.movie.bean.filmbean.details.detailsbean.ZanBean;
 import com.bw.movie.mvp.util.Apis;
 import com.bw.movie.util.ToastUtils;
 import com.bw.onlymycinema.R;
@@ -56,7 +60,8 @@ public class DetailsActivity extends BaseActivity {
     Button mFlim;
     @BindView(R.id.details_yiying)
     ImageView mYicon;
-
+    @BindView(R.id.details_mai)
+    Button mBuying;
     ImageView mDown;
     ImageView pIocn,mComment;
     TextView pLeixing;
@@ -72,6 +77,11 @@ public class DetailsActivity extends BaseActivity {
     String id;
     int followMovie;
     DetailsBean user;
+    EditText mInputCotents;
+    Button mSure;
+    Button mQuxiao;
+    String name;
+
     @Override
     protected void initData() {
         //开始网络请求
@@ -94,11 +104,57 @@ public class DetailsActivity extends BaseActivity {
         initZan();
         //去评论
         initConmment();
+        //点击去购票
+        initBuying();
+    }
+
+    private void initBuying() {
+        mBuying.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(DetailsActivity.this,BuyingListActivity.class);
+                intent.putExtra("id",id);
+                intent.putExtra("buying",name);
+                startActivity(intent);
+            }
+        });
     }
 
     private void initConmment() {
-
-
+        mComment.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                AlertDialog.Builder builder = new AlertDialog.Builder(DetailsActivity.this);
+                View view = View.inflate(DetailsActivity.this,R.layout.arldag_details,null);
+                mInputCotents = view.findViewById(R.id.de_al_ed_contents);
+                mSure = view.findViewById(R.id.ed_al_but_sure);
+                mQuxiao = view.findViewById(R.id.ed_al_but_quxiao);
+                builder.setView(view);
+                final AlertDialog  alertDialog = builder.create();
+                mSure.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        String contents = mInputCotents.getText().toString();
+                        if(contents.equals("")){
+                            ToastUtil.showShort(DetailsActivity.this,"评论不能为空！");
+                        }else{
+                            Map<String,String> map = new HashMap<>();
+                            map.put("movieId",id);
+                            map.put("commentContent",contents);
+                            doNetPost(Apis.URL_POST_PINGLUN,map,ComYesBean.class);
+                            alertDialog.dismiss();
+                        }
+                    }
+                });
+                mQuxiao.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        alertDialog.dismiss();
+                    }
+                });
+                alertDialog.show();
+            }
+        });
     }
 
     private void initZan() {
@@ -304,6 +360,7 @@ public class DetailsActivity extends BaseActivity {
         if(data instanceof MovieDetailsBean){
             MovieDetailsBean user = (MovieDetailsBean) data;
             if(user.getStatus().equals("0000")){
+                name = user.getResult().getName();
                 title.setText(user.getResult().getName());
                 Glide.with(this).load(user.getResult().getImageUrl()).into(icon);
                 Glide.with(this).load(user.getResult().getImageUrl()).into(pIocn);
@@ -337,7 +394,7 @@ public class DetailsActivity extends BaseActivity {
 
         if(data instanceof CommentBean){
             CommentBean user = (CommentBean) data;
-            if(user.getStatus().equals("0000")){
+            if(user.getStatus().equals("0000")) {
                 mFlimContentAdapter.setMlist(user.getResult());
             }
         }
@@ -354,7 +411,17 @@ public class DetailsActivity extends BaseActivity {
             ZanBean user = (ZanBean) data;
             if(user.getStatus().equals("0000")){
                 ToastUtils.show(this,user.getMessage());
+                doNetGet(String.format(Apis.URL_GET_PNGLUN, id),CommentBean.class);
+            }else{
+                ToastUtils.show(this,user.getMessage());
+            }
+        }
 
+        if(data instanceof  ComYesBean){
+            ComYesBean user = (ComYesBean) data;
+            if(user.getStatus().equals("0000")){
+                ToastUtils.show(this,user.getMessage());
+                doNetGet(String.format(Apis.URL_GET_PNGLUN, id),CommentBean.class);
             }else{
                 ToastUtils.show(this,user.getMessage());
             }

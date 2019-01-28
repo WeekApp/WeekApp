@@ -7,7 +7,9 @@ import android.view.View;
 import com.bw.movie.adapter.filmadatper.detailsadapter.filmmoreadapter.HotContentAdapter;
 import com.bw.movie.base.BaseFragment;
 import com.bw.movie.bean.filmbean.FilmHotBean;
+import com.bw.movie.bean.filmbean.details.detailsbean.ConcrenBean;
 import com.bw.movie.mvp.util.Apis;
+import com.bw.movie.util.ToastUtils;
 import com.bw.onlymycinema.R;
 
 import butterknife.BindView;
@@ -27,7 +29,25 @@ public class HotFragment extends BaseFragment {
         initAdapter();
         //设置蒲剧管理器
         initManager();
+        //关注
+        initGuanzhu();
     }
+
+    private void initGuanzhu() {
+
+      mHotContentAdapter.setOnItemClick(new HotContentAdapter.OnItemClick() {
+          @Override
+          public void succuess(String id, boolean isMovie) {
+              if(isMovie){
+                  doNetGet(String.format(Apis.URL_GET_GUANZHU, id), ConcrenBean.class);
+              }else{
+                  doNetGet(String.format(Apis.URL_GET_QUXIAOGUANZHU, id), ConcrenBean.class);
+              }
+              mHotContentAdapter.notifyDataSetChanged();
+          }
+      });
+    }
+
 
     private void initManager() {
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getActivity());
@@ -58,6 +78,16 @@ public class HotFragment extends BaseFragment {
                  mHotContentAdapter.setMlist(user.getResult());
              }
          }
+        if(data instanceof ConcrenBean) {
+            ConcrenBean user = (ConcrenBean) data;
+            if(user.getStatus().equals("0000")){
+                ToastUtils.show(getActivity(),user.getMessage());
+                doNetGet(Apis.URL_GET_BANNER,FilmHotBean.class);
+            }else{
+                ToastUtils.show(getActivity(),user.getMessage());
+                doNetGet(Apis.URL_GET_BANNER,FilmHotBean.class);
+            }
+        }
     }
 
     @Override

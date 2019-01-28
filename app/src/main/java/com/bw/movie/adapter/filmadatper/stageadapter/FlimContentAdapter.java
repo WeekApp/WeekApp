@@ -9,9 +9,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.bw.movie.bean.cinemabean.ToastUtil;
-import com.bw.movie.bean.filmbean.details.CommentBean;
-import com.bw.movie.util.ToastUtils;
+import com.bw.movie.bean.filmbean.details.detailsbean.CommentBean;
 import com.bw.onlymycinema.R;
 import com.facebook.drawee.view.SimpleDraweeView;
 
@@ -104,7 +102,10 @@ public class FlimContentAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
 
     @Override
     public int getItemCount() {
-        return mlist.size();
+        if(mlist!=null){
+            return mlist.size();
+        }
+        return 0;
     }
 
     OnItemClick onItemClick;

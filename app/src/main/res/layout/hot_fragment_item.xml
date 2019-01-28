@@ -7,8 +7,8 @@
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="160dp"
-        android:layout_marginTop="@dimen/dp_30"
+        android:layout_height="150dp"
+        android:layout_marginTop="@dimen/dp_40"
         android:background="@mipmap/hdpi_"
         >
 
@@ -18,17 +18,18 @@
             android:layout_height="wrap_content"
             android:textSize="@dimen/sp_14"
             android:layout_marginTop="@dimen/dp_10"
-            android:layout_marginLeft="@dimen/dp_150"
+            android:layout_marginLeft="@dimen/dp_135"
             android:textColor="#fff"
             />
-        <ImageView
+        <CheckBox
             android:id="@+id/hot_fragment_item_xin"
             android:layout_width="@dimen/dp_20"
             android:layout_height="@dimen/dp_20"
             android:layout_marginTop="@dimen/dp_10"
             android:layout_alignParentRight="true"
             android:layout_marginRight="@dimen/dp_10"
-            android:src="@mipmap/com_icon_collection_default"
+            android:button="@null"
+            android:background="@drawable/guanzhu_shape"
             />
 
         <TextView
@@ -60,8 +61,8 @@
         android:id="@+id/hot_fragment_item_icon"
         android:layout_width="@dimen/dp_120"
         android:layout_height="@dimen/dp_150"
-        android:layout_marginTop="@dimen/dp_10"
-        android:layout_marginLeft="@dimen/dp_20"
+        android:layout_marginTop="@dimen/dp_20"
+        android:layout_marginLeft="@dimen/dp_10"
         app:roundedCornerRadius="@dimen/dp_10"
         />
 

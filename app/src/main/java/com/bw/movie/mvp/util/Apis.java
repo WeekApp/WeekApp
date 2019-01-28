@@ -32,4 +32,18 @@ public class Apis {
     public static final String URL_GET_GUANZHU = "movieApi/movie/v1/verify/followMovie?movieId=%s";
     //取消关注影片
     public static final String URL_GET_QUXIAOGUANZHU = "movieApi/movie/v1/verify/cancelFollowMovie?movieId=%s";
+    //查询用户信息
+    public static final String URL_GET_QUREYMESSAGE = "movieApi/user1erify/findUserHomeInfo";
+    //查询用户信息
+    public static final String URL_GET_USERSIGNIN = "movieApi/user1erify/userSignIn";
+    //查询系统消息
+    public static final String URL_GET_REMIND = "movieApi/tool1erify/findAllSysMsgList?page=1&count=5";
+    //添加用户对影片的评论
+    public static final String URL_POST_PINGLUN = "movieApi/movie/v1/verify/movieComment";
+    //根据电影ID查询当前排片该电影的影院列表
+    public static final String URL_GET_PAIQIDIANYING = "movieApi/movie/v1/findCinemasListByMovieId";
+    //关注影院
+    public static final String URL_GET_GUANZHUYINGYUAN = "movieApi/cinema/v1/verify/followCinema?cinemaId=%s";
+    //取消关注影院
+    public static final String URL_GET_QUXIAOYINGYUAN = "movieApi/cinema/v1/verify/cancelFollowCinema?cinemaId=%s";
 }

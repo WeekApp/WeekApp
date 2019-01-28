@@ -6,6 +6,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.CheckBox;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -34,7 +35,7 @@ public class HotContentAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
     class ViewHolder extends RecyclerView.ViewHolder {
 
         SimpleDraweeView icon;
-        ImageView mXin;
+        CheckBox mXin;
         TextView title,name;
 
         public ViewHolder(@NonNull View itemView) {
@@ -55,17 +56,51 @@ public class HotContentAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
         return new ViewHolder(view);
     }
 
-    @Override
-    public void onBindViewHolder(@NonNull RecyclerView.ViewHolder viewHolder, int i) {
 
-        ViewHolder holder = (ViewHolder) viewHolder;
+    @Override
+    public void onBindViewHolder(@NonNull RecyclerView.ViewHolder viewHolder,final int i) {
+
+        final ViewHolder holder = (ViewHolder) viewHolder;
         holder.icon.setImageURI(mlist.get(i).getImageUrl());
         holder.title.setText(mlist.get(i).getSummary());
         holder.name.setText(mlist.get(i).getName());
+
+        final int followMovie = mlist.get(i).getFollowMovie();
+        if(followMovie==1){
+            holder.mXin.setChecked(true);
+        }else{
+            holder.mXin.setChecked(false);
+        }
+
+        holder.mXin.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                if(holder.mXin.isChecked()){
+                    mlist.get(i).setFollowMovie(mlist.get(i).getFollowMovie()+1);
+                    holder.mXin.setChecked(true);
+                }else{
+                    mlist.get(i).setFollowMovie(mlist.get(i).getFollowMovie()-1);
+                    holder.mXin.setChecked(false);
+                }
+                onItemClick.succuess(mlist.get(i).getId()+"",mlist.get(i).getFollowMovie()==1);
+                notifyItemChanged(i);
+            }
+        });
     }
 
     @Override
     public int getItemCount() {
         return mlist.size();
+    }
+
+    OnItemClick onItemClick;
+
+    public void setOnItemClick(OnItemClick onItemClick) {
+        this.onItemClick = onItemClick;
+    }
+
+    public interface OnItemClick{
+        void succuess(String id,boolean isMovie);
     }
 }

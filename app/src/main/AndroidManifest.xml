@@ -5,6 +5,12 @@
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.INTERNET" />
 
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
+    <uses-permission android:name="android.permission.READ_PHONE_STATE" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+
     <!-- To auto-complete the email text field in the login form with the user's emails -->
     <uses-permission android:name="android.permission.GET_ACCOUNTS" />
     <uses-permission android:name="android.permission.READ_PROFILE" />
@@ -34,6 +40,7 @@
         <activity android:name="com.bw.movie.activity.cinemaactivity.CinemaDetailActivity" />
         <activity android:name="com.bw.movie.activity.filmactivity.DetailsActivity" />
         <activity android:name="com.bw.movie.activity.filmactivity.DetailsMoreActivity"/>
+        <activity android:name="com.bw.movie.activity.filmactivity.BuyingListActivity"/>
         <!-- 如果您项目中的所有页面都只需要以高或宽中的一个作为基准进行适配的话, 那就只需要填写高或宽中的一个设计图尺寸即可 -->
         <meta-data
             android:name="design_width_in_dp"

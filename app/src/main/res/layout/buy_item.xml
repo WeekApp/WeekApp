@@ -1,6 +1,66 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
-    android:layout_height="match_parent">
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginTop="@dimen/dp_10"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
-</android.support.constraint.ConstraintLayout>
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/buy_shape"
+        >
+
+        <com.facebook.drawee.view.SimpleDraweeView
+            android:id="@+id/but_item_icon"
+            android:layout_width="@dimen/dp_80"
+            android:layout_height="@dimen/dp_80"
+            android:layout_margin="10dp"
+            app:roundedCornerRadius="@dimen/dp_5"
+            />
+        <TextView
+            android:id="@+id/but_item_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="@dimen/sp_14"
+            android:textColor="#0b0707"
+            android:layout_alignTop="@id/but_item_icon"
+            android:layout_toRightOf="@id/but_item_icon"
+            />
+
+        <TextView
+            android:id="@+id/but_item_title"
+            android:layout_width="match_parent"
+            android:layout_marginRight="@dimen/dp_20"
+            android:layout_height="wrap_content"
+            android:textSize="@dimen/sp_12"
+            android:layout_alignLeft="@id/but_item_name"
+            android:layout_below="@id/but_item_name"
+            android:layout_marginTop="@dimen/dp_5"
+            android:maxLines="2"
+            android:ellipsize="end"
+            />
+        <TextView
+            android:id="@+id/but_item_mi"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_toRightOf="@id/but_item_icon"
+            android:textSize="@dimen/sp_12"
+            android:layout_alignBottom="@id/but_item_icon"
+            />
+
+        <CheckBox
+            android:id="@+id/but_cb_xin"
+            android:layout_width="@dimen/dp_20"
+            android:layout_height="@dimen/dp_20"
+            android:layout_alignTop="@id/but_item_mi"
+            android:button="@null"
+            android:layout_marginTop="5dp"
+            android:layout_marginBottom="@dimen/dp_5"
+            android:background="@drawable/guanzhu_shape"
+            android:layout_alignRight="@id/but_item_title"
+            />
+
+    </RelativeLayout>
+
+</RelativeLayout>

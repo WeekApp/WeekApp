@@ -48,6 +48,8 @@ dependencies {
     implementation 'com.contrarywind:Android-PickerView:3.2.6'
     implementation 'com.chenlittleping:recyclercoverflow:1.0.5'
     implementation 'me.jessyan:autosize:1.1.2'
+    //第三方微信
+    implementation 'com.tencent.mm.opensdk:wechat-sdk-android-with-mta:+'
     // 网络请求Retrofit & OkHttp & Rxjava
     implementation "com.squareup.okhttp3:logging-interceptor:$rootProject.interceptor"
     implementation "com.squareup.retrofit2:converter-gson:$rootProject.converterGson"
