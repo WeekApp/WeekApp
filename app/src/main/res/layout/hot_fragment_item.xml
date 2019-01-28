@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="160dp"
+        android:layout_marginTop="@dimen/dp_30"
+        android:background="@mipmap/hdpi_"
+        >
+
+        <TextView
+            android:id="@+id/got_fragment_item_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="@dimen/sp_14"
+            android:layout_marginTop="@dimen/dp_10"
+            android:layout_marginLeft="@dimen/dp_150"
+            android:textColor="#fff"
+            />
+        <ImageView
+            android:id="@+id/hot_fragment_item_xin"
+            android:layout_width="@dimen/dp_20"
+            android:layout_height="@dimen/dp_20"
+            android:layout_marginTop="@dimen/dp_10"
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="@dimen/dp_10"
+            android:src="@mipmap/com_icon_collection_default"
+            />
+
+        <TextView
+            android:id="@+id/dsfgnh"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="简介:"
+            android:textColor="#fff"
+            android:textSize="@dimen/sp_12"
+            android:layout_below="@+id/got_fragment_item_title"
+            android:layout_alignLeft="@+id/got_fragment_item_title"
+            android:layout_marginTop="@dimen/dp_5"
+            />
+        <TextView
+            android:id="@+id/hot_fragment_item_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/dsfgnh"
+            android:layout_marginTop="@dimen/dp_5"
+            android:layout_alignLeft="@id/dsfgnh"
+            android:textColor="#fff"
+            android:maxLines="5"
+            android:textSize="@dimen/sp_12"
+            />
+
+    </RelativeLayout>
+
+    <com.facebook.drawee.view.SimpleDraweeView
+        android:id="@+id/hot_fragment_item_icon"
+        android:layout_width="@dimen/dp_120"
+        android:layout_height="@dimen/dp_150"
+        android:layout_marginTop="@dimen/dp_10"
+        android:layout_marginLeft="@dimen/dp_20"
+        app:roundedCornerRadius="@dimen/dp_10"
+        />
+
+</RelativeLayout>

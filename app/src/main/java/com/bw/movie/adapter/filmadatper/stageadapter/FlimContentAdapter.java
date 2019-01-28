@@ -9,12 +9,18 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.bw.movie.bean.cinemabean.ToastUtil;
 import com.bw.movie.bean.filmbean.details.CommentBean;
+import com.bw.movie.util.ToastUtils;
 import com.bw.onlymycinema.R;
 import com.facebook.drawee.view.SimpleDraweeView;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
+import java.util.Locale;
+import java.util.TimeZone;
 
 public class FlimContentAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
@@ -61,30 +67,36 @@ public class FlimContentAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
     @Override
     public void onBindViewHolder(@NonNull RecyclerView.ViewHolder viewHolder,final int i) {
 
-        ViewHolder holder = (ViewHolder) viewHolder;
+        final ViewHolder holder = (ViewHolder) viewHolder;
+
+        long commentTime = mlist.get(i).getCommentTime();
+        SimpleDateFormat dateFormat = new SimpleDateFormat("yy-MM-dd HH:mm:ss", Locale.CHINA);
+        dateFormat.setTimeZone(TimeZone.getTimeZone("GMT+00:00"));
+        String time = dateFormat.format(new Date(commentTime));
+        holder.data.setText(time);
+
         holder.icon.setImageURI(mlist.get(i).getCommentHeadPic());
         holder.name.setText(mlist.get(i).getCommentUserName());
         holder.title.setText(mlist.get(i).getCommentContent());
         holder.ment.setText(mlist.get(i).getReplyNum()+"");
         holder.zan.setText(mlist.get(i).getGreatNum()+"");
 
-        if(mlist.get(i).getIsGreat()==0){
-            holder.mZan.setBackgroundResource(R.mipmap.com_icon_praise_default);
-        }else{
+        int isGreat = mlist.get(i).getIsGreat();
+        if(isGreat==1){
             holder.mZan.setBackgroundResource(R.mipmap.com_icon_praise_selected);
+        }else{
+            holder.mZan.setBackgroundResource(R.mipmap.com_icon_praise_default);
         }
 
         holder.mZan.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (mlist.get(i).getIsGreat()==0){
-                    mlist.get(i).setIsGreat(1);
-                    mlist.get(i).setGreatNum(mlist.get(i).getGreatNum()-1);
-                }else {
-                    mlist.get(i).setIsGreat(0);
+
+                if (mlist.get(i).getIsGreat()==0) {
+                    mlist.get(i).setIsGreat(mlist.get(i).getIsGreat()+1);
                     mlist.get(i).setGreatNum(mlist.get(i).getGreatNum()+1);
                 }
-                onItemClick.success(mlist.get(i).getCommentId(),mlist.get(i).getIsGreat()==1);
+                onItemClick.success(mlist.get(i).getCommentId() + "", mlist.get(i).getIsGreat() == 0);
                 notifyItemChanged(i);
             }
         });
@@ -102,6 +114,6 @@ public class FlimContentAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
     }
 
     public interface OnItemClick{
-        void success(int id,boolean isGreat);
+        void success(String id,boolean isGreat);
     }
 }

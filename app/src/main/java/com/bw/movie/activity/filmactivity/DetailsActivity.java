@@ -12,6 +12,7 @@ import android.view.Gravity;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.PopupWindow;
@@ -48,7 +49,7 @@ public class DetailsActivity extends BaseActivity {
     @BindView(R.id.details_but_details)
     Button mDetails;
     @BindView(R.id.details_icon_concren)
-    ImageView mConcren;
+    CheckBox mConcren;
     @BindView(R.id.details_but_juzhao)
     Button mStage;
     @BindView(R.id.details_but_yingping)
@@ -57,7 +58,7 @@ public class DetailsActivity extends BaseActivity {
     ImageView mYicon;
 
     ImageView mDown;
-    ImageView pIocn;
+    ImageView pIocn,mComment;
     TextView pLeixing;
     TextView pdaoyan;
     TextView pshicahng;
@@ -69,8 +70,8 @@ public class DetailsActivity extends BaseActivity {
     ImageView sIcon,yIcon;
     FlimContentAdapter mFlimContentAdapter;
     String id;
-    int TTT = 0;
-
+    int followMovie;
+    DetailsBean user;
     @Override
     protected void initData() {
         //开始网络请求
@@ -91,16 +92,24 @@ public class DetailsActivity extends BaseActivity {
         initManager();
         //点赞
         initZan();
+        //去评论
+        initConmment();
+    }
+
+    private void initConmment() {
+
+
     }
 
     private void initZan() {
         mFlimContentAdapter.setOnItemClick(new FlimContentAdapter.OnItemClick() {
             @Override
-            public void success(int id, boolean isGreat) {
+            public void success(String id, boolean isGreat) {
+
                 Map<String,String> map = new HashMap<>();
-                map.put("commentId",id+"");
+                map.put("commentId",id);
                 if(isGreat){
-                   doNetPost(Apis.URL_POST_DIANZAN,map,ZanBean.class);
+                    doNetPost(Apis.URL_POST_DIANZAN,map,ZanBean.class);
                 }else{
                     doNetPost(Apis.URL_POST_DIANZAN,map,ZanBean.class);
                 }
@@ -113,6 +122,7 @@ public class DetailsActivity extends BaseActivity {
         View view1 = View.inflate(DetailsActivity.this,R.layout.flim_pop,null);
         mFlimContents = view1.findViewById(R.id.flim_pop_contents);
         yIcon = view1.findViewById(R.id.flim_icon_down);
+        mComment = view1.findViewById(R.id.film_pop_write);
         yPop = new PopupWindow(view1,LinearLayout.LayoutParams.MATCH_PARENT,LinearLayout.LayoutParams.WRAP_CONTENT);
         //设置焦点
         yPop.setFocusable(true);
@@ -202,12 +212,11 @@ public class DetailsActivity extends BaseActivity {
         mConcren.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(TTT==0){
-                    TTT = 1;
-                    doNetGet(String.format(Apis.URL_GET_GUANZHU,id),ConcrenBean.class);
+
+                if(mConcren.isChecked()) {
+                    doNetGet(String.format(Apis.URL_GET_GUANZHU, id), ConcrenBean.class);
                 }else{
-                    TTT = 0;
-                    doNetGet(String.format(Apis.URL_GET_QUXIAOGUANZHU,id),ConcrenBean.class);
+                    doNetGet(String.format(Apis.URL_GET_QUXIAOGUANZHU, id), ConcrenBean.class);
                 }
             }
         });
@@ -307,8 +316,14 @@ public class DetailsActivity extends BaseActivity {
             }
         }
         if(data instanceof DetailsBean){
-            DetailsBean user = (DetailsBean) data;
+            user = (DetailsBean) data;
             if(user.getStatus().equals("0000")){
+                followMovie = user.getResult().getFollowMovie();
+                if(followMovie==1){
+                    mConcren.setChecked(true);
+                }else{
+                    mConcren.setChecked(false);
+                }
                 Glide.with(this).load(user.getResult().getImageUrl()).into(pIocn);
                 pLeixing.setText(user.getResult().getMovieTypes());
                 pchandi.setText(user.getResult().getPlaceOrigin());
@@ -316,7 +331,7 @@ public class DetailsActivity extends BaseActivity {
                 pdaoyan.setText(user.getResult().getDirector());
                 ptitle.setText(user.getResult().getSummary());
                 mStageContentAdapter.setMlist(user.getResult().getPosterList());
-                Log.i("TWZY",user.getResult().getPosterList().size()+"");
+                Log.i("TWZY", user.getResult().getPosterList().size()+"");
             }
         }
 
@@ -327,24 +342,21 @@ public class DetailsActivity extends BaseActivity {
             }
         }
 
+        if(data instanceof ConcrenBean){
+            ConcrenBean user = (ConcrenBean) data;
+            if (user.getStatus().equals("0000")){
+                ToastUtils.show(this,user.getMessage());
+                doNetGet(String.format(Apis.URL_GET_MOVIEDETAILS, id),DetailsBean.class);
+            }
+        }
+
         if(data instanceof ZanBean){
             ZanBean user = (ZanBean) data;
             if(user.getStatus().equals("0000")){
                 ToastUtils.show(this,user.getMessage());
-                doNetGet(String.format(Apis.URL_GET_PNGLUN, id),CommentBean.class);
+
             }else{
                 ToastUtils.show(this,user.getMessage());
-            }
-        }
-
-        if(data instanceof ConcrenBean){
-            ConcrenBean user = (ConcrenBean) data;
-            if (user.getMessage().equals("关注成功")){
-                ToastUtils.show(this,user.getMessage());
-                mConcren.setBackgroundResource(R.mipmap.com_icon_collection_selected);
-            }else if(user.getMessage().equals("取消关注成功")){
-                ToastUtils.show(this,user.getMessage());
-                mConcren.setBackgroundResource(R.mipmap.com_icon_collection_default);
             }
         }
     }

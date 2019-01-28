@@ -40,14 +40,15 @@
             android:layout_marginTop="@dimen/dp_33"
             />
 
-        <ImageView
+        <CheckBox
             android:id="@+id/details_icon_concren"
             android:layout_alignTop="@id/details_icon"
             android:layout_width="@dimen/dp_24"
             android:layout_alignParentRight="true"
+            android:button="@null"
             android:layout_marginRight="@dimen/dp_24"
             android:layout_height="@dimen/dp_24"
-            android:src="@mipmap/com_icon_collection_default"
+            android:background="@drawable/guanzhu_shape"
             />
 
     </RelativeLayout>
