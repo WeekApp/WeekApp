@@ -12,6 +12,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.bw.movie.activity.myactivity.MyMessageActivity;
 import com.bw.movie.activity.myactivity.RemindActivity;
 import com.bw.movie.activity.useractivity.LoginActivity;
 import com.bw.movie.base.BaseFragment;
@@ -121,6 +122,7 @@ public class MyFragment extends BaseFragment {
             RegisterBean registerBean= (RegisterBean) data;
             String message = registerBean.getMessage();
             Toast.makeText(getContext(), message+"", Toast.LENGTH_SHORT).show();
+            initMesage();
         }
     }
 
@@ -141,7 +143,7 @@ public class MyFragment extends BaseFragment {
         unbinder.unbind();
     }
     //点击事件
-    @OnClick({R.id.myfragment_Simple_remind,R.id.myfragment_btn_signin, R.id.myfragment_iv_messiage, R.id.myfragment_tv_messiage, R.id.myfragment_iv_attention, R.id.myfragment_tv_attention, R.id.myfragment_iv_feedback, R.id.myfragment_tv_feedback,R.id.myfragment_iv_rccord,R.id.myfragment_tv_rccord, R.id.myfragment_iv_version, R.id.myfragment_tv_version, R.id.myfragment_iv_logout, R.id.myfragment_tv_logout})
+    @OnClick({R.id.myfragment_Simple_remind,R.id.myfragment_btn_signined,R.id.myfragment_btn_signin, R.id.myfragment_iv_messiage, R.id.myfragment_tv_messiage, R.id.myfragment_iv_attention, R.id.myfragment_tv_attention, R.id.myfragment_iv_feedback, R.id.myfragment_tv_feedback,R.id.myfragment_iv_rccord,R.id.myfragment_tv_rccord, R.id.myfragment_iv_version, R.id.myfragment_tv_version, R.id.myfragment_iv_logout, R.id.myfragment_tv_logout})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             //系统消息
@@ -153,11 +155,18 @@ public class MyFragment extends BaseFragment {
                 //签到
                 initSign();
                 break;
+                //已签到
+            case R.id.myfragment_btn_signined:
+                //签到
+                initSign();
+                break;
                 //我的信息
             case R.id.myfragment_iv_messiage:
+                startActivity(new Intent(getContext(),MyMessageActivity.class));
                 break;
                 //我的信息
             case R.id.myfragment_tv_messiage:
+                startActivity(new Intent(getContext(),MyMessageActivity.class));
                 break;
                 //我的关注
             case R.id.myfragment_iv_attention:

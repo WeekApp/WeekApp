@@ -3,6 +3,7 @@ package com.bw.movie.activity.myactivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -45,6 +46,13 @@ public class RemindActivity extends BaseActivity {
         mRemindAdapter = new RemindAdapter(this);
         remindfragmentRecy.setAdapter(mRemindAdapter);
         remindfragmentRecy.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false));
+
+        remindfragmentBack.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
     }
 
     @Override

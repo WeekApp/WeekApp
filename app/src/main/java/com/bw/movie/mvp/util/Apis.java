@@ -41,4 +41,12 @@ public class Apis {
     public static final String URL_GET_REMIND = "movieApi/tool/v1/verify/findAllSysMsgList?page=1&count=5";
 
 
+    //关注影院
+    public static final String URL_GET_GUANZHUYINGYUAN = "movieApi/cinema/v1/verify/followCinema";
+    //取消关注影院
+    public static final String URL_GET_CANCLEGUANZHUYINGYUAN = "movieApi/cinema/v1/verify/cancelFollowCinema";
+
+    //搜索
+    public static final String URL_GET_SEARCH = "movieApi/cinema/v1/findAllCinemas";
+
 }

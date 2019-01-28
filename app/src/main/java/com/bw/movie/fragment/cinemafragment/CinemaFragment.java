@@ -19,19 +19,30 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.view.ViewPager;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.bw.movie.activity.cinemaactivity.CinemaDetailActivity;
 import com.bw.movie.activity.homeactivity.CityActivity;
 import com.bw.movie.activity.homeactivity.MainActivity;
+import com.bw.movie.adapter.cinemaadapter.CinemaSearchAdapter;
+import com.bw.movie.adapter.cinemaadapter.RecommendAdapter;
 import com.bw.movie.base.BaseFragment;
 import com.bw.movie.bean.cinemabean.CinemaLocationBean;
+import com.bw.movie.bean.cinemabean.CinemaSearchBean;
+import com.bw.movie.bean.cinemabean.RemmondBean;
+import com.bw.movie.bean.mybean.RemindBean;
+import com.bw.movie.bean.userbean.RegisterBean;
+import com.bw.movie.mvp.util.Apis;
 import com.bw.movie.util.LocationUtils;
 import com.bw.movie.Utils.cinema.RequestCodeInfo;
 import com.bw.onlymycinema.R;
@@ -67,6 +78,8 @@ public class CinemaFragment extends BaseFragment {
     ImageView cinemaFragmentImageLocation;
     @BindView(R.id.cinemaFragment_tv_location)
     TextView cinemaFragmentTvLocation;
+    @BindView(R.id.cinemaFragment_recy)
+    RecyclerView cinemaFragmentrecy;
     @BindView(R.id.cinemaFragment_edit_search)
     EditText cinemaFragmentEditSearch;
     @BindView(R.id.cinemaFragment_tv_search)
@@ -79,15 +92,14 @@ public class CinemaFragment extends BaseFragment {
     RadioGroup cinemaFragmentGroup;
     @BindView(R.id.cinemaFragment_vp)
     ViewPager cinemaFragmentVp;
+    @BindView(R.id.linear)
+    LinearLayout linear;
+
     Unbinder unbinder;
     private String mCity1;
-    private LocationManager locationManager;
-    private String locationProvider;
     private double mLatitude;
     private double mLongitude;
-    private LocationManager mLoctionManager;
-    private boolean isGpsEnabled;
-    private String locateType;
+    private CinemaSearchAdapter mCinemaSearchAdapter;
 
 
     //初始化控件
@@ -149,9 +161,6 @@ public class CinemaFragment extends BaseFragment {
             }
         });
 
-        //获取定位动态权限
-        applypermission();
-
         //获取经纬度
         initlongitude();
 
@@ -159,33 +168,6 @@ public class CinemaFragment extends BaseFragment {
         initLocation();
 
     }
-
-    //动态权限
-    private void applypermission() {
-        if(Build.VERSION.SDK_INT>=23){
-            //检查是否已经给了权限
-            int checkpermission= ContextCompat.checkSelfPermission(getContext(),
-                    Manifest.permission.ACCESS_FINE_LOCATION);
-            if(checkpermission!=PackageManager.PERMISSION_GRANTED){//没有给权限
-                Log.e("permission","动态申请");
-                //参数分别是当前活动，权限字符串数组，requestcode
-                ActivityCompat.requestPermissions(getActivity(),new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, 1);
-            }
-        }
-
-    }
-
-    @Override
-    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
-        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
-        //grantResults数组与权限字符串数组对应，里面存放权限申请结果
-        if(grantResults[0]== PackageManager.PERMISSION_GRANTED){
-            Toast.makeText(getContext(),"已授权",Toast.LENGTH_SHORT).show();
-        }else{
-            Toast.makeText(getContext(),"拒绝授权",Toast.LENGTH_SHORT).show();
-        }
-    }
-
 
     //获取经纬度
     private void initlongitude() {
@@ -197,7 +179,7 @@ public class CinemaFragment extends BaseFragment {
             System.out.println("精度: "+mLatitude+"");
             System.out.println("精度: "+mLongitude+"");
             Log.d( "FLY.LocationUtils", address );
-
+            Toast.makeText(getContext(), mLatitude+" =qaz= "+mLongitude, Toast.LENGTH_SHORT).show();
         }
 
     }
@@ -210,17 +192,22 @@ public class CinemaFragment extends BaseFragment {
 
     }
 
-    //
+    //返回布局
     @Override
     protected int getLayout() {
         return R.layout.fragment_cinema;
     }
-
+    //请求成功
     @Override
     protected void netSuccess(Object data) {
+        if (data instanceof CinemaSearchBean){
 
+            CinemaSearchBean cinemaSearchBean= (CinemaSearchBean) data;
+            mCinemaSearchAdapter.setData(cinemaSearchBean.getResult());
+
+        }
     }
-
+    //请求失败
     @Override
     protected void netFail(Object data) {
 
@@ -228,54 +215,118 @@ public class CinemaFragment extends BaseFragment {
 
 
     //点击事件
-    @OnClick({R.id.cinemaFragment_image_location, R.id.cinemaFragment_edit_search})
+    @OnClick({R.id.cinemaFragment_image_location, R.id.cinemaFragment_edit_search,R.id.cinemaFragment_tv_search})
     public void onViewClicked(View view) {
         switch (view.getId()) {
+            //定位城市
             case R.id.cinemaFragment_image_location:
-                startActivityForResult(new Intent(getContext(),CityActivity.class),RequestCodeInfo.GETCITY);
+                startActivityForResult(new Intent(getContext(), CityActivity.class), RequestCodeInfo.GETCITY);
+                break;
+            //搜索框
+            case R.id.cinemaFragment_tv_search:
+
+                String trim = cinemaFragmentEditSearch.getText().toString().trim();
+                if (trim.isEmpty()){
+                    cinemaFragmentrecy.setVisibility(View.GONE);
+                    linear.setVisibility(View.VISIBLE);
+                }else{
+                    cinemaFragmentrecy.setVisibility(View.VISIBLE);
+                    linear.setVisibility(View.GONE);
+                }
+
+                //搜索
+                initSearch(trim);
+
                 break;
             case R.id.cinemaFragment_edit_search:
-                ValueAnimator valueAnimator = ValueAnimator.ofInt(cinemaFragmentEditSearch.getLayoutParams().width, 600);
-                valueAnimator.setDuration(2000);
-
-                valueAnimator.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
-                    @Override
-                    public void onAnimationUpdate(ValueAnimator animator) {
-
-                        int currentValue = (Integer) animator.getAnimatedValue();
-
-                        cinemaFragmentEditSearch.getLayoutParams().width = currentValue;
-                        cinemaFragmentEditSearch.requestLayout();
-
-                    }
-                });
-                valueAnimator.addListener(new Animator.AnimatorListener() {
-                    @Override
-                    public void onAnimationStart(Animator animation) {
-
-                    }
-
-                    @Override
-                    public void onAnimationEnd(Animator animation) {
-                        cinemaFragmentEditSearch.setHint("CGV影城");
-                        cinemaFragmentTvSearch.setVisibility(View.VISIBLE);
-                    }
-
-                    @Override
-                    public void onAnimationCancel(Animator animation) {
-
-                    }
-
-                    @Override
-                    public void onAnimationRepeat(Animator animation) {
-
-                    }
-                });
-                valueAnimator.start();
-
-
+                //搜索框动画
+                initAnimator();
                 break;
         }
+    }
+
+    private void initSearch(String s) {
+        doNetGet(Apis.URL_GET_SEARCH+"?page=1&count=10&cinemaName="+s,CinemaSearchBean.class);
+        mCinemaSearchAdapter = new CinemaSearchAdapter(getContext());
+        cinemaFragmentrecy.setAdapter(mCinemaSearchAdapter);
+        cinemaFragmentrecy.setLayoutManager(new LinearLayoutManager(getContext(),LinearLayoutManager.VERTICAL,false));
+
+        mCinemaSearchAdapter.setGetData(new CinemaSearchAdapter.GetData() {
+            @Override
+            public void onClick(int id, String logo, String name, String address) {
+                Intent intent=new Intent(getContext(),CinemaDetailActivity.class);
+                intent.putExtra("id",id+"");
+                intent.putExtra("logo",logo);
+                intent.putExtra("name",name);
+                intent.putExtra("address",address);
+                startActivity(intent);
+            }
+
+            @Override
+            public void onColletion(int id, int followCinema) {
+                //关注
+                initCollection(id,followCinema);
+            }
+
+            @Override
+            public void onColletioned(int id) {
+                //取消关注
+                initCollectioned(id);
+            }
+
+
+        });
+    }
+    //取消关注
+    private void initCollectioned(int id) {
+        doNetGet(Apis.URL_GET_CANCLEGUANZHUYINGYUAN+"?cinemaId="+id,RegisterBean.class);
+
+    }
+
+    //关注
+    private void initCollection(int id,int fo) {
+        doNetGet(Apis.URL_GET_GUANZHUYINGYUAN+"?cinemaId="+id,RegisterBean.class);
+
+    }
+    //搜索框动画
+    private void initAnimator() {
+        ValueAnimator valueAnimator = ValueAnimator.ofInt(cinemaFragmentEditSearch.getLayoutParams().width, 600);
+        valueAnimator.setDuration(2000);
+
+        valueAnimator.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
+            @Override
+            public void onAnimationUpdate(ValueAnimator animator) {
+
+                int currentValue = (Integer) animator.getAnimatedValue();
+
+                cinemaFragmentEditSearch.getLayoutParams().width = currentValue;
+                cinemaFragmentEditSearch.requestLayout();
+
+            }
+        });
+        valueAnimator.addListener(new Animator.AnimatorListener() {
+            @Override
+            public void onAnimationStart(Animator animation) {
+
+            }
+
+            @Override
+            public void onAnimationEnd(Animator animation) {
+                cinemaFragmentEditSearch.setHint("CGV影城");
+                cinemaFragmentTvSearch.setVisibility(View.VISIBLE);
+            }
+
+            @Override
+            public void onAnimationCancel(Animator animation) {
+
+            }
+
+            @Override
+            public void onAnimationRepeat(Animator animation) {
+
+            }
+        });
+        valueAnimator.start();
     }
 
 
@@ -284,6 +335,7 @@ public class CinemaFragment extends BaseFragment {
         public void handleMessage(Message msg) {
             super.handleMessage(msg);
             if (msg.what == 0) {
+
                 cinemaFragmentTvLocation.setText("城市:" + mCity1);
             }
         }
@@ -308,6 +360,8 @@ public class CinemaFragment extends BaseFragment {
     private class MyAsyncExtue extends AsyncTask<Location, Void, String> {
         @Override
         protected String doInBackground(Location... params) {
+
+
             HttpClient client = new DefaultHttpClient();
             StringBuilder stringBuilder = new StringBuilder();
             HttpGet httpGet = new HttpGet("http://api.map.baidu.com/geocoder?output=json&location="+mLatitude+","+mLongitude+"&ak=I3Bm5iocjMlbwGayEm1B3VXkWBmV9t76");

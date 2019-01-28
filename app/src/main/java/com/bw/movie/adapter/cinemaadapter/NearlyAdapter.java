@@ -40,23 +40,44 @@ public class NearlyAdapter extends RecyclerView.Adapter<NearlyAdapter.ViewHolder
     }
 
     @Override
-    public void onBindViewHolder(@NonNull ViewHolder viewHolder, int i) {
+    public void onBindViewHolder(@NonNull final ViewHolder viewHolder, int i) {
 
         final String logo = list.get(i).getLogo();
         final String name = list.get(i).getName();
         final String address = list.get(i).getAddress();
         int distance = list.get(i).getDistance();
         final int id = list.get(i).getId();
+        final int followCinema = list.get(i).getFollowCinema();
+
+        double a=Math.round( distance / 100d) / 10d;
 
         viewHolder.remmend_simple_image.setImageURI(logo);
         viewHolder.remmend_tv_name.setText(name);
         viewHolder.remmend_tv_title.setText(address);
-        viewHolder.remmend_tv_distance.setText(distance+"Km");
+        viewHolder.remmend_tv_distance.setText(a+"Km");
 
         viewHolder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 mGetData.onClick(id,logo,name,address);
+            }
+        });
+
+        viewHolder.remmend_iv_collection.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mGetData.onColletion(id,followCinema);
+                viewHolder.remmend_iv_collection.setVisibility(View.GONE);
+                viewHolder.remmend_iv_collectionselect.setVisibility(View.VISIBLE);
+            }
+        });
+
+        viewHolder.remmend_iv_collectionselect.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mGetData.onColletioned(id);
+                viewHolder.remmend_iv_collection.setVisibility(View.VISIBLE);
+                viewHolder.remmend_iv_collectionselect.setVisibility(View.GONE);
             }
         });
     }
@@ -85,6 +106,8 @@ public class NearlyAdapter extends RecyclerView.Adapter<NearlyAdapter.ViewHolder
 
     public interface GetData{
         void onClick(int id, String logo, String name, String address);
+        void onColletion(int id,int followCinema);
+        void onColletioned(int id);
     }
     private GetData mGetData;
 

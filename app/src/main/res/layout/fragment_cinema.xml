@@ -34,10 +34,9 @@
             android:layout_width="@dimen/dp_48"
             android:layout_height="@dimen/dp_24"
             android:paddingLeft="@dimen/dp_30"
-            android:layout_alignParentRight="true"
             android:adjustViewBounds="true"
-            android:maxWidth="@dimen/dp_220"
             android:layout_marginTop="@dimen/dp_30"
+            android:layout_toLeftOf="@+id/cinemaFragment_tv_search"
             android:background="@drawable/shapecinemasearch" />
         <ImageView
             android:layout_width="@dimen/dp_20"
@@ -52,17 +51,24 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="搜索"
-            android:textColor="#ffffff"
-            android:textSize="@dimen/sp_12"
+            android:textColor="#000"
+            android:textSize="@dimen/sp_16"
             android:layout_alignParentRight="true"
-            android:layout_marginTop="@dimen/dp_34"
-            android:layout_marginRight="@dimen/dp_30"
-            android:visibility="gone"
+            android:layout_marginTop="@dimen/dp_30"
+
             />
 
     </RelativeLayout>
 
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/cinemaFragment_recy"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginLeft="@dimen/dp_24"
+        android:layout_marginRight="@dimen/dp_24"
+        android:visibility="gone"></android.support.v7.widget.RecyclerView>
     <LinearLayout
+        android:id="@+id/linear"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical">
@@ -81,41 +87,32 @@
                 android:layout_height="match_parent"
                 android:orientation="horizontal">
 
-                <RelativeLayout
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1">
-
                     <RadioButton
                         android:id="@+id/cinemaFragment_radio_recommend"
                         android:layout_width="@dimen/dp_85"
                         android:layout_height="@dimen/dp_25"
+                        android:layout_weight="1"
                         android:layout_alignParentRight="true"
                         android:layout_gravity="center"
                         android:layout_marginRight="@dimen/dp_18"
+                        android:layout_marginLeft="@dimen/dp_70"
                         android:background="@drawable/select"
                         android:button="@null"
-
                         android:checked="true"
                         android:gravity="center"
                         android:text="推荐影院"
                         android:textColor="#333333"
                         android:textSize="14sp" />
 
-                </RelativeLayout>
-
-                <RelativeLayout
-
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1">
 
                     <RadioButton
                         android:id="@+id/cinemaFragment_radio_nearby"
                         android:layout_width="@dimen/dp_85"
                         android:layout_height="@dimen/dp_25"
+                        android:layout_weight="1"
                         android:layout_gravity="center"
                         android:layout_marginLeft="@dimen/dp_17"
+                        android:layout_marginRight="@dimen/dp_70"
                         android:background="@drawable/select"
                         android:button="@null"
                         android:checked="false"
@@ -123,7 +120,7 @@
                         android:text="附近影院"
                         android:textColor="#333333"
                         android:textSize="14sp" />
-                </RelativeLayout>
+
             </RadioGroup>
 
 
