@@ -23,15 +23,13 @@ public class Apis {
     //查询附近影院
     public static final String URL_GET_NEARLY = "movieApi/cinema/v1/findNearbyCinemas?longitude=116.30551391385724&latitude=40.04571807462411&page=1&count=10";
     //根据影院ID查询电影
-    public static final String URL_GET_findMovieListByCinemaId = "movieApi/movie/v1/findMovieListByCinemaId";
+    public static final String URL_GET_findMovieListByCinemaId = "movieApi/movie1/findMovieListByCinemaId";
     //根据影院ID电影Id查询电影排期
-    public static final String URL_GET_findMovieScheduleList = "movieApi/movie/v1/findMovieScheduleList";
+    public static final String URL_GET_findMovieScheduleList = "movieApi/movie1/findMovieScheduleList";
     //影片评论点赞
     public static final String URL_POST_DIANZAN = "movieApi/movie/v1/verify/movieCommentGreat?commentId=%s";
     //关注影片
     public static final String URL_GET_GUANZHU = "movieApi/movie/v1/verify/followMovie?movieId=%s";
     //取消关注影片
     public static final String URL_GET_QUXIAOGUANZHU = "movieApi/movie/v1/verify/cancelFollowMovie?movieId=%s";
-    //添加用户对影片的评论
-    public static final String URL_GET_PINGLUN = "movieApi/movie/v1/verify/movieComment?movieId=%s&commentContent=%s";
 }

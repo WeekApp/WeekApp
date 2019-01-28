@@ -59,4 +59,7 @@ dependencies {
 
     //侧边索引
     implementation 'me.yokeyword:indexablerecyclerview:1.3.0'
+
+    //noinspection GradleCompatible
+    implementation 'com.android.support:design:26.0.0'
 }
