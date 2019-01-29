@@ -1,30 +1,96 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout
     xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:layout_marginTop="@dimen/dp_150"
-    android:background="#969696"
+    android:layout_height="match_parent"
+    android:background="#10969696"
    >
 
-    <ImageView
-        android:id="@+id/cinemadetail_popu_down"
-        android:layout_width="@dimen/dp_24"
-        android:layout_height="@dimen/dp_24"
-        android:src="@mipmap/com_icon_down_default"
-        android:layout_alignParentRight="true"
-        android:layout_marginTop="@dimen/dp_20"
-        android:layout_marginRight="@dimen/dp_24"/>
-        <android.support.design.widget.TabLayout
-            android:id="@+id/cinemadetail_popu_tab"
-            android:layout_width="match_parent"
-            android:layout_marginTop="@dimen/dp_20"
-            android:layout_height="@dimen/dp_50"></android.support.design.widget.TabLayout>
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@drawable/pop_white"
+        android:layout_marginTop="@dimen/dp_100"
+        >
+
+        <ImageView
+            android:id="@+id/yingyuan_pop_down"
+            android:layout_width="@dimen/dp_54"
+            android:layout_height="@dimen/dp_54"
+            android:src="@mipmap/com_icon_down_default"
+            android:layout_alignParentRight="true"
+            />
+
+        <RelativeLayout
+            android:id="@+id/sdfbgnh"
+            android:layout_marginLeft="@dimen/dp_110"
+            android:layout_width="@dimen/dp_200"
+            android:layout_height="@dimen/dp_40"
+            >
+
+            <RadioGroup
+                android:id="@+id/yingyuan_pop_group"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="horizontal"
+                >
+
+                <RadioButton
+                    android:id="@+id/yingyuan_but1"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:button="@null"
+                    android:text="详情"
+                    android:textSize="@dimen/sp_16"
+                    android:layout_weight="1"
+                    android:gravity="bottom"
+                    />
+
+                <RadioButton
+                    android:id="@+id/yingyuan_but2"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:button="@null"
+                    android:text="评论"
+                    android:textSize="@dimen/sp_16"
+                    android:layout_weight="1"
+                    android:gravity="bottom"
+                    />
+
+            </RadioGroup>
+
+        </RelativeLayout>
+
+        <TextView
+            android:id="@+id/heng_one"
+            android:layout_width="@dimen/dp_30"
+            android:layout_height="@dimen/dp_3"
+            android:layout_below="@+id/sdfbgnh"
+            android:layout_alignLeft="@id/sdfbgnh"
+            android:layout_marginTop="@dimen/dp_5"
+            android:background="#1e2070"
+            android:layout_marginLeft="@dimen/dp_1"
+            />
+
+        <TextView
+            android:id="@+id/heng_two"
+            android:layout_width="@dimen/dp_30"
+            android:layout_height="@dimen/dp_3"
+            android:layout_below="@+id/sdfbgnh"
+            android:visibility="invisible"
+            android:layout_alignTop="@id/heng_one"
+            android:layout_toRightOf="@id/heng_one"
+            android:layout_marginLeft="@dimen/dp_71"
+            android:background="#1e2070"
+            />
+
         <android.support.v4.view.ViewPager
-            android:id="@+id/cinemadetail_popu_viewpager"
+            android:id="@+id/yingyuan_pop_pager"
             android:layout_width="match_parent"
-            android:layout_marginTop="@dimen/dp_20"
-            android:layout_below="@+id/cinemadetail_popu_tab"
-            android:layout_height="match_parent"></android.support.v4.view.ViewPager>
+            android:layout_height="match_parent"
+            android:layout_below="@+id/heng_two"
+            />
+
+    </RelativeLayout>
 
 
 

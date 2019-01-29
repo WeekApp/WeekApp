@@ -1,7 +1,6 @@
 package com.bw.movie.mvp.util;
 
 public class Apis {
-
     //注册
     public static final String URL_POST_REGISTER = "movieApi/user/v1/registerUser";
     //登录
@@ -32,13 +31,18 @@ public class Apis {
     public static final String URL_GET_GUANZHU = "movieApi/movie/v1/verify/followMovie?movieId=%s";
     //取消关注影片
     public static final String URL_GET_QUXIAOGUANZHU = "movieApi/movie/v1/verify/cancelFollowMovie?movieId=%s";
-
     //查询用户信息
     public static final String URL_GET_QUREYMESSAGE = "movieApi/user/v1/verify/findUserHomeInfo";
     //查询用户信息
     public static final String URL_GET_USERSIGNIN = "movieApi/user/v1/verify/userSignIn";
     //查询系统消息
     public static final String URL_GET_REMIND = "movieApi/tool/v1/verify/findAllSysMsgList?page=1&count=5";
-
-
+    //搜索
+    public static final String URL_GET_SEARCH = "movieApi/cinema1/findAllCinemas";
+    //关注影院
+    public static final String URL_GET_GUANZHUYINGYUANN = "movieApi/cinema/v1/verify/followCinema?cinemaId=%s";
+    //取消关注影院
+    public static final String URL_GET_CANCLEGUANZHUYINGYUANN= "movieApi/cinema/v1/verify/cancelFollowCinema?cinemaId=%s";
+    //影片评论
+    public static final String URL_POST_PINGLUN = "movieApi/movie/v1/verify/movieComment";
 }

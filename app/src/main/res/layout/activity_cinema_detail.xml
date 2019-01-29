@@ -55,6 +55,8 @@
             android:layout_width="match_parent"
             android:layout_height="@dimen/dp_200"
             android:layout_marginTop="@dimen/dp_20"
+            android:layout_marginLeft="@dimen/dp_20"
+            android:layout_marginRight="@dimen/dp_20"
             android:layout_below="@+id/cinemadetail_simple_logo" />
 
         <RadioGroup

@@ -10,12 +10,15 @@ import android.view.View;
 import android.widget.Toast;
 
 import com.bw.movie.activity.cinemaactivity.CinemaDetailActivity;
+import com.bw.movie.adapter.cinemaadapter.NearlyAdapter;
 import com.bw.movie.adapter.cinemaadapter.RecommendAdapter;
 import com.bw.movie.base.BaseFragment;
 import com.bw.movie.bean.cinemabean.RemmondBean;
+import com.bw.movie.bean.filmbean.details.buyingbean.ConcrenBean;
 import com.bw.movie.bean.userbean.RegisterBean;
 import com.bw.movie.mvp.persenter.IPersenter;
 import com.bw.movie.mvp.util.Apis;
+import com.bw.movie.util.ToastUtils;
 import com.bw.onlymycinema.R;
 
 import butterknife.BindView;
@@ -56,31 +59,10 @@ public class RecommendFragment extends BaseFragment {
                 intent.putExtra("address",address);
                 startActivity(intent);
             }
-
-            @Override
-            public void onColletion(int id, int followCinema) {
-                //关注
-                initCollection(id,followCinema);
-            }
-
-            @Override
-            public void onColletioned(int id) {
-                //取消关注
-                initCollectioned(id);
-            }
-
         });
-    }
-    //取消关注
-    private void initCollectioned(int id) {
-        doNetGet(Apis.URL_GET_CANCLEGUANZHUYINGYUAN+"?cinemaId="+id,RegisterBean.class);
 
-    }
-
-    //关注
-    private void initCollection(int id,int fo) {
-        doNetGet(Apis.URL_GET_GUANZHUYINGYUAN+"?cinemaId="+id,RegisterBean.class);
-
+        //去关注
+        initConcren();
     }
 
     //请求
@@ -88,6 +70,21 @@ public class RecommendFragment extends BaseFragment {
     protected void initData() {
 
         mIPersenter.requestGetBack(Apis.URL_GET_REMMOND,RemmondBean.class);
+
+    }
+
+    private void initConcren() {
+        mRecommendAdapter.setOnItemClick(new RecommendAdapter.OnItemClick() {
+            @Override
+            public void success(String id, boolean is) {
+                if(is){
+                    doNetGet(String.format(Apis.URL_GET_GUANZHUYINGYUANN,id),ConcrenBean.class);
+                }else{
+                    doNetGet(String.format(Apis.URL_GET_CANCLEGUANZHUYINGYUANN,id),ConcrenBean.class);
+                }
+                mRecommendAdapter.notifyDataSetChanged();
+            }
+        });
     }
 
     //布局
@@ -105,6 +102,17 @@ public class RecommendFragment extends BaseFragment {
         }else if (data instanceof RegisterBean){
             RegisterBean registerBean= (RegisterBean) data;
             Toast.makeText(getContext(), registerBean.getMessage()+"", Toast.LENGTH_SHORT).show();
+        }
+
+        if(data instanceof  ConcrenBean){
+            ConcrenBean user = (ConcrenBean) data;
+            if(user.getStatus().equals("0000")){
+                ToastUtils.show(getActivity(),user.getMessage());
+                doNetGet(Apis.URL_GET_NEARLY,RemmondBean.class);
+            }else{
+                ToastUtils.show(getActivity(),user.getMessage());
+                doNetGet(Apis.URL_GET_NEARLY,RemmondBean.class);
+            }
         }
     }
 

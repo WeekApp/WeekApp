@@ -57,7 +57,7 @@ public class JijContentAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
     }
 
     @Override
-    public void onBindViewHolder(@NonNull RecyclerView.ViewHolder viewHolder, int i) {
+    public void onBindViewHolder(@NonNull RecyclerView.ViewHolder viewHolder,final int i) {
         ViewHolder holder = (ViewHolder) viewHolder;
         holder.icon.setImageURI(mlist.get(i).getImageUrl());
         holder.title.setText(mlist.get(i).getSummary());
@@ -69,10 +69,35 @@ public class JijContentAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
         }else{
             holder.mXin.setChecked(false);
         }
+
+        holder.mXin.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                if(mlist.get(i).getFollowMovie()==1){
+                    mlist.get(i).setFollowMovie(2);
+                }else{
+                    mlist.get(i).setFollowMovie(1);
+                }
+                onItemClick.succuess(mlist.get(i).getId()+"",mlist.get(i).getFollowMovie()==1);
+                notifyItemChanged(i);
+            }
+        });
+
     }
 
     @Override
     public int getItemCount() {
         return mlist.size();
+    }
+
+    OnItemClick onItemClick;
+
+    public void setOnItemClick(OnItemClick onItemClick) {
+        this.onItemClick = onItemClick;
+    }
+
+    public interface OnItemClick{
+        void succuess(String id,boolean isMovie);
     }
 }

@@ -7,7 +7,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.CheckBox;
-import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.bw.movie.bean.filmbean.FilmHotBean;
@@ -66,6 +65,7 @@ public class HotContentAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
         holder.name.setText(mlist.get(i).getName());
 
         final int followMovie = mlist.get(i).getFollowMovie();
+
         if(followMovie==1){
             holder.mXin.setChecked(true);
         }else{
@@ -76,12 +76,10 @@ public class HotContentAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
             @Override
             public void onClick(View v) {
 
-                if(holder.mXin.isChecked()){
-                    mlist.get(i).setFollowMovie(mlist.get(i).getFollowMovie()+1);
-                    holder.mXin.setChecked(true);
+                if(mlist.get(i).getFollowMovie()==1){
+                    mlist.get(i).setFollowMovie(2);
                 }else{
-                    mlist.get(i).setFollowMovie(mlist.get(i).getFollowMovie()-1);
-                    holder.mXin.setChecked(false);
+                    mlist.get(i).setFollowMovie(1);
                 }
                 onItemClick.succuess(mlist.get(i).getId()+"",mlist.get(i).getFollowMovie()==1);
                 notifyItemChanged(i);

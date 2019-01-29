@@ -40,11 +40,13 @@ import com.bw.movie.base.BaseFragment;
 import com.bw.movie.bean.cinemabean.CinemaLocationBean;
 import com.bw.movie.bean.cinemabean.CinemaSearchBean;
 import com.bw.movie.bean.cinemabean.RemmondBean;
+import com.bw.movie.bean.filmbean.details.buyingbean.ConcrenBean;
 import com.bw.movie.bean.mybean.RemindBean;
 import com.bw.movie.bean.userbean.RegisterBean;
 import com.bw.movie.mvp.util.Apis;
 import com.bw.movie.util.LocationUtils;
 import com.bw.movie.Utils.cinema.RequestCodeInfo;
+import com.bw.movie.util.ToastUtils;
 import com.bw.onlymycinema.R;
 import com.google.gson.Gson;
 
@@ -122,7 +124,6 @@ public class CinemaFragment extends BaseFragment {
             }
         });
 
-
         cinemaFragmentVp.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
             @Override
             public void onPageScrolled(int i, float v, int i1) {
@@ -181,15 +182,20 @@ public class CinemaFragment extends BaseFragment {
             Log.d( "FLY.LocationUtils", address );
             Toast.makeText(getContext(), mLatitude+" =qaz= "+mLongitude, Toast.LENGTH_SHORT).show();
         }
-
     }
 
-
-    //请求数据
-    @Override
-    protected void initData() {
-
-
+    private void initConcren() {
+        mCinemaSearchAdapter.setOnItemClick(new CinemaSearchAdapter.OnItemClick() {
+            @Override
+            public void success(String id, boolean is) {
+                if(is){
+                    doNetGet(String.format(Apis.URL_GET_GUANZHUYINGYUANN,id),ConcrenBean.class);
+                }else{
+                    doNetGet(String.format(Apis.URL_GET_CANCLEGUANZHUYINGYUANN,id),ConcrenBean.class);
+                }
+                mCinemaSearchAdapter.notifyDataSetChanged();
+            }
+        });
     }
 
     //返回布局
@@ -205,6 +211,18 @@ public class CinemaFragment extends BaseFragment {
             CinemaSearchBean cinemaSearchBean= (CinemaSearchBean) data;
             mCinemaSearchAdapter.setData(cinemaSearchBean.getResult());
 
+        }
+
+
+        if(data instanceof ConcrenBean){
+            ConcrenBean user = (ConcrenBean) data;
+            if(user.getStatus().equals("0000")){
+                ToastUtils.show(getActivity(),user.getMessage());
+                doNetGet(Apis.URL_GET_NEARLY,RemmondBean.class);
+            }else{
+                ToastUtils.show(getActivity(),user.getMessage());
+                doNetGet(Apis.URL_GET_NEARLY,RemmondBean.class);
+            }
         }
     }
     //请求失败
@@ -261,33 +279,19 @@ public class CinemaFragment extends BaseFragment {
                 intent.putExtra("address",address);
                 startActivity(intent);
             }
-
-            @Override
-            public void onColletion(int id, int followCinema) {
-                //关注
-                initCollection(id,followCinema);
-            }
-
-            @Override
-            public void onColletioned(int id) {
-                //取消关注
-                initCollectioned(id);
-            }
-
-
         });
+
+        //去关注
+        initConcren();
     }
-    //取消关注
-    private void initCollectioned(int id) {
-        doNetGet(Apis.URL_GET_CANCLEGUANZHUYINGYUAN+"?cinemaId="+id,RegisterBean.class);
+
+    //请求数据
+    @Override
+    protected void initData() {
 
     }
 
-    //关注
-    private void initCollection(int id,int fo) {
-        doNetGet(Apis.URL_GET_GUANZHUYINGYUAN+"?cinemaId="+id,RegisterBean.class);
 
-    }
     //搜索框动画
     private void initAnimator() {
         ValueAnimator valueAnimator = ValueAnimator.ofInt(cinemaFragmentEditSearch.getLayoutParams().width, 600);

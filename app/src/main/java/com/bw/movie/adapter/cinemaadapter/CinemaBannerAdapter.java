@@ -49,15 +49,9 @@ public class CinemaBannerAdapter extends RecyclerView.Adapter<CinemaBannerAdapte
     public void onBindViewHolder(@NonNull ViewHolder viewHolder, int i) {
         String imageUrl = list.get(i).getImageUrl();
         String name = list.get(i).getName();
-        long releaseTime = list.get(i).getReleaseTime();
-        final int id = list.get(i).getId();
 
         viewHolder.simp_cinema_flow.setImageURI(imageUrl);
         viewHolder.text_cinema_flow1.setText(name);
-        viewHolder.text_cinema_flow2.setText(releaseTime+"");
-
-
-
 
     }
 
@@ -75,7 +69,6 @@ public class CinemaBannerAdapter extends RecyclerView.Adapter<CinemaBannerAdapte
             super(itemView);
             simp_cinema_flow=itemView.findViewById(R.id.simp_cinema_flow);
             text_cinema_flow1=itemView.findViewById(R.id.text_cinema_flow1);
-            text_cinema_flow2=itemView.findViewById(R.id.text_cinema_flow2);
         }
     }
     public interface GetData{

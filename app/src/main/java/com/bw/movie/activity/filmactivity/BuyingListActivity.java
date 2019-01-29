@@ -48,9 +48,9 @@ public class BuyingListActivity extends BaseActivity {
             @Override
             public void success(String id, boolean is) {
                 if(is){
-                    doNetGet(String.format(Apis.URL_GET_GUANZHUYINGYUAN,id),ConcrenBean.class);
+                    doNetGet(String.format(Apis.URL_GET_GUANZHUYINGYUANN,id),ConcrenBean.class);
                 }else{
-                    doNetGet(String.format(Apis.URL_GET_QUXIAOYINGYUAN,id),ConcrenBean.class);
+                    doNetGet(String.format(Apis.URL_GET_CANCLEGUANZHUYINGYUANN,id),ConcrenBean.class);
                 }
                 mBuyContentAdapter.notifyDataSetChanged();
             }
