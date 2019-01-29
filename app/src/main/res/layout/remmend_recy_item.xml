@@ -16,7 +16,7 @@
 
     <RelativeLayout
         android:layout_width="@dimen/dp_312"
-        android:layout_height="@dimen/dp_100">
+        android:layout_height="@dimen/dp_90">
 
         <com.facebook.drawee.view.SimpleDraweeView
             android:id="@+id/remmend_simple_image"
@@ -41,9 +41,10 @@
 
         <TextView
             android:id="@+id/remmend_tv_title"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="qwe"
+            android:layout_marginRight="@dimen/dp_30"
             android:textColor="#333333"
             android:textSize="@dimen/sp_12"
             android:layout_below="@+id/remmend_tv_name"
@@ -70,9 +71,8 @@
             android:layout_height="@dimen/dp_20"
             android:button="@null"
             android:background="@drawable/guanzhu_shape"
-            android:layout_toRightOf="@+id/remmend_tv_distance"
            android:layout_alignTop="@+id/remmend_tv_distance"
-            android:layout_marginLeft="@dimen/dp_140"
+            android:layout_alignRight="@+id/remmend_tv_title"
             />
 
     </RelativeLayout>

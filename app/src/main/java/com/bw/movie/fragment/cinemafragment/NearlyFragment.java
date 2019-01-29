@@ -52,7 +52,7 @@ public class NearlyFragment extends BaseFragment {
             @Override
             public void onClick(int id, String logo, String name, String address) {
                 Intent intent=new Intent(getContext(),CinemaDetailActivity.class);
-                intent.putExtra("id",id+"");
+                intent.putExtra("filmid",id+"");
                 intent.putExtra("logo",logo);
                 intent.putExtra("name",name);
                 intent.putExtra("address",address);
@@ -75,9 +75,9 @@ public class NearlyFragment extends BaseFragment {
             @Override
             public void success(String id, boolean is) {
                 if(is){
-                    doNetGet(String.format(Apis.URL_GET_GUANZHUYINGYUANN,id),ConcrenBean.class);
+                    doNetGet(String.format(Apis.URL_GET_GUANZHUYINGYUAN,id),ConcrenBean.class);
                 }else{
-                    doNetGet(String.format(Apis.URL_GET_CANCLEGUANZHUYINGYUANN,id),ConcrenBean.class);
+                    doNetGet(String.format(Apis.URL_GET_CANCLEGUANZHUYINGYUAN,id),ConcrenBean.class);
                 }
                 mNearlyAdapter.notifyDataSetChanged();
             }

@@ -7,6 +7,7 @@ import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.bw.movie.activity.homeactivity.HomeActivity;
@@ -38,7 +39,8 @@ public class LoginActivity extends BaseActivity {
     CheckBox mRpass;
     @BindView(R.id.login_cb_self_login)
     CheckBox mRlogin;
-
+    @BindView(R.id.login_icon_eye)
+    ImageView mEyes;
     SharedPreferences sharedPreferences;
     SharedPreferences.Editor editor;
     @Override
@@ -49,6 +51,22 @@ public class LoginActivity extends BaseActivity {
         toRegister();
         //自动登录
         initRemeberPass();
+        //小眼睛
+        initEyes();
+    }
+
+    private void initEyes() {
+
+        mEyes.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(mLpass.getInputType()==129){
+                    mLpass.setInputType(128);
+                }else{
+                    mLpass.setInputType(129);
+                }
+            }
+        });
     }
 
     private void toRegister() {
@@ -129,14 +147,10 @@ public class LoginActivity extends BaseActivity {
                     editor.commit();
                 }
                 if(!number.equals("")&&!encrypt.equals("")) {
-                    if (NetworkUtils.hasNetwork(LoginActivity.this)) {
                         Map<String, String> map = new HashMap<>();
                         map.put("phone", number);
                         map.put("pwd", encrypt);
                         doNetPost(Apis.URL_POST_LOGIN, map, LoginBean.class);
-                    } else {
-                        ToastUtils.show(LoginActivity.this, "当前网络不可用，请检查网络");
-                    }
                 } else{
                     ToastUtils.show(LoginActivity.this, "输入的内容不能为空");
                 }

@@ -10,6 +10,8 @@ import android.view.ViewGroup;
 
 import com.bw.movie.mvp.persenter.IPersenter;
 import com.bw.movie.mvp.view.IView;
+import com.bw.movie.util.NetworkUtils;
+import com.bw.movie.util.ToastUtils;
 
 import java.util.Map;
 
@@ -46,11 +48,20 @@ public  abstract class BaseFragment extends Fragment implements IView {
 
     protected void doNetGet(String url, Class aClass){
         //TODO:弹出loading
-        mPersenter.requestGetBack(url, aClass);
+        if(NetworkUtils.hasNetwork(getActivity())) {
+            mPersenter.requestGetBack(url, aClass);
+        }else{
+            ToastUtils.show(getActivity(),"小飞");
+        }
     }
 
     protected void doNetPost(String url, Map<String,String> map,Class aClass){
-        mPersenter.requestPostBack(url,map,aClass);
+
+        if(NetworkUtils.hasNetwork(getActivity())) {
+            mPersenter.requestPostBack(url,map,aClass);
+        }else{
+            ToastUtils.show(getActivity(),"小飞");
+        }
     }
 
     @Override

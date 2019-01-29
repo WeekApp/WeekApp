@@ -24,7 +24,10 @@
             android:layout_height="wrap_content"
             android:text="CGV影城"
             android:textSize="@dimen/sp_14"
+            android:layout_marginRight="@dimen/dp_10"
             android:textColor="#ffffff"
+            android:ellipsize="end"
+            android:layout_toLeftOf="@+id/cinemadetail_iv_detail"
             android:layout_toRightOf="@+id/cinemadetail_simple_logo"
             android:layout_marginLeft="@dimen/dp_24"
             android:layout_marginTop="@dimen/dp_30"/>

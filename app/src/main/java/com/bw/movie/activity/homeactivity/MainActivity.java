@@ -13,14 +13,14 @@ import com.bw.onlymycinema.R;
 
 public class MainActivity extends AppCompatActivity {
 
-    int i=1;
+    int i=5;
     Handler handler = new Handler(){
         @Override
         public void handleMessage(Message msg) {
 
             int z = msg.what;
             if(z==0){
-                startActivity(new Intent(MainActivity.this,LoginActivity.class));
+                startActivity(new Intent(MainActivity.this,GuideActivity.class));
                 finish();
             }
         }

@@ -141,7 +141,7 @@ public class DetailsActivity extends BaseActivity {
                             Map<String,String> map = new HashMap<>();
                             map.put("movieId",id);
                             map.put("commentContent",contents);
-                            doNetPost(Apis.URL_POST_PINGLUN,map,ComYesBean.class);
+                            doNetPost(Apis.URL_POST_PINGLU,map,ComYesBean.class);
                             alertDialog.dismiss();
                         }
                     }

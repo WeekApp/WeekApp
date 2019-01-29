@@ -38,7 +38,6 @@ public class GuideActivity extends AppCompatActivity {
         initData();
 
         initAdapter();
-
         //
         initPager();
     }
@@ -98,6 +97,4 @@ public class GuideActivity extends AppCompatActivity {
         mlist.add(new GuideThreeFragment());
         mlist.add(new GuideFourFragemnt());
     }
-
-
 }

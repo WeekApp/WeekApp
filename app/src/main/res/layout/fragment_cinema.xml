@@ -29,34 +29,43 @@
             android:textColor="#333333"
             android:textSize="@dimen/sp_14" />
 
-        <EditText
-            android:id="@+id/cinemaFragment_edit_search"
-            android:layout_width="@dimen/dp_48"
-            android:layout_height="@dimen/dp_24"
-            android:paddingLeft="@dimen/dp_30"
-            android:adjustViewBounds="true"
+        <RelativeLayout
+            android:id="@+id/xaas"
+            android:layout_width="@dimen/dp_70"
+            android:layout_height="@dimen/dp_30"
+            android:background="@drawable/shapecinemasearch"
             android:layout_marginTop="@dimen/dp_30"
-            android:layout_toLeftOf="@+id/cinemaFragment_tv_search"
-            android:background="@drawable/shapecinemasearch" />
-        <ImageView
-            android:layout_width="@dimen/dp_20"
-            android:layout_height="@dimen/dp_20"
-            android:layout_alignLeft="@+id/cinemaFragment_edit_search"
-            android:layout_alignTop="@+id/cinemaFragment_edit_search"
-            android:layout_alignBottom="@+id/cinemaFragment_edit_search"
-            android:layout_marginLeft="@dimen/dp_10"
-            android:src="@mipmap/com_icon_search_default"/>
-        <TextView
-            android:id="@+id/cinemaFragment_tv_search"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="搜索"
-            android:textColor="#000"
-            android:textSize="@dimen/sp_16"
             android:layout_alignParentRight="true"
-            android:layout_marginTop="@dimen/dp_30"
+            >
 
-            />
+            <EditText
+                android:id="@+id/cinemaFragment_edit_search"
+                android:layout_width="wrap_content"
+                android:layout_height="@dimen/dp_24"
+                android:background="@null"
+                android:layout_centerVertical="true"
+                android:layout_toRightOf="@+id/sadsf"
+                android:textSize="@dimen/sp_12"
+               />
+            <ImageView
+                android:id="@+id/sadsf"
+                android:layout_width="@dimen/dp_20"
+                android:layout_height="@dimen/dp_20"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="@dimen/dp_5"
+                android:src="@mipmap/com_icon_search_default"/>
+            <TextView
+                android:id="@+id/cinemaFragment_tv_search"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="搜索"
+                android:layout_marginRight="@dimen/dp_10"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                />
+
+
+        </RelativeLayout>
 
     </RelativeLayout>
 
@@ -83,7 +92,6 @@
             <RadioGroup
                 android:id="@+id/cinemaFragment_group"
                 android:layout_width="match_parent"
-
                 android:layout_height="match_parent"
                 android:orientation="horizontal">
 
@@ -96,7 +104,7 @@
                         android:layout_gravity="center"
                         android:layout_marginRight="@dimen/dp_18"
                         android:layout_marginLeft="@dimen/dp_70"
-                        android:background="@drawable/select"
+                        android:background="@drawable/shape_but"
                         android:button="@null"
                         android:checked="true"
                         android:gravity="center"
@@ -113,7 +121,7 @@
                         android:layout_gravity="center"
                         android:layout_marginLeft="@dimen/dp_17"
                         android:layout_marginRight="@dimen/dp_70"
-                        android:background="@drawable/select"
+                        android:background="@drawable/shape_but"
                         android:button="@null"
                         android:checked="false"
                         android:gravity="center"

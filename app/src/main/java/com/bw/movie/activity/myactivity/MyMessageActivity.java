@@ -79,6 +79,17 @@ public class MyMessageActivity extends BaseActivity {
         updateHeadpic();
         //修改密码
         updatePwd();
+        //突出
+        initBlack();
+    }
+
+    private void initBlack() {
+        mymessageBack.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
     }
 
     private void updatePwd() {
@@ -174,7 +185,6 @@ public class MyMessageActivity extends BaseActivity {
             RequestBody requestBody = RxPartMapUtils.toRequestBodyOfImage(file);
             map.put("image"+"\";filename=\""+file.getName(),requestBody);
         }
-
         doNetPostFile(Apis.URL_POST_UPLOADHEADPIC,map,UpdateHeafpicBean.class);
 
     }

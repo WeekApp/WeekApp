@@ -1,6 +1,110 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout
+<RelativeLayout
     xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="wrap_content">
 
-</android.support.constraint.ConstraintLayout>
+    <RelativeLayout
+
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginLeft="@dimen/dp_24"
+        android:layout_marginRight="@dimen/dp_24"
+        >
+
+        <RelativeLayout
+            android:id="@+id/adfsegdthj"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/dp_10"
+            >
+
+        <ImageView
+            android:id="@+id/zxcvbnm"
+            android:layout_width="@dimen/dp_24"
+            android:layout_height="@dimen/dp_24"
+            android:src="@mipmap/cinemadetail_icon_location_default"
+            />
+        <TextView
+            android:id="@+id/pop_com_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="@dimen/sp_12"
+            android:layout_toRightOf="@id/zxcvbnm"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="@dimen/dp_10"
+            />
+
+        ></RelativeLayout>
+
+
+        <RelativeLayout
+            android:id="@+id/zxbcnvmjhg"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/adfsegdthj"
+            android:layout_marginTop="@dimen/dp_20"
+            >
+
+            <ImageView
+                android:id="@+id/sadfgh"
+                android:layout_width="@dimen/dp_24"
+                android:layout_height="@dimen/dp_24"
+                android:src="@mipmap/cinemadetail_icon_phone_default"
+                />
+            <TextView
+                android:id="@+id/pop_com_phone"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_toRightOf="@id/sadfgh"
+                android:layout_marginLeft="@dimen/dp_10"
+                android:textSize="@dimen/sp_12"
+                android:layout_centerVertical="true"
+                />
+
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/zxcvfdgdsz"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/zxbcnvmjhg"
+            android:layout_marginTop="@dimen/dp_20"
+            >
+
+            <ImageView
+                android:id="@+id/fhyfhgfx"
+                android:layout_width="@dimen/dp_24"
+                android:layout_height="@dimen/dp_24"
+                android:src="@mipmap/cinemadetail_icon_route_default"
+                />
+
+            <TextView
+                android:id="@+id/pop_com_address"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_toRightOf="@id/fhyfhgfx"
+                android:layout_centerVertical="true"
+                android:text="乘车路线"
+                android:layout_marginLeft="@dimen/dp_10"
+                />
+
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_below="@+id/zxcvfdgdsz"
+            android:layout_marginTop="@dimen/dp_20"
+            >
+
+            <TextView
+                android:id="@+id/pop_com_ditie"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="@dimen/sp_12"
+                />
+        </RelativeLayout>
+
+    </RelativeLayout>
+
+</RelativeLayout>

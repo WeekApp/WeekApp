@@ -28,6 +28,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -96,7 +97,8 @@ public class CinemaFragment extends BaseFragment {
     ViewPager cinemaFragmentVp;
     @BindView(R.id.linear)
     LinearLayout linear;
-
+    @BindView(R.id.xaas)
+    RelativeLayout relativeLayout;
     Unbinder unbinder;
     private String mCity1;
     private double mLatitude;
@@ -189,9 +191,9 @@ public class CinemaFragment extends BaseFragment {
             @Override
             public void success(String id, boolean is) {
                 if(is){
-                    doNetGet(String.format(Apis.URL_GET_GUANZHUYINGYUANN,id),ConcrenBean.class);
+                    doNetGet(String.format(Apis.URL_GET_GUANZHUYINGYUAN,id),ConcrenBean.class);
                 }else{
-                    doNetGet(String.format(Apis.URL_GET_CANCLEGUANZHUYINGYUANN,id),ConcrenBean.class);
+                    doNetGet(String.format(Apis.URL_GET_CANCLEGUANZHUYINGYUAN,id),ConcrenBean.class);
                 }
                 mCinemaSearchAdapter.notifyDataSetChanged();
             }
@@ -303,9 +305,8 @@ public class CinemaFragment extends BaseFragment {
 
                 int currentValue = (Integer) animator.getAnimatedValue();
 
-                cinemaFragmentEditSearch.getLayoutParams().width = currentValue;
+                relativeLayout.getLayoutParams().width = currentValue;
                 cinemaFragmentEditSearch.requestLayout();
-
             }
         });
         valueAnimator.addListener(new Animator.AnimatorListener() {

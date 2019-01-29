@@ -32,21 +32,28 @@ public class Apis {
     public static final String URL_GET_GUANZHU = "movieApi/movie/v1/verify/followMovie?movieId=%s";
     //取消关注影片
     public static final String URL_GET_QUXIAOGUANZHU = "movieApi/movie/v1/verify/cancelFollowMovie?movieId=%s";
-
     //查询用户信息
     public static final String URL_GET_QUREYMESSAGE = "movieApi/user/v1/verify/findUserHomeInfo";
     //查询用户信息
     public static final String URL_GET_USERSIGNIN = "movieApi/user/v1/verify/userSignIn";
     //查询系统消息
     public static final String URL_GET_REMIND = "movieApi/tool/v1/verify/findAllSysMsgList?page=1&count=5";
-
-
-    //关注影院
-    public static final String URL_GET_GUANZHUYINGYUAN = "movieApi/cinema/v1/verify/followCinema";
+    //关注影
+    public static final String URL_GET_GUANZHUYINGYUAN = "movieApi/cinema/v1/verify/followCinema?cinemaId=%s";
     //取消关注影院
-    public static final String URL_GET_CANCLEGUANZHUYINGYUAN = "movieApi/cinema/v1/verify/cancelFollowCinema";
-
+    public static final String URL_GET_CANCLEGUANZHUYINGYUAN = "movieApi/cinema/v1/verify/cancelFollowCinema?cinemaId=%s";
     //搜索
     public static final String URL_GET_SEARCH = "movieApi/cinema/v1/findAllCinemas";
-
+    //上传图片
+    public static final String URL_POST_UPLOADHEADPIC = "movieApi/user1erify/uploadHeadPic";
+    //添加用户对影片的评论
+    public static final String URL_POST_PINGLU = "movieApi/movie/v1/verify/movieComment";
+    //查看个人信息
+    public static final String URL_GET_MYMESSAGE = "movieApi/user/v1/verify/getUserInfoByUserId";
+    //查看影院评论
+    public static final String URL_POST_FILMCOMMENT = "movieApi/cinema/v1/findAllCinemaComment?cinemaId=%s&page=1&count=1000";
+    //查看电影信息明细
+    public static final String URL_GET_MINGZI = "movieApi/cinema/v1/findCinemaInfo?cinemaId=%s";
+    //影院评论点赞
+    public static final String URL_POST_ZAN = "movieApi/cinema/v1/verify/cinemaCommentGreat";
 }

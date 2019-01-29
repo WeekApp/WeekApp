@@ -51,7 +51,6 @@ public class HomeActivity extends AppCompatActivity {
         list.add(new CinemaFragment());
         list.add(new MyFragment());
 
-
         homeactivityViewpager.setAdapter(new FragmentPagerAdapter(getSupportFragmentManager()) {
             @Override
             public Fragment getItem(int i) {
@@ -71,6 +70,7 @@ public class HomeActivity extends AppCompatActivity {
                 return 3;
             }
         });
+
         homeactivityViewpager.setCurrentItem(0);
         homeGroup.check(R.id.home_film);
     }

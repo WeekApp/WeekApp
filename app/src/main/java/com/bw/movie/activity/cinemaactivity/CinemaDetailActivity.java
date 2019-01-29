@@ -51,23 +51,20 @@ public class CinemaDetailActivity extends BaseActivity {
     RecyclerView cinemadetailRecy;
     @BindView(R.id.cinemadetail_iv_detail)
     ImageView mIconDetails;
-
-    private String mId;
-    private CinemaBannerAdapter mCinemaBannerAdapter;
-
-    private CinemaScheduleAdapter mCinemaScheduleAdapter;
-    private View mView;
-    private PopupWindow mPop;
-    private ImageView mDown;
-    private RadioGroup mGroup;
-    private ViewPager mPager;
+    String mId;
+    CinemaBannerAdapter mCinemaBannerAdapter;
+    CinemaScheduleAdapter mCinemaScheduleAdapter;
+    View mView;
+    PopupWindow mPop;
+    ImageView mDown;
+    RadioGroup mGroup;
+    ViewPager mPager;
     List<Fragment> mlist;
-    private TextView textView_one;
-    private TextView textView_two;
+    TextView textView_one;
+    TextView textView_two;
 
     @Override
     protected void initView() {
-
 
         ButterKnife.bind(this);
         initPoPu();
@@ -76,7 +73,7 @@ public class CinemaDetailActivity extends BaseActivity {
     @Override
     protected void initData() {
         Intent intent = getIntent();
-        mId = intent.getStringExtra("id");
+        mId = intent.getStringExtra("filmid");
         String logo = intent.getStringExtra("logo");
         String name = intent.getStringExtra("name");
         String address = intent.getStringExtra("address");
@@ -86,7 +83,10 @@ public class CinemaDetailActivity extends BaseActivity {
         cinemadetailTvAddress.setText(address);
 
         initBanner(mId);
+    }
 
+    public String getMid(){
+        return mId;
     }
 
     private View pop;
