@@ -88,7 +88,7 @@ public class MyMessageActivity extends BaseActivity {
     }
 
 
-    //修改头像
+    //修改头像阿萨德
     private void updateHeadpic() {
         mymessageHeadpic.setOnClickListener(new View.OnClickListener() {
             @Override
