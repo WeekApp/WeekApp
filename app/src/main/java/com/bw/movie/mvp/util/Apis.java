@@ -35,6 +35,9 @@ public class Apis {
 
     //查询用户信息
     public static final String URL_GET_QUREYMESSAGE = "movieApi/user/v1/verify/findUserHomeInfo";
+
+    //查询用户信息
+    public static final String URL_GET_QUREYMESSAGE2 = "movieApi/user/v1/verify/findUserHomeInfo";
     //查询用户信息
     public static final String URL_GET_USERSIGNIN = "movieApi/user/v1/verify/userSignIn";
     //查询系统消息
@@ -51,5 +54,10 @@ public class Apis {
     public static final String URL_GET_SEARCH = "movieApi/cinema/v1/findAllCinemas";
     //上传图片
     public static final String URL_POST_UPLOADHEADPIC = "movieApi/user/v1/verify/uploadHeadPic";
+    //修改密码
+    public static final String URL_POST_UPDATEPWD = "movieApi/user/v1/verify/modifyUserPwd";
+    //改变系统消息状态
+    public static final String URL_GET_UPDATECHANGERSYS = "movieApi/tool/v1/verify/changeSysMsgStatus";
+
 
 }

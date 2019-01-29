@@ -1,13 +1,18 @@
 package com.bw.movie.activity.myactivity;
 
 
+import android.Manifest;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Environment;
+import android.os.StrictMode;
 import android.provider.MediaStore;
 import android.support.annotation.Nullable;
+import android.support.annotation.RequiresApi;
+import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AlertDialog;
 import android.view.View;
 import android.widget.TextView;
@@ -38,7 +43,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import okhttp3.RequestBody;
-
+@RequiresApi(api = Build.VERSION_CODES.JELLY_BEAN_MR2)
 public class MyMessageActivity extends BaseActivity {
     @BindView(R.id.myfragment_usermessage)
     TextView myfragmentUsermessage;
@@ -77,18 +82,32 @@ public class MyMessageActivity extends BaseActivity {
 
         //修改头像
         updateHeadpic();
+
         //修改密码
-        updatePwd();
+        mymessageReset.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                updatePwd();
+            }
+        });
+
+        //返回
+        mymessageBack.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
+
     }
 
     private void updatePwd() {
-
-
-
+        startActivity(new Intent(MyMessageActivity.this,UpdatePwdActivity.class));
     }
 
 
-    //修改头像阿萨德
+    //修改头像
     private void updateHeadpic() {
         mymessageHeadpic.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -198,10 +217,42 @@ public class MyMessageActivity extends BaseActivity {
         }
         return null;
     }
+
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        initData();
+    }
+
     //初始化控件
     @Override
     protected void initView() {
         ButterKnife.bind(this);
+        permission();
+        StrictMode.VmPolicy.Builder builder = new StrictMode.VmPolicy.Builder();
+        StrictMode.setVmPolicy(builder.build());
+        builder.detectFileUriExposure();
+  
+    }
+
+    private void permission() {
+        if (Build.VERSION.SDK_INT >= 23) {
+            String[] mPermissionList = new String[]{
+                    Manifest.permission.WRITE_EXTERNAL_STORAGE,
+                    Manifest.permission.ACCESS_FINE_LOCATION,
+                    Manifest.permission.CALL_PHONE,
+                    Manifest.permission.READ_LOGS,
+                    Manifest.permission.READ_PHONE_STATE,
+                    Manifest.permission.READ_EXTERNAL_STORAGE,
+                    Manifest.permission.SET_DEBUG_APP,
+                    Manifest.permission.SYSTEM_ALERT_WINDOW,
+                    Manifest.permission.GET_ACCOUNTS,
+                    Manifest.permission.WRITE_APN_SETTINGS,
+                    Manifest.permission.CAMERA};
+            ActivityCompat.requestPermissions(MyMessageActivity.this, mPermissionList, 123);
+        }
+
     }
 
     //返回布局
@@ -223,6 +274,7 @@ public class MyMessageActivity extends BaseActivity {
         } else if (data instanceof UpdateHeafpicBean) {
             UpdateHeafpicBean updateHeafpicBean= (UpdateHeafpicBean) data;
             ToastUtils.show(this,updateHeafpicBean.getMessage());
+            initData();
         }
     }
 

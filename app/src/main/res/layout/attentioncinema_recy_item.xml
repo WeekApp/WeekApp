@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v7.widget.CardView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="@dimen/dp_90"
+    app:cardCornerRadius="@dimen/dp_8"
+    app:cardElevation="@dimen/dp_4"
+    android:layout_marginTop="@dimen/dp_20"
+    android:layout_marginLeft="@dimen/dp_24"
+    android:layout_marginRight="@dimen/dp_24"
+
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+
+        android:layout_height="@dimen/dp_90">
+
+        <com.facebook.drawee.view.SimpleDraweeView
+            android:id="@+id/attentioncinema_item_image"
+            android:layout_width="@dimen/dp_70"
+            android:layout_height="@dimen/dp_70"
+            app:roundedCornerRadius="@dimen/dp_4"
+            android:layout_marginTop="@dimen/dp_10"
+            android:layout_marginLeft="@dimen/dp_10"/>
+
+        <TextView
+            android:id="@+id/attentioncinema_item_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_toRightOf="@+id/attentioncinema_item_image"
+            android:text="asd"
+            android:textSize="@dimen/sp_14"
+            android:layout_marginLeft="@dimen/dp_20"
+            android:textColor="#333333"
+            android:layout_marginTop="@dimen/dp_10"
+            />
+
+        <TextView
+            android:id="@+id/attentioncinema_item_title"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_toRightOf="@+id/attentioncinema_item_image"
+            android:layout_below="@+id/attentioncinema_item_name"
+            android:text="asd"
+            android:textSize="@dimen/sp_12"
+            android:layout_marginLeft="@dimen/dp_20"
+            android:ellipsize="end"
+
+            android:textColor="#333333"
+            android:layout_marginRight="@dimen/dp_20"
+            android:layout_marginTop="@dimen/dp_20"
+            />
+
+
+    </RelativeLayout>
+
+
+</android.support.v7.widget.CardView>
