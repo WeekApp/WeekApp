@@ -39,7 +39,8 @@ public class Apis {
     public static final String URL_GET_USERSIGNIN = "movieApi/user/v1/verify/userSignIn";
     //查询系统消息
     public static final String URL_GET_REMIND = "movieApi/tool/v1/verify/findAllSysMsgList?page=1&count=5";
-
+    //我的信息
+    public static final String URL_GET_MYMESSAGE ="movieApi/user/v1/verify/getUserInfoByUserId";
 
     //关注影院
     public static final String URL_GET_GUANZHUYINGYUAN = "movieApi/cinema/v1/verify/followCinema";
@@ -48,5 +49,7 @@ public class Apis {
 
     //搜索
     public static final String URL_GET_SEARCH = "movieApi/cinema/v1/findAllCinemas";
+    //上传图片
+    public static final String URL_POST_UPLOADHEADPIC = "movieApi/user/v1/verify/uploadHeadPic";
 
 }
