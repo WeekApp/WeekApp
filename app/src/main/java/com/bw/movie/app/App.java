@@ -1,9 +1,11 @@
 package com.bw.movie.app;
 
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.Application;
 import android.content.Context;
 import android.os.Environment;
+import android.os.StrictMode;
 
 import com.facebook.cache.disk.DiskCacheConfig;
 import com.facebook.drawee.backends.pipeline.Fresco;
@@ -20,14 +22,20 @@ public class App extends Application {
 
     public static Context mContext;
 
+    @SuppressLint("NewApi")
     @Override
     public void onCreate() {
         super.onCreate();
 
         mContext = getApplicationContext();
+        StrictMode.VmPolicy.Builder builder = new StrictMode.VmPolicy.Builder();
+        StrictMode.setVmPolicy(builder.build());
+        builder.detectFileUriExposure();
+
         initData();
         //屏幕适配
         initPing();
+
     }
 
     private void initPing() {

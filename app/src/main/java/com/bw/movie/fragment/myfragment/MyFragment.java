@@ -96,52 +96,7 @@ public class MyFragment extends BaseFragment {
         doNetGet(Apis.URL_GET_QUREYMESSAGE,MessageBean.class);
     }
 
-    //请求成功
-    @Override
-    protected void netSuccess(Object data) {
-        if (data instanceof MessageBean) {
-            MessageBean messageBean= (MessageBean) data;
 
-            //获取头像和昵称
-            String headPic = messageBean.getResult().getHeadPic();
-            String nickName = messageBean.getResult().getNickName();
-            myfragmentMyimage.setImageURI(headPic);
-            myfragmentMyname.setText(nickName);
-
-            //判断是否签到
-            int userSignStatus = messageBean.getResult().getUserSignStatus();
-            if (userSignStatus==1){
-                myfragmentBtnSignined.setVisibility(View.GONE);
-                myfragmentBtnSignin.setVisibility(View.VISIBLE);
-            }else{
-                myfragmentBtnSignined.setVisibility(View.VISIBLE);
-                myfragmentBtnSignin.setVisibility(View.GONE);
-            }
-
-        }else if (data instanceof RegisterBean){
-            RegisterBean registerBean= (RegisterBean) data;
-            String message = registerBean.getMessage();
-            Toast.makeText(getContext(), message+"", Toast.LENGTH_SHORT).show();
-            initMesage();
-        }
-    }
-
-    private void initSign() {
-        doNetGet(Apis.URL_GET_USERSIGNIN,RegisterBean.class);
-    }
-
-    //请求失败
-    @Override
-    protected void netFail(Object data) {
-
-    }
-
-    //销毁布局
-    @Override
-    public void onDestroyView() {
-        super.onDestroyView();
-        unbinder.unbind();
-    }
     //点击事件
     @OnClick({R.id.myfragment_Simple_remind,R.id.myfragment_btn_signined,R.id.myfragment_btn_signin, R.id.myfragment_iv_messiage, R.id.myfragment_tv_messiage, R.id.myfragment_iv_attention, R.id.myfragment_tv_attention, R.id.myfragment_iv_feedback, R.id.myfragment_tv_feedback,R.id.myfragment_iv_rccord,R.id.myfragment_tv_rccord, R.id.myfragment_iv_version, R.id.myfragment_tv_version, R.id.myfragment_iv_logout, R.id.myfragment_tv_logout})
     public void onViewClicked(View view) {
@@ -201,5 +156,53 @@ public class MyFragment extends BaseFragment {
                 startActivity(new Intent(getContext(),LoginActivity.class));
                 break;
         }
+    }
+
+    private void initSign() {
+        doNetGet(Apis.URL_GET_USERSIGNIN,RegisterBean.class);
+    }
+    //请求成功
+    @Override
+    protected void netSuccess(Object data) {
+        if (data instanceof MessageBean) {
+            MessageBean messageBean= (MessageBean) data;
+
+            //获取头像和昵称
+            String headPic = messageBean.getResult().getHeadPic();
+            String nickName = messageBean.getResult().getNickName();
+            myfragmentMyimage.setImageURI(headPic);
+            myfragmentMyname.setText(nickName);
+
+            //判断是否签到
+            int userSignStatus = messageBean.getResult().getUserSignStatus();
+            if (userSignStatus==1){
+                myfragmentBtnSignined.setVisibility(View.GONE);
+                myfragmentBtnSignin.setVisibility(View.VISIBLE);
+            }else{
+                myfragmentBtnSignined.setVisibility(View.VISIBLE);
+                myfragmentBtnSignin.setVisibility(View.GONE);
+            }
+
+        }else if (data instanceof RegisterBean){
+            RegisterBean registerBean= (RegisterBean) data;
+            String message = registerBean.getMessage();
+            Toast.makeText(getContext(), message+"", Toast.LENGTH_SHORT).show();
+            initMesage();
+        }
+    }
+
+
+
+    //请求失败
+    @Override
+    protected void netFail(Object data) {
+
+    }
+
+    //销毁布局
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        unbinder.unbind();
     }
 }

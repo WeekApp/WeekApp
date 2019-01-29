@@ -12,6 +12,8 @@ import com.bw.onlymycinema.R;
 
 import java.util.Map;
 
+import okhttp3.RequestBody;
+
 public  abstract class BaseActivity extends FragmentActivity implements IView {
 
     IPersenter mPersenter;
@@ -47,7 +49,10 @@ public  abstract class BaseActivity extends FragmentActivity implements IView {
         hideLoading();
         mPersenter.requestPostBack(url,map,aClass);
     }
-
+    protected void doNetPostFile(String url, Map<String, RequestBody> map, Class aClass){
+        hideLoading();
+        mPersenter.RequestPost(url,map,aClass);
+    }
     @Override
     protected void onDestroy() {
         super.onDestroy();
