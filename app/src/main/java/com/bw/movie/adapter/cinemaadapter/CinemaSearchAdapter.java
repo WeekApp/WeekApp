@@ -5,9 +5,9 @@ import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.bw.movie.bean.cinemabean.CinemaSearchBean;
 import com.bw.movie.bean.cinemabean.RemmondBean;
 import com.bw.onlymycinema.R;
 import com.facebook.drawee.view.SimpleDraweeView;
@@ -16,19 +16,19 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * date:2019.1.26
+ * date:2019.1.28
  * author:赵颖冰(lenovo)
  * function:
  */
-public class RecommendAdapter extends RecyclerView.Adapter<RecommendAdapter.ViewHolder> {
+public class CinemaSearchAdapter extends RecyclerView.Adapter<CinemaSearchAdapter.ViewHolder> {
     Context mContext;
-    List<RemmondBean.Result> list;
+    List<CinemaSearchBean.ResultBean> list;
 
-    public RecommendAdapter(Context context) {
+    public CinemaSearchAdapter(Context context) {
         mContext = context;
         list=new ArrayList<>();
     }
-    public void setData(List<RemmondBean.Result> result) {
+    public void setData(List<CinemaSearchBean.ResultBean> result) {
         list.addAll(result);
         notifyDataSetChanged();
     }
@@ -52,7 +52,7 @@ public class RecommendAdapter extends RecyclerView.Adapter<RecommendAdapter.View
         viewHolder.remmend_simple_image.setImageURI(logo);
         viewHolder.remmend_tv_name.setText(name);
         viewHolder.remmend_tv_title.setText(address);
-        viewHolder.remmend_tv_distance.setText(distance+"Km");
+        viewHolder.remmend_tv_distance.setText(distance+"m");
 
         viewHolder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -60,7 +60,6 @@ public class RecommendAdapter extends RecyclerView.Adapter<RecommendAdapter.View
                 mGetData.onClick(id,logo,name,address);
             }
         });
-
         viewHolder.remmend_iv_collection.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

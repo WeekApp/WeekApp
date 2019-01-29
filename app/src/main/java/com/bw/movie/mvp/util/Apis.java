@@ -23,27 +23,22 @@ public class Apis {
     //查询附近影院
     public static final String URL_GET_NEARLY = "movieApi/cinema/v1/findNearbyCinemas?longitude=116.30551391385724&latitude=40.04571807462411&page=1&count=10";
     //根据影院ID查询电影
-    public static final String URL_GET_findMovieListByCinemaId = "movieApi/movie1/findMovieListByCinemaId";
+    public static final String URL_GET_findMovieListByCinemaId = "movieApi/movie/v1/findMovieListByCinemaId";
     //根据影院ID电影Id查询电影排期
-    public static final String URL_GET_findMovieScheduleList = "movieApi/movie1/findMovieScheduleList";
+    public static final String URL_GET_findMovieScheduleList = "movieApi/movie/v1/findMovieScheduleList";
     //影片评论点赞
     public static final String URL_POST_DIANZAN = "movieApi/movie/v1/verify/movieCommentGreat?commentId=%s";
     //关注影片
     public static final String URL_GET_GUANZHU = "movieApi/movie/v1/verify/followMovie?movieId=%s";
     //取消关注影片
     public static final String URL_GET_QUXIAOGUANZHU = "movieApi/movie/v1/verify/cancelFollowMovie?movieId=%s";
+
     //查询用户信息
-    public static final String URL_GET_QUREYMESSAGE = "movieApi/user1erify/findUserHomeInfo";
+    public static final String URL_GET_QUREYMESSAGE = "movieApi/user/v1/verify/findUserHomeInfo";
     //查询用户信息
-    public static final String URL_GET_USERSIGNIN = "movieApi/user1erify/userSignIn";
+    public static final String URL_GET_USERSIGNIN = "movieApi/user/v1/verify/userSignIn";
     //查询系统消息
-    public static final String URL_GET_REMIND = "movieApi/tool1erify/findAllSysMsgList?page=1&count=5";
-    //添加用户对影片的评论
-    public static final String URL_POST_PINGLUN = "movieApi/movie/v1/verify/movieComment";
-    //根据电影ID查询当前排片该电影的影院列表
-    public static final String URL_GET_PAIQIDIANYING = "movieApi/movie/v1/findCinemasListByMovieId";
-    //关注影院
-    public static final String URL_GET_GUANZHUYINGYUAN = "movieApi/cinema/v1/verify/followCinema?cinemaId=%s";
-    //取消关注影院
-    public static final String URL_GET_QUXIAOYINGYUAN = "movieApi/cinema/v1/verify/cancelFollowCinema?cinemaId=%s";
+    public static final String URL_GET_REMIND = "movieApi/tool/v1/verify/findAllSysMsgList?page=1&count=5";
+
+
 }
