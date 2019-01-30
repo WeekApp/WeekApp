@@ -51,7 +51,8 @@
             android:name="com.bw.movie.activity.myactivity.MyMessageActivity"
             tools:ignore="DuplicateActivity" />
         <activity android:name="com.bw.movie.activity.myactivity.UpdatePwdActivity" />
-        <activity android:name="com.bw.movie.activity.myactivity.AttentionActivity"></activity>
+        <activity android:name="com.bw.movie.activity.myactivity.AttentionActivity" />
+        <activity android:name="com.bw.movie.activity.myactivity.RccordActivity"></activity>
     </application>
 
 </manifest>

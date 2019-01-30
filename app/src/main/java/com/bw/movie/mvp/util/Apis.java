@@ -58,6 +58,8 @@ public class Apis {
     public static final String URL_POST_UPDATEPWD = "movieApi/user/v1/verify/modifyUserPwd";
     //改变系统消息状态
     public static final String URL_GET_UPDATECHANGERSYS = "movieApi/tool/v1/verify/changeSysMsgStatus";
+    //查询代付款
+    public static final String URL_GET_QUERYMONEY = "movieApi/user/v1/verify/findUserBuyTicketRecordList";
 
 
 }

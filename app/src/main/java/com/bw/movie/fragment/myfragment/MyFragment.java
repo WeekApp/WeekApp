@@ -14,6 +14,7 @@ import android.widget.Toast;
 
 import com.bw.movie.activity.myactivity.AttentionActivity;
 import com.bw.movie.activity.myactivity.MyMessageActivity;
+import com.bw.movie.activity.myactivity.RccordActivity;
 import com.bw.movie.activity.myactivity.RemindActivity;
 import com.bw.movie.activity.useractivity.LoginActivity;
 import com.bw.movie.base.BaseFragment;
@@ -140,9 +141,11 @@ public class MyFragment extends BaseFragment {
                 break;
                 //购买记录
             case R.id.myfragment_iv_rccord:
+                startActivity(new Intent(getContext(),RccordActivity.class));
                 break;
                 //购买记录
             case R.id.myfragment_tv_rccord:
+                startActivity(new Intent(getContext(),RccordActivity.class));
                 break;
                 //意见反馈
             case R.id.myfragment_iv_feedback:
