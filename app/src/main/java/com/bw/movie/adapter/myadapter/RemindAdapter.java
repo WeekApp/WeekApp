@@ -43,12 +43,12 @@ public class RemindAdapter extends RecyclerView.Adapter<RemindAdapter.ViewHolder
     }
 
     @Override
-    public void onBindViewHolder(@NonNull ViewHolder viewHolder, int i) {
+    public void onBindViewHolder(@NonNull final ViewHolder viewHolder, final int i) {
         String title = list.get(i).getTitle();
         String content = list.get(i).getContent();
         long pushTime = list.get(i).getPushTime();
-        int status = list.get(i).getStatus();
-        int id = list.get(i).getId();
+        final int status = list.get(i).getStatus();
+        final int id = list.get(i).getId();
 
         viewHolder.remind_item_title.setText(title);
         viewHolder.remind_item_content.setText(content);
@@ -57,6 +57,25 @@ public class RemindAdapter extends RecyclerView.Adapter<RemindAdapter.ViewHolder
         String time = dateFormat.format(new Date(pushTime));
 
         viewHolder.remind_item_time.setText(time);
+
+        if (status==0){
+            viewHolder.remind_item_unreadremind.setVisibility(View.VISIBLE);
+        }else if (status==1){
+            viewHolder.remind_item_unreadremind.setVisibility(View.GONE);
+        }
+
+        viewHolder.remind_item_unreadremind.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (status==0){
+                    list.get(i).setStatus(1);
+                    mGetData.onClick(id);
+                    notifyDataSetChanged();
+                }
+
+
+            }
+        });
     }
 
     @Override
@@ -75,5 +94,13 @@ public class RemindAdapter extends RecyclerView.Adapter<RemindAdapter.ViewHolder
             remind_item_time=itemView.findViewById(R.id.remind_item_time);
             remind_item_unreadremind=itemView.findViewById(R.id.remind_item_unreadremind);
         }
+    }
+    public interface GetData{
+        void onClick(int id);
+    }
+    private GetData mGetData;
+
+    public void setGetData(GetData getData) {
+        mGetData = getData;
     }
 }

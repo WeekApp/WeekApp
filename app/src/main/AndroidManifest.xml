@@ -5,12 +5,6 @@
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.INTERNET" />
 
-    <uses-permission android:name="android.permission.INTERNET" />
-    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
-    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
-    <uses-permission android:name="android.permission.READ_PHONE_STATE" />
-    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
-
     <!-- To auto-complete the email text field in the login form with the user's emails -->
     <uses-permission android:name="android.permission.GET_ACCOUNTS" />
     <uses-permission android:name="android.permission.READ_PROFILE" />
@@ -27,8 +21,8 @@
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:theme="@style/TranslucentTheme02">
-        <activity android:name="com.bw.movie.activity.homeactivity.MainActivity">
+        android:theme="@style/AppTheme">
+        <activity android:name="com.bw.movie.activity.useractivity.LoginActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -40,11 +34,9 @@
         <activity android:name="com.bw.movie.activity.homeactivity.HomeActivity" />
         <activity android:name="com.bw.movie.activity.homeactivity.GuideActivity" />
         <activity android:name="com.bw.movie.activity.homeactivity.CityActivity" />
-        <activity android:name="com.bw.movie.activity.useractivity.LoginActivity"/>
+        <activity android:name="com.bw.movie.activity.homeactivity.MainActivity" />
         <activity android:name="com.bw.movie.activity.cinemaactivity.CinemaDetailActivity" />
         <activity android:name="com.bw.movie.activity.filmactivity.DetailsActivity" />
-        <activity android:name="com.bw.movie.activity.filmactivity.DetailsMoreActivity"/>
-        <activity android:name="com.bw.movie.activity.filmactivity.BuyingListActivity"/>
         <!-- 如果您项目中的所有页面都只需要以高或宽中的一个作为基准进行适配的话, 那就只需要填写高或宽中的一个设计图尺寸即可 -->
         <meta-data
             android:name="design_width_in_dp"
@@ -54,6 +46,7 @@
             android:value="667" />
 
         <activity android:name="com.bw.movie.activity.myactivity.RemindActivity" />
+        <activity android:name="com.bw.movie.activity.myactivity.MyMessageActivity"></activity>
     </application>
 
 </manifest>

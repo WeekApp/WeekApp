@@ -6,8 +6,8 @@ import okhttp3.MediaType;
 import okhttp3.RequestBody;
 
 /**
- * author(张渊卓)
- * date:2019/1/14
+ * author(赵颖冰)
+ * date:2019/1/28
  */
 public class RxPartMapUtils {
 

@@ -12,6 +12,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.bw.movie.activity.myactivity.AttentionActivity;
 import com.bw.movie.activity.myactivity.MyMessageActivity;
 import com.bw.movie.activity.myactivity.RemindActivity;
 import com.bw.movie.activity.useractivity.LoginActivity;
@@ -96,6 +97,12 @@ public class MyFragment extends BaseFragment {
         doNetGet(Apis.URL_GET_QUREYMESSAGE,MessageBean.class);
     }
 
+    @Override
+    public void onResume() {
+        super.onResume();
+        //获取用户信息
+        initMesage();
+    }
 
     //点击事件
     @OnClick({R.id.myfragment_Simple_remind,R.id.myfragment_btn_signined,R.id.myfragment_btn_signin, R.id.myfragment_iv_messiage, R.id.myfragment_tv_messiage, R.id.myfragment_iv_attention, R.id.myfragment_tv_attention, R.id.myfragment_iv_feedback, R.id.myfragment_tv_feedback,R.id.myfragment_iv_rccord,R.id.myfragment_tv_rccord, R.id.myfragment_iv_version, R.id.myfragment_tv_version, R.id.myfragment_iv_logout, R.id.myfragment_tv_logout})
@@ -125,9 +132,11 @@ public class MyFragment extends BaseFragment {
                 break;
                 //我的关注
             case R.id.myfragment_iv_attention:
+                startActivity(new Intent(getContext(),AttentionActivity.class));
                 break;
                 //我的关注
             case R.id.myfragment_tv_attention:
+                startActivity(new Intent(getContext(),AttentionActivity.class));
                 break;
                 //购买记录
             case R.id.myfragment_iv_rccord:

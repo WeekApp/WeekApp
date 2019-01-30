@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginLeft="@dimen/dp_24"
+    android:layout_marginRight="@dimen/dp_24"
+    android:layout_marginTop="@dimen/dp_50"
+    tools:context="com.bw.movie.activity.myactivity.UpdatePwdActivity">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="当前密码"
+            android:textSize="@dimen/sp_14"
+            android:textColor="#333333"
+            android:layout_marginTop="@dimen/dp_20"
+            android:layout_marginLeft="@dimen/dp_20"
+            />
+
+        <EditText
+            android:id="@+id/oldpwd"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:hint="147852669"
+            android:textSize="@dimen/sp_14"
+            android:textColor="#999999"
+            android:layout_alignParentRight="true"
+            android:layout_marginTop="@dimen/dp_10"
+            android:layout_marginRight="@dimen/dp_20"
+            />
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dp_2"
+            android:layout_marginLeft="@dimen/dp_20"
+            android:layout_marginRight="@dimen/dp_20"
+            android:layout_marginTop="@dimen/dp_50"
+            android:background="@drawable/mymessageline" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="重置密码为"
+            android:textSize="@dimen/sp_14"
+            android:textColor="#333333"
+            android:layout_marginLeft="@dimen/dp_20"
+            android:layout_marginTop="@dimen/dp_70"
+            />
+
+        <EditText
+            android:id="@+id/newpwd"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:hint="147852669"
+            android:textSize="@dimen/sp_14"
+            android:textColor="#999999"
+            android:layout_alignParentRight="true"
+            android:layout_marginTop="@dimen/dp_60"
+            android:layout_marginRight="@dimen/dp_20"
+            />
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dp_2"
+            android:layout_marginLeft="@dimen/dp_20"
+            android:layout_marginRight="@dimen/dp_20"
+            android:layout_marginTop="@dimen/dp_100"
+            android:background="@drawable/mymessageline" />
+
+        <TextView
+            android:id="@+id/againnewpwd"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="请再次输入密码"
+            android:textSize="@dimen/sp_14"
+            android:textColor="#333333"
+            android:layout_marginLeft="@dimen/dp_20"
+            android:layout_marginTop="@dimen/dp_130"
+            />
+
+        <EditText
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:hint="147852669"
+            android:textSize="@dimen/sp_14"
+            android:textColor="#999999"
+            android:layout_alignParentRight="true"
+            android:layout_marginTop="@dimen/dp_110"
+            android:layout_marginRight="@dimen/dp_20"
+            />
+
+
+        <Button
+            android:id="@+id/update"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/dp_170"
+            android:layout_centerHorizontal="true"
+            android:text="修改"
+            />
+    </RelativeLayout>
+
+
+</android.support.v7.widget.CardView>

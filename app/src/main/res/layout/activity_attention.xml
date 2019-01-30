@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context="com.bw.movie.activity.myactivity.AttentionActivity">
+
+    <LinearLayout
+        android:id="@+id/linear"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_marginTop="@dimen/dp_50"
+            android:layout_marginLeft="@dimen/dp_20"
+            android:layout_marginRight="@dimen/dp_20"
+            android:layout_weight="1">
+
+
+            <RadioGroup
+                android:id="@+id/attention_group"
+                android:layout_width="match_parent"
+
+                android:layout_height="match_parent"
+                android:orientation="horizontal">
+
+                <RadioButton
+                    android:id="@+id/attention_radio_film"
+                    android:layout_width="@dimen/dp_85"
+                    android:layout_height="@dimen/dp_25"
+                    android:layout_alignParentRight="true"
+                    android:layout_gravity="center"
+                    android:layout_marginLeft="@dimen/dp_70"
+                    android:layout_marginRight="@dimen/dp_18"
+                    android:layout_weight="1"
+                    android:background="@drawable/select"
+                    android:button="@null"
+                    android:checked="true"
+                    android:gravity="center"
+                    android:text="电影"
+                    android:textColor="#333333"
+                    android:textSize="14sp" />
+
+
+                <RadioButton
+                    android:id="@+id/attention_radio_cinema"
+                    android:layout_width="@dimen/dp_85"
+                    android:layout_height="@dimen/dp_25"
+                    android:layout_gravity="center"
+                    android:layout_marginLeft="@dimen/dp_17"
+                    android:layout_marginRight="@dimen/dp_70"
+                    android:layout_weight="1"
+                    android:background="@drawable/select"
+                    android:button="@null"
+                    android:checked="false"
+                    android:gravity="center"
+                    android:text="影院"
+                    android:textColor="#333333"
+                    android:textSize="14sp" />
+
+            </RadioGroup>
+
+
+        </LinearLayout>
+
+        <android.support.v4.view.ViewPager
+            android:id="@+id/attention_vp"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_marginLeft="@dimen/dp_24"
+            android:layout_marginRight="@dimen/dp_24"
+            android:layout_weight="9"></android.support.v4.view.ViewPager>
+
+    </LinearLayout>
+
+
+</LinearLayout>
