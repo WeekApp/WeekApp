@@ -88,6 +88,13 @@ public class BuyContentAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
                notifyItemChanged(i);
            }
        });
+
+       holder.itemView.setOnClickListener(new View.OnClickListener() {
+           @Override
+           public void onClick(View v) {
+                dianJi.success(mlsit.get(i).getId()+"",mlsit.get(i).getName(),mlsit.get(i).getAddress());
+           }
+       });
     }
 
     @Override
@@ -107,4 +114,14 @@ public class BuyContentAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
     public interface OnItemClick{
         void success(String id,boolean is);
     }
+
+    DianJi dianJi;
+
+    public void setDianJi(DianJi dianJi) {
+        this.dianJi = dianJi;
+    }
+
+    public interface DianJi{
+        void success(String id,String name,String address);
+   }
 }

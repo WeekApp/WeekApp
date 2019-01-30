@@ -123,10 +123,6 @@ public class MyFragment extends BaseFragment {
                 initSign();
                 break;
                 //我的信息
-            case R.id.myfragment_iv_messiage:
-                startActivity(new Intent(getContext(),MyMessageActivity.class));
-                break;
-                //我的信息
             case R.id.myfragment_tv_messiage:
                 startActivity(new Intent(getContext(),MyMessageActivity.class));
                 break;

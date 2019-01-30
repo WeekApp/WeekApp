@@ -27,7 +27,6 @@ public class PopDetailsFragment extends BaseFragment {
     RecyclerView mCommentContents;
     PopDetailsAdapter mPoDetailsAdapter;
     private String mid;
-
     @Override
     protected void initData() {
         //开始请求网路

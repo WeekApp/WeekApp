@@ -44,6 +44,18 @@ public class GuideActivity extends AppCompatActivity {
 
     private void initPager() {
 
+        mPager.setAdapter(new FragmentPagerAdapter(getSupportFragmentManager()) {
+            @Override
+            public Fragment getItem(int i) {
+                return mlist.get(i);
+            }
+
+            @Override
+            public int getCount() {
+                return mlist.size();
+            }
+        });
+
         mPager.setOnPageChangeListener(new ViewPager.OnPageChangeListener() {
             @Override
             public void onPageScrolled(int i, float v, int i1) {
@@ -71,6 +83,26 @@ public class GuideActivity extends AppCompatActivity {
             @Override
             public void onPageScrollStateChanged(int i) {
 
+            }
+        });
+
+        mGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(RadioGroup group, int checkedId) {
+                switch (checkedId){
+                    case R.id.g_but_one:
+                        mPager.setCurrentItem(0);
+                        break;
+                    case R.id.g_but_two:
+                        mPager.setCurrentItem(1);
+                        break;
+                    case R.id.g_but_three:
+                        mPager.setCurrentItem(2);
+                        break;
+                    case R.id.g_but_four:
+                        mPager.setCurrentItem(3);
+                        break;
+                }
             }
         });
     }

@@ -46,13 +46,19 @@ public class CinemaBannerAdapter extends RecyclerView.Adapter<CinemaBannerAdapte
     }
 
     @Override
-    public void onBindViewHolder(@NonNull ViewHolder viewHolder, int i) {
+    public void onBindViewHolder(@NonNull ViewHolder viewHolder,final int i) {
         String imageUrl = list.get(i).getImageUrl();
         String name = list.get(i).getName();
 
         viewHolder.simp_cinema_flow.setImageURI(imageUrl);
         viewHolder.text_cinema_flow1.setText(name);
 
+        viewHolder.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onItemClick.success(list.get(i).getId()+"");
+            }
+        });
     }
 
     @Override
@@ -78,5 +84,15 @@ public class CinemaBannerAdapter extends RecyclerView.Adapter<CinemaBannerAdapte
 
     public void setGetData(GetData getData) {
         mGetData = getData;
+    }
+
+    OnItemClick onItemClick;
+
+    public void setOnItemClick(OnItemClick onItemClick) {
+        this.onItemClick = onItemClick;
+    }
+
+    public interface OnItemClick{
+        void success(String id);
     }
 }

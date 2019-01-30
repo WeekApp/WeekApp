@@ -28,6 +28,8 @@ public class BuyingListActivity extends BaseActivity {
     ImageView icon;
 
     BuyContentAdapter mBuyContentAdapter;
+    String sid;
+    private String name;
 
     @Override
     protected void initData() {
@@ -41,6 +43,22 @@ public class BuyingListActivity extends BaseActivity {
         initBliack();
         //关注与否
         initConcren();
+        //电影ID和影院ID查询电影排期列表
+        initGo();
+    }
+
+    private void initGo() {
+        mBuyContentAdapter.setDianJi(new BuyContentAdapter.DianJi() {
+            @Override
+            public void success(String id,String nname,String address) {
+                Intent intent = new Intent(BuyingListActivity.this,FilmBuyingListActivity.class);
+                intent.putExtra("cinemasId",id);
+                intent.putExtra("movieId",sid);
+                intent.putExtra("moviename",nname);
+                intent.putExtra("address",address);
+                startActivity(intent);
+            }
+        });
     }
 
     private void initConcren() {
@@ -79,7 +97,8 @@ public class BuyingListActivity extends BaseActivity {
     private void staryRequest() {
 
         Intent intent = getIntent();
-        String name = intent.getStringExtra("buying");
+        name = intent.getStringExtra("buying");
+        sid = intent.getStringExtra("id");
         mName.setText(name);
         doNetGet(Apis.URL_GET_NEARLY,RemmondBean.class);
     }

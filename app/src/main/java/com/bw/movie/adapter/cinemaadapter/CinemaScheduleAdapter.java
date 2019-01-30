@@ -42,7 +42,7 @@ public class CinemaScheduleAdapter extends RecyclerView.Adapter<CinemaScheduleAd
     }
 
     @Override
-    public void onBindViewHolder(@NonNull ViewHolder viewHolder, int i) {
+    public void onBindViewHolder(@NonNull ViewHolder viewHolder, final int i) {
         String screeningHall = list.get(i).getScreeningHall();
         String beginTime = list.get(i).getBeginTime();
         String endTime = list.get(i).getEndTime();
@@ -52,6 +52,14 @@ public class CinemaScheduleAdapter extends RecyclerView.Adapter<CinemaScheduleAd
         viewHolder.cinemadetail_schedule_cinemaendtime.setText(endTime);
         viewHolder.cinemadetail_schedule_cinemapriceint.setText("0");
         viewHolder.cinemadetail_schedule_cinemapricefloat.setText(".2");
+
+
+        viewHolder.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onItemClick.success(list.get(i).getId()+"");
+            }
+        });
     }
 
     @Override
@@ -74,5 +82,14 @@ public class CinemaScheduleAdapter extends RecyclerView.Adapter<CinemaScheduleAd
             cinemadetail_schedule_cinemapricefloat=itemView.findViewById(R.id.cinemadetail_schedule_cinemapricefloat);
             cinemadetail_schedule_next=itemView.findViewById(R.id.cinemadetail_schedule_next);
         }
+    }
+    OnItemClick onItemClick;
+
+    public void setOnItemClick(OnItemClick onItemClick) {
+        this.onItemClick = onItemClick;
+    }
+
+    public interface OnItemClick{
+        void success(String id);
     }
 }

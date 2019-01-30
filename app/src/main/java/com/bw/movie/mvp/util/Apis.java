@@ -41,15 +41,26 @@ public class Apis {
     public static final String URL_GET_REMIND = "movieApi/tool/v1/verify/findAllSysMsgList?page=1&count=5";
     //我的信息
     public static final String URL_GET_MYMESSAGE ="movieApi/user/v1/verify/getUserInfoByUserId";
-
+    //电影评论点赞
+    public static final String URL_POST_ZAN = "movieApi/cinema/v1/verify/cinemaCommentGreat";
     //关注影院
     public static final String URL_GET_GUANZHUYINGYUAN = "movieApi/cinema/v1/verify/followCinema";
     //取消关注影院
     public static final String URL_GET_CANCLEGUANZHUYINGYUAN = "movieApi/cinema/v1/verify/cancelFollowCinema";
-
+    //查询电影信息明细
+    public static final String URL_GET_MINGZI = "movieApi/cinema/v1/findCinemaInfo?cinemaId=%s";
     //搜索
     public static final String URL_GET_SEARCH = "movieApi/cinema/v1/findAllCinemas";
     //上传图片
     public static final String URL_POST_UPLOADHEADPIC = "movieApi/user/v1/verify/uploadHeadPic";
-
+    //修改密码
+    public static final String URL_POST_UPDATEPWD = "movieApi/user1erify/modifyUserPwd";
+    //改变系统消息状态
+    public static final String URL_GET_UPDATECHANGERSYS = "movieApi/tool1erifyangeSysMsgStatus";
+    //添加用户对影片的评论
+    public static final String URL_POST_PINGLU = "movieApi/movie/v1/verify/movieComment";
+    //询影院用户评论列表
+    public static final String URL_POST_FILMCOMMENT = "movieApi/cinema/v1/findAllCinemaComment?cinemaId=%s&page=1&count=10000";
+    //.根据电影ID和影院ID查询电影排期列表
+    public static final String URL_GET_YINGYUAN = "movieApi/movie/v1/findMovieScheduleList?cinemasId=%s&movieId=%s";
 }

@@ -185,7 +185,7 @@ public class DetailsActivity extends BaseActivity {
         //设置是否可以触摸
         yPop.setTouchable(true);
         yPop.setBackgroundDrawable(new BitmapDrawable());
-
+        yPop.setAnimationStyle(R.style.Popupwindow);
         yPop.setOnDismissListener(new PopupWindow.OnDismissListener() {
             @Override
             public void onDismiss() {
@@ -245,7 +245,7 @@ public class DetailsActivity extends BaseActivity {
                 changeWindowAlfa(1f);//pop消失，透明度恢复
             }
         });
-
+        sPop.setAnimationStyle(R.style.Popupwindow);
         mStage.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -292,6 +292,7 @@ public class DetailsActivity extends BaseActivity {
        mPop.setFocusable(true);
         //设置是否可以触摸
        mPop.setTouchable(true);
+       mPop.setAnimationStyle(R.style.Popupwindow);
        mPop.setBackgroundDrawable(new BitmapDrawable());
 
         mPop.setOnDismissListener(new PopupWindow.OnDismissListener() {
@@ -327,7 +328,7 @@ public class DetailsActivity extends BaseActivity {
     }
 
     private void startBlack() {
-        mBlick.setOnClickListener(new View.OnClickListener() {
+        mBlick.setOnClickListener(  new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 finish();

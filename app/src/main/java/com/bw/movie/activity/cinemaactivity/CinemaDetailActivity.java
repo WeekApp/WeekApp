@@ -18,6 +18,7 @@ import android.widget.PopupWindow;
 import android.widget.RadioGroup;
 import android.widget.TextView;
 
+import com.bw.movie.activity.filmactivity.FilmBuyingListActivity;
 import com.bw.movie.adapter.cinemaadapter.CinemaBannerAdapter;
 import com.bw.movie.adapter.cinemaadapter.CinemaScheduleAdapter;
 import com.bw.movie.base.BaseActivity;
@@ -62,12 +63,29 @@ public class CinemaDetailActivity extends BaseActivity {
     List<Fragment> mlist;
     TextView textView_one;
     TextView textView_two;
+    private String address;
+    private String name;
 
     @Override
     protected void initView() {
 
         ButterKnife.bind(this);
         initPoPu();
+
+    }
+
+    private void initGo() {
+        mCinemaBannerAdapter.setOnItemClick(new CinemaBannerAdapter.OnItemClick() {
+            @Override
+            public void success(String id) {
+                Intent intent = new Intent(CinemaDetailActivity.this,FilmBuyingListActivity.class);
+                intent.putExtra("movieId",id);
+                intent.putExtra("cinemasId",mId);
+                intent.putExtra("address",address);
+                intent.putExtra("moviename",name);
+                startActivity(intent);
+            }
+        });
     }
 
     @Override
@@ -75,14 +93,15 @@ public class CinemaDetailActivity extends BaseActivity {
         Intent intent = getIntent();
         mId = intent.getStringExtra("filmid");
         String logo = intent.getStringExtra("logo");
-        String name = intent.getStringExtra("name");
-        String address = intent.getStringExtra("address");
+        name = intent.getStringExtra("name");
+        address = intent.getStringExtra("address");
 
         cinemadetailSimpleLogo.setImageURI(logo);
         cinemadetailTvName.setText(name);
         cinemadetailTvAddress.setText(address);
 
         initBanner(mId);
+        initGo();
     }
 
     public String getMid(){
@@ -239,7 +258,6 @@ public class CinemaDetailActivity extends BaseActivity {
         });
 
     }
-
 
     @Override
     protected int getLayout() {

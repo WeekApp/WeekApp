@@ -30,6 +30,11 @@
 
             </style>
 
+    <style name="Popupwindow">
+        <item name="android:windowEnterAnimation">@anim/window_out</item>
+        <item name="android:windowExitAnimation">@anim/window_back</item>
+    </style>
+
 
     <style name="TranslucentTheme02" parent="Theme.AppCompat.Light.NoActionBar">
         <item name="android:windowTranslucentStatus" tools:ignore="NewApi">true</item>
