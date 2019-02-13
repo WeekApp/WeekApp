@@ -36,9 +36,7 @@ public class Apis {
     //查询用户信息
     public static final String URL_GET_QUREYMESSAGE = "movieApi/user/v1/verify/findUserHomeInfo";
 
-    //查询用户信息
-    public static final String URL_GET_QUREYMESSAGE2 = "movieApi/user/v1/verify/findUserHomeInfo";
-    //查询用户信息
+    //签到
     public static final String URL_GET_USERSIGNIN = "movieApi/user/v1/verify/userSignIn";
     //查询系统消息
     public static final String URL_GET_REMIND = "movieApi/tool/v1/verify/findAllSysMsgList?page=1&count=5";
@@ -60,6 +58,10 @@ public class Apis {
     public static final String URL_GET_UPDATECHANGERSYS = "movieApi/tool/v1/verify/changeSysMsgStatus";
     //查询代付款
     public static final String URL_GET_QUERYMONEY = "movieApi/user/v1/verify/findUserBuyTicketRecordList";
+    //意见反馈
+    public static final String URL_GET_FEEDBACK = "movieApi/tool/v1/verify/recordFeedBack";
+    //更新新版本
+    public static final String URL_GET_VERSION = "movieApi/tool/v1/findNewVersion";
 
 
 }

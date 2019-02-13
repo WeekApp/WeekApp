@@ -63,5 +63,7 @@ dependencies {
     //noinspection GradleCompatible
     implementation 'com.android.support:design:26.0.0'
 
+    //断点续传
+    implementation 'com.loopj.android:android-async-http:1.4.9'
 
 }

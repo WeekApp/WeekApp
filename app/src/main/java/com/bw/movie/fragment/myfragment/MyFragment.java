@@ -13,9 +13,11 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.bw.movie.activity.myactivity.AttentionActivity;
+import com.bw.movie.activity.myactivity.FeedBackActivity;
 import com.bw.movie.activity.myactivity.MyMessageActivity;
 import com.bw.movie.activity.myactivity.RccordActivity;
 import com.bw.movie.activity.myactivity.RemindActivity;
+import com.bw.movie.activity.myactivity.VersionActivity;
 import com.bw.movie.activity.useractivity.LoginActivity;
 import com.bw.movie.base.BaseFragment;
 import com.bw.movie.bean.mybean.MessageBean;
@@ -149,15 +151,19 @@ public class MyFragment extends BaseFragment {
                 break;
                 //意见反馈
             case R.id.myfragment_iv_feedback:
+                startActivity(new Intent(getContext(),FeedBackActivity.class));
                 break;
                 //意见反馈
             case R.id.myfragment_tv_feedback:
+                startActivity(new Intent(getContext(),FeedBackActivity.class));
                 break;
                 //最新版本
             case R.id.myfragment_iv_version:
+                startActivity(new Intent(getContext(),VersionActivity.class));
                 break;
             //最新版本
             case R.id.myfragment_tv_version:
+                startActivity(new Intent(getContext(),VersionActivity.class));
                 break;
                 //返回登录
             case R.id.myfragment_iv_logout:
