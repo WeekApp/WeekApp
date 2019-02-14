@@ -1,12 +1,15 @@
 package com.bw.movie.fragment.myfragment;
 
 
+import android.animation.Animator;
+import android.animation.ObjectAnimator;
+
+import android.app.ActivityManager;
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
-import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -21,8 +24,10 @@ import com.bw.movie.activity.myactivity.VersionActivity;
 import com.bw.movie.activity.useractivity.LoginActivity;
 import com.bw.movie.base.BaseFragment;
 import com.bw.movie.bean.mybean.MessageBean;
+import com.bw.movie.bean.mybean.VersionBean;
 import com.bw.movie.bean.userbean.RegisterBean;
 import com.bw.movie.mvp.util.Apis;
+import com.bw.movie.util.ActivityCollectorUtil;
 import com.bw.onlymycinema.R;
 import com.facebook.drawee.view.SimpleDraweeView;
 
@@ -79,6 +84,7 @@ public class MyFragment extends BaseFragment {
     @Override
     protected void initView(View view) {
         unbinder = ButterKnife.bind(this, view);
+        ActivityCollectorUtil.addActivity(getActivity());
     }
     //获取布局
     @Override
@@ -159,19 +165,72 @@ public class MyFragment extends BaseFragment {
                 break;
                 //最新版本
             case R.id.myfragment_iv_version:
-                startActivity(new Intent(getContext(),VersionActivity.class));
+
+                ObjectAnimator objectAnimator = ObjectAnimator.ofFloat(myfragmentIvVersion, "rotation", 360f);
+                objectAnimator.setDuration(2000);
+                objectAnimator.start();
+                objectAnimator.addListener(new Animator.AnimatorListener() {
+                    @Override
+                    public void onAnimationStart(Animator animation) {
+
+                    }
+
+                    @Override
+                    public void onAnimationEnd(Animator animation) {
+                        doNetGet(Apis.URL_GET_VERSION,VersionBean.class);
+                    }
+
+                    @Override
+                    public void onAnimationCancel(Animator animation) {
+
+                    }
+
+                    @Override
+                    public void onAnimationRepeat(Animator animation) {
+
+                    }
+                });
+
+                //startActivity(new Intent(getContext(),VersionActivity.class));
                 break;
             //最新版本
             case R.id.myfragment_tv_version:
-                startActivity(new Intent(getContext(),VersionActivity.class));
+                ObjectAnimator objectAnimator1 = ObjectAnimator.ofFloat(myfragmentIvVersion, "rotation", 360f);
+                objectAnimator1.setDuration(2000);
+                objectAnimator1.start();
+                objectAnimator1.addListener(new Animator.AnimatorListener() {
+                    @Override
+                    public void onAnimationStart(Animator animation) {
+
+                    }
+
+                    @Override
+                    public void onAnimationEnd(Animator animation) {
+                        doNetGet(Apis.URL_GET_VERSION,VersionBean.class);
+                    }
+
+                    @Override
+                    public void onAnimationCancel(Animator animation) {
+
+                    }
+
+                    @Override
+                    public void onAnimationRepeat(Animator animation) {
+
+                    }
+                });
+                doNetGet(Apis.URL_GET_VERSION,VersionBean.class);
+                //startActivity(new Intent(getContext(),VersionActivity.class));
                 break;
                 //返回登录
             case R.id.myfragment_iv_logout:
-                startActivity(new Intent(getContext(),LoginActivity.class));
+
+                ActivityCollectorUtil.finishAllActivity();
+
                 break;
                 //返回登录
             case R.id.myfragment_tv_logout:
-                startActivity(new Intent(getContext(),LoginActivity.class));
+                ActivityCollectorUtil.finishAllActivity();
                 break;
         }
     }
@@ -202,13 +261,32 @@ public class MyFragment extends BaseFragment {
             }
 
         }else if (data instanceof RegisterBean){
+            //签到
             RegisterBean registerBean= (RegisterBean) data;
             String message = registerBean.getMessage();
             Toast.makeText(getContext(), message+"", Toast.LENGTH_SHORT).show();
             initMesage();
+        }else if (data instanceof VersionBean){
+            //更新版本
+
+            VersionBean versionBean= (VersionBean) data;
+
+            int flag = versionBean.getFlag();
+            if (flag==1){
+                AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
+                builder.setTitle("有新版本");
+                builder.setMessage("是否升级");
+                builder.setPositiveButton("确定", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        startActivity(new Intent(getContext(),VersionActivity.class));
+                    }
+                });
+                builder.setNegativeButton("取消",null);
+                builder.show();
+            }
         }
     }
-
 
 
     //请求失败
@@ -222,5 +300,11 @@ public class MyFragment extends BaseFragment {
     public void onDestroyView() {
         super.onDestroyView();
         unbinder.unbind();
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        ActivityCollectorUtil.removeActivity(getActivity());
     }
 }

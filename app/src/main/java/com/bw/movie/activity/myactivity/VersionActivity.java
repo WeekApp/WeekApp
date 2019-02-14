@@ -140,11 +140,11 @@ public class VersionActivity  extends BaseActivity implements View.OnClickListen
     protected void netSuccess(Object data) {
         if (data instanceof VersionBean){
             VersionBean versionBean= (VersionBean) data;
-            ToastUtils.show(this,versionBean.getFlag()+"");
+
             if (versionBean.getFlag()==1){
                 String downloadUrl = versionBean.getDownloadUrl();
                 downloadUrll = downloadUrl;
-                ToastUtils.show(this,downloadUrl+"");
+
             }else{
 
             }
