@@ -28,6 +28,7 @@ import com.bw.movie.bean.mybean.VersionBean;
 import com.bw.movie.bean.userbean.RegisterBean;
 import com.bw.movie.mvp.util.Apis;
 import com.bw.movie.util.ActivityCollectorUtil;
+import com.bw.movie.util.ToastUtils;
 import com.bw.onlymycinema.R;
 import com.facebook.drawee.view.SimpleDraweeView;
 
@@ -283,6 +284,13 @@ public class MyFragment extends BaseFragment {
                     }
                 });
                 builder.setNegativeButton("取消",null);
+                builder.show();
+            }else if (flag==2){
+                AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
+                builder.setTitle("已是最新版本");
+                builder.setMessage("是否取消");
+                builder.setPositiveButton("是", null);
+                builder.setNegativeButton("否",null);
                 builder.show();
             }
         }

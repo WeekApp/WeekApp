@@ -32,7 +32,7 @@
                 fresco:roundAsCircle="true"
                 fresco:placeholderImage="@mipmap/ic_launcher"
                 android:layout_marginTop="@dimen/dp_60"
-                android:layout_centerHorizontal="true"
+                android:layout_marginLeft="@dimen/dp_140"
                 />
 
             <TextView
@@ -42,7 +42,7 @@
                 android:text="冬天来了"
                 android:textSize="@dimen/sp_14"
                 android:textColor="#ffffff"
-                android:layout_centerHorizontal="true"
+                android:layout_marginLeft="@dimen/dp_155"
                 android:layout_below="@+id/myfragment_myimage"
                 android:layout_marginTop="@dimen/dp_10"
                 />
@@ -52,7 +52,7 @@
                 android:layout_width="@dimen/dp_66"
                 android:layout_height="@dimen/dp_28"
                 android:layout_below="@+id/myfragment_myname"
-                android:layout_centerHorizontal="true"
+                android:layout_marginLeft="@dimen/dp_140"
                 android:layout_marginTop="@dimen/dp_12"
                 android:text="签到"
                 android:textSize="@dimen/sp_14"
@@ -65,7 +65,7 @@
                 android:layout_width="@dimen/dp_66"
                 android:layout_height="@dimen/dp_28"
                 android:layout_below="@+id/myfragment_myname"
-                android:layout_centerHorizontal="true"
+                android:layout_marginLeft="@dimen/dp_140"
                 android:layout_marginTop="@dimen/dp_12"
                 android:text="已签到"
                 android:textSize="@dimen/sp_14"

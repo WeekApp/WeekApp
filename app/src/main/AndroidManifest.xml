@@ -58,6 +58,7 @@
         <activity android:name="com.bw.movie.activity.myactivity.RccordActivity" />
         <activity android:name="com.bw.movie.activity.myactivity.FeedBackActivity" />
         <activity android:name="com.bw.movie.activity.myactivity.VersionActivity"></activity>
+
     </application>
 
 </manifest>
