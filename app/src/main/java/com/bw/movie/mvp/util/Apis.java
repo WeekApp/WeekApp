@@ -1,7 +1,6 @@
 package com.bw.movie.mvp.util;
 
 public class Apis {
-
     //注册
     public static final String URL_POST_REGISTER = "movieApi/user/v1/registerUser";
     //登录
@@ -70,4 +69,6 @@ public class Apis {
     public static final String URL_POST_ZAN = "movieApi/cinema/v1/verify/cinemaCommentGreat";
     //购票下单
     public static final String URL_SHAPE_ORDER = "movieApi/movie/v1/verify/buyMovieTicket";
+    //支付
+    public static final String _URL_PAG_MONEY = "movieApi/movie/v1/verify/pay";
 }

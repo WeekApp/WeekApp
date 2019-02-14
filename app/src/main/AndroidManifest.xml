@@ -26,9 +26,9 @@
         <activity android:name="com.bw.movie.activity.useractivity.LoginActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+
         </activity>
 
         <activity android:name="com.bw.movie.activity.filmactivity.SelectionActivity"/>
@@ -41,6 +41,7 @@
         <activity android:name="com.bw.movie.activity.cinemaactivity.CinemaDetailActivity" />
         <activity android:name="com.bw.movie.activity.filmactivity.DetailsActivity" />
         <activity android:name="com.bw.movie.activity.filmactivity.FilmBuyingListActivity"/>
+        <activity android:name="com.bw.movie.activity.filmactivity.BuyingListActivity"/>
         <!-- 如果您项目中的所有页面都只需要以高或宽中的一个作为基准进行适配的话, 那就只需要填写高或宽中的一个设计图尺寸即可 -->
         <meta-data
             android:name="design_width_in_dp"
@@ -56,6 +57,20 @@
         <activity android:name="com.bw.movie.activity.myactivity.UpdatePwdActivity" />
         <activity android:name="com.bw.movie.activity.myactivity.AttentionActivity" />
         <activity android:name="com.bw.movie.activity.myactivity.RccordActivity"></activity>
+
+        <activity
+            android:name="com.bw.movie.wxapi.WXPayEntryActivity"
+            android:exported="true"
+            android:launchMode="singleTop">
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW"/>
+
+                <category android:name="android.intent.category.DEFAULT"/>
+
+                <data android:scheme="wxb3852e6a6b7d9516"/>
+            </intent-filter>
+        </activity>
+
     </application>
 
 </manifest>
