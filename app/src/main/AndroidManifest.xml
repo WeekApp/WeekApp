@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     package="com.bw.onlymycinema">
 
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
@@ -10,10 +11,10 @@
     <uses-permission android:name="android.permission.READ_PROFILE" />
     <uses-permission android:name="android.permission.READ_CONTACTS" />
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION " />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.CAMERA" />
 
-    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
-    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
-    <uses-permission android:name="android.permission.CAMERA"/>
     <application
         android:name="com.bw.movie.app.App"
         android:allowBackup="true"
@@ -22,19 +23,19 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name="com.bw.movie.activity.homeactivity.MainActivity">
+        <activity android:name="com.bw.movie.activity.useractivity.LoginActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name="com.bw.movie.activity.myactivity.MyMessageActivity"/>
+        <activity android:name="com.bw.movie.activity.myactivity.MyMessageActivity" />
         <activity android:name="com.bw.movie.activity.useractivity.RegisterActivity" />
         <activity android:name="com.bw.movie.activity.homeactivity.HomeActivity" />
         <activity android:name="com.bw.movie.activity.homeactivity.GuideActivity" />
         <activity android:name="com.bw.movie.activity.homeactivity.CityActivity" />
-        <activity android:name="com.bw.movie.activity.useractivity.LoginActivity" />
+        <activity android:name="com.bw.movie.activity.homeactivity.MainActivity" />
         <activity android:name="com.bw.movie.activity.cinemaactivity.CinemaDetailActivity" />
         <activity android:name="com.bw.movie.activity.filmactivity.DetailsActivity" />
         <!-- 如果您项目中的所有页面都只需要以高或宽中的一个作为基准进行适配的话, 那就只需要填写高或宽中的一个设计图尺寸即可 -->
@@ -46,10 +47,11 @@
             android:value="667" />
 
         <activity android:name="com.bw.movie.activity.myactivity.RemindActivity" />
-        <activity android:name="com.bw.movie.activity.filmactivity.BuyingListActivity"/>
-        <activity android:name="com.bw.movie.activity.myactivity.AttentionActivity"/>
-        <activity android:name="com.bw.movie.activity.myactivity.UpdatePwdActivity"/>
-        <activity android:name="com.bw.movie.activity.filmactivity.FilmBuyingListActivity"/>
+        <activity
+            android:name="com.bw.movie.activity.myactivity.MyMessageActivity"
+            tools:ignore="DuplicateActivity" />
+        <activity android:name="com.bw.movie.activity.myactivity.UpdatePwdActivity" />
+        <activity android:name="com.bw.movie.activity.myactivity.AttentionActivity"></activity>
     </application>
 
 </manifest>
