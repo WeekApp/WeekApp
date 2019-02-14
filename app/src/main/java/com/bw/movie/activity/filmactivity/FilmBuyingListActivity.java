@@ -64,7 +64,7 @@ public class FilmBuyingListActivity extends BaseActivity {
     private void initGo() {
         filmByingContentAdapter.setOnItemClick(new FilmByingContentAdapter.OnItemClick() {
             @Override
-            public void success(String BeginTime, String EndTime, String Hall, String price) {
+            public void success(String BeginTime, String EndTime, String Hall, String price,String id) {
                 Intent intent = new Intent(FilmBuyingListActivity.this,SelectionActivity.class);
                 intent.putExtra("BeginTime",BeginTime);
                 intent.putExtra("EndTime",EndTime);
@@ -73,6 +73,7 @@ public class FilmBuyingListActivity extends BaseActivity {
                 intent.putExtra("moviename",moviename);
                 intent.putExtra("address",address);
                 intent.putExtra("string",string);
+                intent.putExtra("scheduleId",id);
                 startActivity(intent);
             }
         });

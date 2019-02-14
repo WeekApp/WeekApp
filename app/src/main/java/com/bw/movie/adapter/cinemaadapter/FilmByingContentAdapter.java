@@ -71,7 +71,8 @@ public class FilmByingContentAdapter extends RecyclerView.Adapter<RecyclerView.V
                 String endTime = mlist.get(i).getEndTime();
                 String hall = mlist.get(i).getScreeningHall();
                 double price = mlist.get(i).getPrice();
-                onItemClick.success(beginTime,endTime,hall,price+"");
+                String id = mlist.get(i).getId()+"";
+                onItemClick.success(beginTime,endTime,hall,price+"",id);
             }
         });
     }
@@ -88,6 +89,6 @@ public class FilmByingContentAdapter extends RecyclerView.Adapter<RecyclerView.V
     }
 
     public interface OnItemClick{
-        void success(String BeginTime,String EndTime,String Hall,String price);
+        void success(String BeginTime,String EndTime,String Hall,String price,String id);
     }
 }

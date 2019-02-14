@@ -19,6 +19,7 @@ import android.widget.RadioGroup;
 import android.widget.TextView;
 
 import com.bw.movie.activity.filmactivity.FilmBuyingListActivity;
+import com.bw.movie.activity.filmactivity.SelectionActivity;
 import com.bw.movie.adapter.cinemaadapter.CinemaBannerAdapter;
 import com.bw.movie.adapter.cinemaadapter.CinemaScheduleAdapter;
 import com.bw.movie.base.BaseActivity;
@@ -65,7 +66,6 @@ public class CinemaDetailActivity extends BaseActivity {
     TextView textView_two;
     private String address;
     private String name;
-
     @Override
     protected void initView() {
 
@@ -98,9 +98,28 @@ public class CinemaDetailActivity extends BaseActivity {
         cinemadetailSimpleLogo.setImageURI(logo);
         cinemadetailTvName.setText(name);
         cinemadetailTvAddress.setText(address);
-
+        mCinemaScheduleAdapter = new CinemaScheduleAdapter(this);
         initBanner(mId);
         initGo();
+        //跳转到选择
+        initToGo();
+    }
+
+   private void initToGo() {
+        mCinemaScheduleAdapter.setOnSuccess(new CinemaScheduleAdapter.OnSuccess() {
+            @Override
+            public void success(String BeginTime, String EndTime, String Hall, String price,String id) {
+                Intent intent = new Intent(CinemaDetailActivity.this,SelectionActivity.class);
+                intent.putExtra("BeginTime",BeginTime);
+                intent.putExtra("EndTime",EndTime);
+                intent.putExtra("Hall",Hall);
+                intent.putExtra("price",price);
+                intent.putExtra("moviename",name);
+                intent.putExtra("address",address);
+                intent.putExtra("scheduleId",id);
+                startActivity(intent);
+            }
+        });
     }
 
     public String getMid(){
@@ -130,7 +149,7 @@ public class CinemaDetailActivity extends BaseActivity {
         //设置是否可以触摸
         mPop.setTouchable(true);
         mPop.setBackgroundDrawable(new BitmapDrawable());
-
+        mPop.setAnimationStyle(R.style.Popupwindow);
         mPop.setOnDismissListener(new PopupWindow.OnDismissListener() {
             @Override
             public void onDismiss() {
@@ -145,7 +164,7 @@ public class CinemaDetailActivity extends BaseActivity {
                 changeWindowAlfa(0.6f);
                 mPop.showAtLocation(v, Gravity.BOTTOM, 0, 0);
                 mPop.update();
-                mPop.showAsDropDown(v, Gravity.BOTTOM,0 ,0 );
+                //mPop.showAsDropDown(v, Gravity.BOTTOM,0 ,0 );
             }
         });
 
@@ -231,12 +250,10 @@ public class CinemaDetailActivity extends BaseActivity {
         getWindow().setAttributes(params);
     }
 
-
     //排期
     private void initRecy(String mid, int id) {
         doNetGet(Apis.URL_GET_findMovieScheduleList + "?cinemasId=" + mid + "&movieId=" + id, CinemaDetailScheduleBean.class);
 
-        mCinemaScheduleAdapter = new CinemaScheduleAdapter(this);
         cinemadetailRecy.setAdapter(mCinemaScheduleAdapter);
         cinemadetailRecy.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false));
 

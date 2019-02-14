@@ -33,7 +33,7 @@
             android:id="@+id/myfragment_myname"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="暂无昵称"
+            android:text="冬天来了"
             android:textSize="@dimen/sp_14"
             android:textColor="#ffffff"
             android:layout_centerHorizontal="true"

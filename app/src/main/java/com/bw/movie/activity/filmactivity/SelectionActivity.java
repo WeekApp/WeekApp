@@ -1,13 +1,24 @@
 package com.bw.movie.activity.filmactivity;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
+import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.bw.movie.app.App;
 import com.bw.movie.base.BaseActivity;
+import com.bw.movie.bean.filmbean.details.detailsbean.ShopOrderBean;
+import com.bw.movie.mvp.util.Apis;
+import com.bw.movie.util.ToastUtils;
 import com.bw.movie.view.SeatTable;
 import com.bw.onlymycinema.R;
+
+import java.util.HashMap;
+import java.util.Map;
+
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
@@ -27,12 +38,15 @@ public class SelectionActivity extends BaseActivity {
     TextView mprice;
     @BindView(R.id.pay_pay)
     ImageView mPay;
+    @BindView(R.id.pay_quxiao)
+    ImageView mQuxiao;
 
     double TotalPrice = 0;
     String price;
     int TotalNum = 0;
     private String hall;
     private Double mPrice;
+    private String scheduleId;
 
     @Override
     protected void initData() {
@@ -48,7 +62,15 @@ public class SelectionActivity extends BaseActivity {
         mPay.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                Map<String,String> map = new HashMap<>();
+                map.put("scheduleId",scheduleId);
+                map.put("amount",TotalNum+"");
+                SharedPreferences sharedPreferences = App.getApplication().getSharedPreferences("userName",MODE_PRIVATE);
+                String userId = sharedPreferences.getString("userId", "");
+                String sign = userId+scheduleId+TotalNum+"movie";
+                Log.i("SIGN",sign);
+                map.put("sign",sign);
+                doNetPost(Apis.URL_SHAPE_ORDER,map,ShopOrderBean.class);
             }
         });
     }
@@ -109,6 +131,7 @@ public class SelectionActivity extends BaseActivity {
         String begintime = intent.getStringExtra("BeginTime");
         String endTime = intent.getStringExtra("EndTime");
         hall = intent.getStringExtra("Hall");
+        scheduleId = intent.getStringExtra("scheduleId");
         mTime.setText(begintime+"-"+endTime+"  "+ hall);
         mSname.setText(string);
         mName.setText(moviename);
@@ -128,7 +151,13 @@ public class SelectionActivity extends BaseActivity {
 
     @Override
     protected void netSuccess(Object data) {
-
+        if(data instanceof ShopOrderBean){
+            ShopOrderBean user = (ShopOrderBean) data;
+            if(user.getStatus().equals("0000")){
+                Log.i("WWWW",user.getOrderId());
+                ToastUtils.show(this,user.getMessage());
+            }
+        }
     }
 
     @Override

@@ -60,7 +60,6 @@ public class CinemaDetailScheduleBean {
         private String endTime;
         private int id;
         private double price;
-
         private String screeningHall;
         private int seatsTotal;
         private int seatsUseCount;

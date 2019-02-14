@@ -5,6 +5,7 @@ import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.OrientationHelper;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.View;
 
 import com.bw.movie.activity.cinemaactivity.CinemaDetailActivity;
@@ -71,6 +72,7 @@ public class PopDetailsFragment extends BaseFragment {
 
     private void startRequest() {
         mid = ((CinemaDetailActivity) getActivity()).getMid();
+        Log.i("WWWW",mid);
         doNetGet(String.format(Apis.URL_POST_FILMCOMMENT, mid),PopDetailsBean.class);
     }
 
