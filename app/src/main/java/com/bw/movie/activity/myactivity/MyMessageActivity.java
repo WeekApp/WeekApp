@@ -43,6 +43,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import okhttp3.RequestBody;
+
 @RequiresApi(api = Build.VERSION_CODES.JELLY_BEAN_MR2)
 public class MyMessageActivity extends BaseActivity {
     @BindView(R.id.myfragment_usermessage)
@@ -66,7 +67,6 @@ public class MyMessageActivity extends BaseActivity {
     private String path = Environment.getExternalStorageDirectory()+"/ert.png";
 
 
-
     //初始化数据
     @Override
     protected void initData() {
@@ -75,39 +75,38 @@ public class MyMessageActivity extends BaseActivity {
         initCilck();
     }
 
-
-
-
     private void initCilck() {
 
         //修改头像
         updateHeadpic();
-
-        //修改密码
         mymessageReset.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                //修改密码
                 updatePwd();
             }
         });
 
-        //返回
+        //突出
+        initBlack();
+    }
+
+    private void initBlack() {
         mymessageBack.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 finish();
             }
         });
-
     }
 
     private void updatePwd() {
+
         startActivity(new Intent(MyMessageActivity.this,UpdatePwdActivity.class));
+
     }
 
-
-    //修改头像
+    //修改头像阿萨德
     private void updateHeadpic() {
         mymessageHeadpic.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -132,7 +131,6 @@ public class MyMessageActivity extends BaseActivity {
                         Intent intent=new Intent(Intent.ACTION_PICK);
                         intent.setType("image/*");
                         startActivityForResult(intent,2000);
-
                     }
                 });
                 builder.show();
@@ -193,9 +191,7 @@ public class MyMessageActivity extends BaseActivity {
             RequestBody requestBody = RxPartMapUtils.toRequestBodyOfImage(file);
             map.put("image"+"\";filename=\""+file.getName(),requestBody);
         }
-
         doNetPostFile(Apis.URL_POST_UPLOADHEADPIC,map,UpdateHeafpicBean.class);
-
     }
 
     //保存图片
@@ -217,14 +213,6 @@ public class MyMessageActivity extends BaseActivity {
         }
         return null;
     }
-
-
-    @Override
-    protected void onResume() {
-        super.onResume();
-        initData();
-    }
-
     //初始化控件
     @Override
     protected void initView() {
@@ -233,7 +221,7 @@ public class MyMessageActivity extends BaseActivity {
         StrictMode.VmPolicy.Builder builder = new StrictMode.VmPolicy.Builder();
         StrictMode.setVmPolicy(builder.build());
         builder.detectFileUriExposure();
-  
+
     }
 
     private void permission() {
@@ -252,8 +240,8 @@ public class MyMessageActivity extends BaseActivity {
                     Manifest.permission.CAMERA};
             ActivityCompat.requestPermissions(MyMessageActivity.this, mPermissionList, 123);
         }
-
     }
+
 
     //返回布局
     @Override
@@ -274,7 +262,6 @@ public class MyMessageActivity extends BaseActivity {
         } else if (data instanceof UpdateHeafpicBean) {
             UpdateHeafpicBean updateHeafpicBean= (UpdateHeafpicBean) data;
             ToastUtils.show(this,updateHeafpicBean.getMessage());
-            initData();
         }
     }
 

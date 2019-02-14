@@ -59,6 +59,10 @@
         <activity android:name="com.bw.movie.activity.myactivity.FeedBackActivity" />
         <activity android:name="com.bw.movie.activity.myactivity.VersionActivity"></activity>
 
+        <!--微信登录-->
+        <activity android:name="com.bw.movie.wxapi.WXEntryActivity"
+            android:exported="true"
+            android:launchMode="singleTask"/>
     </application>
 
 </manifest>

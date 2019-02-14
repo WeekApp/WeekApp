@@ -33,16 +33,6 @@ import org.apache.http.impl.client.DefaultHttpClient;
 
 import java.io.BufferedReader;
 import java.io.File;
-import java.io.FileReader;
-import java.io.FileWriter;
-import java.io.InputStream;
-import java.io.RandomAccessFile;
-
-import cz.msebera.android.httpclient.Header;
-import cz.msebera.android.httpclient.HttpResponse;
-import cz.msebera.android.httpclient.client.HttpClient;
-import cz.msebera.android.httpclient.client.methods.HttpGet;
-import cz.msebera.android.httpclient.client.methods.HttpHead;
 @RequiresApi(api = Build.VERSION_CODES.JELLY_BEAN_MR2)
 public class VersionActivity  extends BaseActivity implements View.OnClickListener {
 

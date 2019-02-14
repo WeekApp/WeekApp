@@ -7,9 +7,11 @@ import android.support.v7.widget.OrientationHelper;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.RelativeLayout;
 
 import com.bw.movie.activity.filmactivity.DetailsActivity;
+import com.bw.movie.activity.filmactivity.DetailsMoreActivity;
 import com.bw.movie.adapter.filmadatper.detailsadapter.FilmHotContentAdapter;
 import com.bw.movie.adapter.filmadatper.detailsadapter.FilmIngContentAdapter;
 import com.bw.movie.adapter.filmadatper.detailsadapter.FilmJijContentAdapter;
@@ -39,6 +41,7 @@ public class FilmFragment extends BaseFragment {
     FilmHotContentAdapter mFilmHotContentAdapter;
     FilmJijContentAdapter mFilmJijContentAdapter;
     FilmIngContentAdapter mFilmIngContentAdapter;
+    ImageView mHotMore,mIngMore,mJijMore;
     //初始化数据
     @Override
     protected void initData() {
@@ -52,6 +55,29 @@ public class FilmFragment extends BaseFragment {
         initPopup();
         //点击进行跳转到详情
         initDetails();
+        //点击箭头跳转到影片更多页面
+        initMore();
+    }
+
+    private void initMore() {
+        mHotMore.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(getActivity(),DetailsMoreActivity.class));
+            }
+        });
+        mIngMore.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(getActivity(),DetailsMoreActivity.class));
+            }
+        });
+        mJijMore.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(getActivity(),DetailsMoreActivity.class));
+            }
+        });
     }
 
     private void initDetails() {
@@ -151,7 +177,9 @@ public class FilmFragment extends BaseFragment {
         mHotContents = view.findViewById(R.id.flem_hot_contents);
         mIngContents = view.findViewById(R.id.flem_inf_contents);
         mJijContents = view.findViewById(R.id.flem_jij_contents);
-
+        mHotMore = view.findViewById(R.id.flem_icon_next_hotmoive);
+        mIngMore = view.findViewById(R.id.flem_icon_int_hotmoive);
+        mJijMore = view.findViewById(R.id.flem_icon_jij_hotmoive);
     }
 
     //获取布局

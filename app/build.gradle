@@ -3,7 +3,7 @@ apply plugin: 'com.android.application'
 android {
     compileSdkVersion 28
     defaultConfig {
-        applicationId "com.example.onlymycinema"
+        applicationId "com.bw.movie"
         minSdkVersion 15
         targetSdkVersion 28
         versionCode 1
@@ -17,6 +17,16 @@ android {
         }
     }
     useLibrary 'org.apache.http.legacy'
+    /*微信登录配置*/
+    signingConfigs {
+        debug {
+            storeFile file('movie.keystore')
+            keyAlias "bw_movie"
+            storePassword "123456"
+            keyPassword "123456"
+        }
+    }
+
 }
 
 dependencies {
@@ -48,6 +58,8 @@ dependencies {
     implementation 'com.contrarywind:Android-PickerView:3.2.6'
     implementation 'com.chenlittleping:recyclercoverflow:1.0.5'
     implementation 'me.jessyan:autosize:1.1.2'
+    //第三方微信
+    implementation 'com.tencent.mm.opensdk:wechat-sdk-android-with-mta:+'
     // 网络请求Retrofit & OkHttp & Rxjava
     implementation "com.squareup.okhttp3:logging-interceptor:$rootProject.interceptor"
     implementation "com.squareup.retrofit2:converter-gson:$rootProject.converterGson"
@@ -66,4 +78,6 @@ dependencies {
     //断点续传
     implementation 'com.loopj.android:android-async-http:1.4.9'
 
+    //微信登录
+    implementation 'com.tencent.mm.opensdk:wechat-sdk-android-with-mta:+'
 }

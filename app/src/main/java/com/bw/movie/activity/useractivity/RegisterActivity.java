@@ -2,7 +2,6 @@ package com.bw.movie.activity.useractivity;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -89,9 +88,8 @@ public class RegisterActivity extends BaseActivity {
     @Override
     protected void initView() {
         ButterKnife.bind(this);
-
         //储存方式
-        sharedPreferences = getSharedPreferences("user",MODE_PRIVATE);
+        sharedPreferences = getSharedPreferences("userName",MODE_PRIVATE);
         editor = sharedPreferences.edit();
     }
 

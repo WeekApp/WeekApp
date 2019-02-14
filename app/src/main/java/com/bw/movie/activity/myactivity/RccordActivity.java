@@ -94,8 +94,6 @@ public class RccordActivity extends BaseActivity {
 
     }
 
-
-
     //初始化控件
     @Override
     protected void initView() {

@@ -1,6 +1,7 @@
 package com.bw.movie.activity.filmactivity;
 
 
+import android.app.AlertDialog;
 import android.content.Intent;
 import android.graphics.drawable.BitmapDrawable;
 import android.support.v7.widget.LinearLayoutManager;
@@ -12,6 +13,8 @@ import android.view.Gravity;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.Button;
+import android.widget.CheckBox;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.PopupWindow;
@@ -21,11 +24,13 @@ import com.bumptech.glide.Glide;
 import com.bw.movie.adapter.filmadatper.stageadapter.FlimContentAdapter;
 import com.bw.movie.adapter.filmadatper.stageadapter.StageContentAdapter;
 import com.bw.movie.base.BaseActivity;
-import com.bw.movie.bean.filmbean.details.CommentBean;
-import com.bw.movie.bean.filmbean.details.ConcrenBean;
-import com.bw.movie.bean.filmbean.details.DetailsBean;
-import com.bw.movie.bean.filmbean.details.MovieDetailsBean;
-import com.bw.movie.bean.filmbean.details.ZanBean;
+import com.bw.movie.bean.cinemabean.ToastUtil;
+import com.bw.movie.bean.filmbean.details.detailsbean.ComYesBean;
+import com.bw.movie.bean.filmbean.details.detailsbean.CommentBean;
+import com.bw.movie.bean.filmbean.details.detailsbean.ConcrenBean;
+import com.bw.movie.bean.filmbean.details.detailsbean.DetailsBean;
+import com.bw.movie.bean.filmbean.details.detailsbean.MovieDetailsBean;
+import com.bw.movie.bean.filmbean.details.detailsbean.ZanBean;
 import com.bw.movie.mvp.util.Apis;
 import com.bw.movie.util.ToastUtils;
 import com.bw.onlymycinema.R;
@@ -48,16 +53,17 @@ public class DetailsActivity extends BaseActivity {
     @BindView(R.id.details_but_details)
     Button mDetails;
     @BindView(R.id.details_icon_concren)
-    ImageView mConcren;
+    CheckBox mConcren;
     @BindView(R.id.details_but_juzhao)
     Button mStage;
     @BindView(R.id.details_but_yingping)
     Button mFlim;
     @BindView(R.id.details_yiying)
     ImageView mYicon;
-
+    @BindView(R.id.details_mai)
+    Button mBuying;
     ImageView mDown;
-    ImageView pIocn;
+    ImageView pIocn,mComment;
     TextView pLeixing;
     TextView pdaoyan;
     TextView pshicahng;
@@ -69,7 +75,12 @@ public class DetailsActivity extends BaseActivity {
     ImageView sIcon,yIcon;
     FlimContentAdapter mFlimContentAdapter;
     String id;
-    int TTT = 0;
+    int followMovie;
+    DetailsBean user;
+    EditText mInputCotents;
+    Button mSure;
+    Button mQuxiao;
+    String name;
 
     @Override
     protected void initData() {
@@ -91,16 +102,70 @@ public class DetailsActivity extends BaseActivity {
         initManager();
         //点赞
         initZan();
+        //去评论
+        initConmment();
+        //点击去购票
+        initBuying();
+    }
+
+    private void initBuying() {
+        mBuying.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(DetailsActivity.this,BuyingListActivity.class);
+                intent.putExtra("id",id);
+                intent.putExtra("buying",name);
+                startActivity(intent);
+            }
+        });
+    }
+
+    private void initConmment() {
+        mComment.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                AlertDialog.Builder builder = new AlertDialog.Builder(DetailsActivity.this);
+                View view = View.inflate(DetailsActivity.this,R.layout.arldag_details,null);
+                mInputCotents = view.findViewById(R.id.de_al_ed_contents);
+                mSure = view.findViewById(R.id.ed_al_but_sure);
+                mQuxiao = view.findViewById(R.id.ed_al_but_quxiao);
+                builder.setView(view);
+                final AlertDialog  alertDialog = builder.create();
+                mSure.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        String contents = mInputCotents.getText().toString();
+                        if(contents.equals("")){
+                            ToastUtil.showShort(DetailsActivity.this,"评论不能为空！");
+                        }else{
+                            Map<String,String> map = new HashMap<>();
+                            map.put("movieId",id);
+                            map.put("commentContent",contents);
+                            doNetPost(Apis.URL_POST_PINGLU,map,ComYesBean.class);
+                            alertDialog.dismiss();
+                        }
+                    }
+                });
+                mQuxiao.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        alertDialog.dismiss();
+                    }
+                });
+                alertDialog.show();
+            }
+        });
     }
 
     private void initZan() {
         mFlimContentAdapter.setOnItemClick(new FlimContentAdapter.OnItemClick() {
             @Override
-            public void success(int id, boolean isGreat) {
+            public void success(String id, boolean isGreat) {
+
                 Map<String,String> map = new HashMap<>();
-                map.put("commentId",id+"");
+                map.put("commentId",id);
                 if(isGreat){
-                   doNetPost(Apis.URL_POST_DIANZAN,map,ZanBean.class);
+                    doNetPost(Apis.URL_POST_DIANZAN,map,ZanBean.class);
                 }else{
                     doNetPost(Apis.URL_POST_DIANZAN,map,ZanBean.class);
                 }
@@ -113,13 +178,14 @@ public class DetailsActivity extends BaseActivity {
         View view1 = View.inflate(DetailsActivity.this,R.layout.flim_pop,null);
         mFlimContents = view1.findViewById(R.id.flim_pop_contents);
         yIcon = view1.findViewById(R.id.flim_icon_down);
+        mComment = view1.findViewById(R.id.film_pop_write);
         yPop = new PopupWindow(view1,LinearLayout.LayoutParams.MATCH_PARENT,LinearLayout.LayoutParams.WRAP_CONTENT);
         //设置焦点
         yPop.setFocusable(true);
         //设置是否可以触摸
         yPop.setTouchable(true);
         yPop.setBackgroundDrawable(new BitmapDrawable());
-
+        yPop.setAnimationStyle(R.style.Popupwindow);
         yPop.setOnDismissListener(new PopupWindow.OnDismissListener() {
             @Override
             public void onDismiss() {
@@ -179,7 +245,7 @@ public class DetailsActivity extends BaseActivity {
                 changeWindowAlfa(1f);//pop消失，透明度恢复
             }
         });
-
+        sPop.setAnimationStyle(R.style.Popupwindow);
         mStage.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -202,12 +268,11 @@ public class DetailsActivity extends BaseActivity {
         mConcren.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(TTT==0){
-                    TTT = 1;
-                    doNetGet(String.format(Apis.URL_GET_GUANZHU,id),ConcrenBean.class);
+
+                if(mConcren.isChecked()) {
+                    doNetGet(String.format(Apis.URL_GET_GUANZHU, id), ConcrenBean.class);
                 }else{
-                    TTT = 0;
-                    doNetGet(String.format(Apis.URL_GET_QUXIAOGUANZHU,id),ConcrenBean.class);
+                    doNetGet(String.format(Apis.URL_GET_QUXIAOGUANZHU, id), ConcrenBean.class);
                 }
             }
         });
@@ -227,6 +292,7 @@ public class DetailsActivity extends BaseActivity {
        mPop.setFocusable(true);
         //设置是否可以触摸
        mPop.setTouchable(true);
+       mPop.setAnimationStyle(R.style.Popupwindow);
        mPop.setBackgroundDrawable(new BitmapDrawable());
 
         mPop.setOnDismissListener(new PopupWindow.OnDismissListener() {
@@ -262,7 +328,7 @@ public class DetailsActivity extends BaseActivity {
     }
 
     private void startBlack() {
-        mBlick.setOnClickListener(new View.OnClickListener() {
+        mBlick.setOnClickListener(  new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 finish();
@@ -295,6 +361,7 @@ public class DetailsActivity extends BaseActivity {
         if(data instanceof MovieDetailsBean){
             MovieDetailsBean user = (MovieDetailsBean) data;
             if(user.getStatus().equals("0000")){
+                name = user.getResult().getName();
                 title.setText(user.getResult().getName());
                 Glide.with(this).load(user.getResult().getImageUrl()).into(icon);
                 Glide.with(this).load(user.getResult().getImageUrl()).into(pIocn);
@@ -307,8 +374,14 @@ public class DetailsActivity extends BaseActivity {
             }
         }
         if(data instanceof DetailsBean){
-            DetailsBean user = (DetailsBean) data;
+            user = (DetailsBean) data;
             if(user.getStatus().equals("0000")){
+                followMovie = user.getResult().getFollowMovie();
+                if(followMovie==1){
+                    mConcren.setChecked(true);
+                }else{
+                    mConcren.setChecked(false);
+                }
                 Glide.with(this).load(user.getResult().getImageUrl()).into(pIocn);
                 pLeixing.setText(user.getResult().getMovieTypes());
                 pchandi.setText(user.getResult().getPlaceOrigin());
@@ -316,14 +389,22 @@ public class DetailsActivity extends BaseActivity {
                 pdaoyan.setText(user.getResult().getDirector());
                 ptitle.setText(user.getResult().getSummary());
                 mStageContentAdapter.setMlist(user.getResult().getPosterList());
-                Log.i("TWZY",user.getResult().getPosterList().size()+"");
+                Log.i("TWZY", user.getResult().getPosterList().size()+"");
             }
         }
 
         if(data instanceof CommentBean){
             CommentBean user = (CommentBean) data;
-            if(user.getStatus().equals("0000")){
+            if(user.getStatus().equals("0000")) {
                 mFlimContentAdapter.setMlist(user.getResult());
+            }
+        }
+
+        if(data instanceof ConcrenBean){
+            ConcrenBean user = (ConcrenBean) data;
+            if (user.getStatus().equals("0000")){
+                ToastUtils.show(this,user.getMessage());
+                doNetGet(String.format(Apis.URL_GET_MOVIEDETAILS, id),DetailsBean.class);
             }
         }
 
@@ -337,14 +418,13 @@ public class DetailsActivity extends BaseActivity {
             }
         }
 
-        if(data instanceof ConcrenBean){
-            ConcrenBean user = (ConcrenBean) data;
-            if (user.getMessage().equals("关注成功")){
+        if(data instanceof  ComYesBean){
+            ComYesBean user = (ComYesBean) data;
+            if(user.getStatus().equals("0000")){
                 ToastUtils.show(this,user.getMessage());
-                mConcren.setBackgroundResource(R.mipmap.com_icon_collection_selected);
-            }else if(user.getMessage().equals("取消关注成功")){
+                doNetGet(String.format(Apis.URL_GET_PNGLUN, id),CommentBean.class);
+            }else{
                 ToastUtils.show(this,user.getMessage());
-                mConcren.setBackgroundResource(R.mipmap.com_icon_collection_default);
             }
         }
     }

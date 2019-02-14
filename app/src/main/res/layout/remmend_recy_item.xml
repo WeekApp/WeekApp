@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:fresco="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="@dimen/dp_90"
+    android:layout_height="@dimen/dp_100"
     android:layout_marginBottom="@dimen/dp_24"
     android:layout_marginTop="@dimen/dp_14"
     android:layout_marginLeft="@dimen/dp_30"
@@ -22,9 +22,9 @@
             android:id="@+id/remmend_simple_image"
             android:layout_width="@dimen/dp_70"
             android:layout_height="@dimen/dp_70"
-
             android:layout_marginTop="@dimen/dp_10"
             android:layout_marginLeft="@dimen/dp_10"
+            android:layout_marginBottom="@dimen/dp_10"
             />
 
         <TextView
@@ -41,13 +41,14 @@
 
         <TextView
             android:id="@+id/remmend_tv_title"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="qwe"
+            android:layout_marginRight="@dimen/dp_30"
             android:textColor="#333333"
             android:textSize="@dimen/sp_12"
             android:layout_below="@+id/remmend_tv_name"
-            android:layout_marginTop="@dimen/dp_10"
+            android:layout_marginTop="@dimen/dp_5"
             android:layout_marginLeft="@dimen/dp_100"
             android:singleLine="true"
             />
@@ -59,33 +60,20 @@
             android:text="qwe"
             android:textColor="#333333"
             android:textSize="@dimen/sp_12"
-            android:layout_alignParentBottom="true"
             android:layout_marginLeft="@dimen/dp_100"
-            android:layout_marginBottom="@dimen/dp_10"
+            android:layout_alignBottom="@id/remmend_simple_image"
             android:singleLine="true"
             />
 
-        <com.facebook.drawee.view.SimpleDraweeView
-            android:id="@+id/remmend_iv_collection"
-            android:layout_width="@dimen/dp_16"
-            android:layout_height="@dimen/dp_16"
-            android:layout_alignParentBottom="true"
-            android:layout_alignParentRight="true"
-            android:layout_marginBottom="@dimen/dp_10"
-            android:layout_marginRight="@dimen/dp_44"
-            fresco:placeholderImage="@mipmap/com_icon_collection_default"
+        <CheckBox
+            android:id="@+id/rey_item_xin"
+            android:layout_width="20dp"
+            android:layout_height="@dimen/dp_20"
+            android:button="@null"
+            android:background="@drawable/guanzhu_shape"
+           android:layout_alignTop="@+id/remmend_tv_distance"
+            android:layout_alignRight="@+id/remmend_tv_title"
             />
-
-        <com.facebook.drawee.view.SimpleDraweeView
-            android:id="@+id/remmend_iv_collectionselect"
-            android:layout_width="@dimen/dp_16"
-            android:layout_height="@dimen/dp_16"
-            android:layout_alignParentBottom="true"
-            android:layout_alignParentRight="true"
-            android:layout_marginBottom="@dimen/dp_10"
-            android:layout_marginRight="@dimen/dp_44"
-            fresco:placeholderImage="@mipmap/com_icon_collection_selected"
-            android:visibility="gone"/>
 
     </RelativeLayout>
 

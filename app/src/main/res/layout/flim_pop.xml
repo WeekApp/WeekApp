@@ -39,7 +39,6 @@
             android:src="@mipmap/com_icon_down_default"
             />
 
-
         <android.support.v7.widget.RecyclerView
             android:id="@+id/flim_pop_contents"
             android:layout_marginRight="@dimen/dp_24"
@@ -47,6 +46,18 @@
             android:layout_below="@id/flim_icon_down"
             android:layout_width="match_parent"
             android:layout_height="match_parent"/>
+
+        <ImageView
+            android:id="@+id/film_pop_write"
+            android:layout_width="@dimen/dp_60"
+            android:layout_height="@dimen/dp_60"
+            android:src="@mipmap/com_icon_publish_default"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentBottom="true"
+            android:layout_marginBottom="@dimen/dp_30"
+            android:layout_marginRight="@dimen/dp_24"
+            />
+
     </RelativeLayout>
 
 </RelativeLayout>

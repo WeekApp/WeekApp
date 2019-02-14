@@ -28,6 +28,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -40,11 +41,13 @@ import com.bw.movie.base.BaseFragment;
 import com.bw.movie.bean.cinemabean.CinemaLocationBean;
 import com.bw.movie.bean.cinemabean.CinemaSearchBean;
 import com.bw.movie.bean.cinemabean.RemmondBean;
+import com.bw.movie.bean.filmbean.details.buyingbean.ConcrenBean;
 import com.bw.movie.bean.mybean.RemindBean;
 import com.bw.movie.bean.userbean.RegisterBean;
 import com.bw.movie.mvp.util.Apis;
 import com.bw.movie.util.LocationUtils;
 import com.bw.movie.Utils.cinema.RequestCodeInfo;
+import com.bw.movie.util.ToastUtils;
 import com.bw.onlymycinema.R;
 import com.google.gson.Gson;
 
@@ -94,7 +97,8 @@ public class CinemaFragment extends BaseFragment {
     ViewPager cinemaFragmentVp;
     @BindView(R.id.linear)
     LinearLayout linear;
-
+    @BindView(R.id.xaas)
+    RelativeLayout relativeLayout;
     Unbinder unbinder;
     private String mCity1;
     private double mLatitude;
@@ -121,7 +125,6 @@ public class CinemaFragment extends BaseFragment {
                 return lists.size();
             }
         });
-
 
         cinemaFragmentVp.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
             @Override
@@ -181,15 +184,20 @@ public class CinemaFragment extends BaseFragment {
             Log.d( "FLY.LocationUtils", address );
             Toast.makeText(getContext(), mLatitude+" =qaz= "+mLongitude, Toast.LENGTH_SHORT).show();
         }
-
     }
 
-
-    //请求数据
-    @Override
-    protected void initData() {
-
-
+    private void initConcren() {
+        mCinemaSearchAdapter.setOnItemClick(new CinemaSearchAdapter.OnItemClick() {
+            @Override
+            public void success(String id, boolean is) {
+                if(is){
+                    doNetGet(String.format(Apis.URL_GET_GUANZHUYINGYUAN,id),ConcrenBean.class);
+                }else{
+                    doNetGet(String.format(Apis.URL_GET_CANCLEGUANZHUYINGYUAN,id),ConcrenBean.class);
+                }
+                mCinemaSearchAdapter.notifyDataSetChanged();
+            }
+        });
     }
 
     //返回布局
@@ -205,6 +213,18 @@ public class CinemaFragment extends BaseFragment {
             CinemaSearchBean cinemaSearchBean= (CinemaSearchBean) data;
             mCinemaSearchAdapter.setData(cinemaSearchBean.getResult());
 
+        }
+
+
+        if(data instanceof ConcrenBean){
+            ConcrenBean user = (ConcrenBean) data;
+            if(user.getStatus().equals("0000")){
+                ToastUtils.show(getActivity(),user.getMessage());
+                doNetGet(Apis.URL_GET_NEARLY,RemmondBean.class);
+            }else{
+                ToastUtils.show(getActivity(),user.getMessage());
+                doNetGet(Apis.URL_GET_NEARLY,RemmondBean.class);
+            }
         }
     }
     //请求失败
@@ -261,33 +281,19 @@ public class CinemaFragment extends BaseFragment {
                 intent.putExtra("address",address);
                 startActivity(intent);
             }
-
-            @Override
-            public void onColletion(int id, int followCinema) {
-                //关注
-                initCollection(id,followCinema);
-            }
-
-            @Override
-            public void onColletioned(int id) {
-                //取消关注
-                initCollectioned(id);
-            }
-
-
         });
+
+        //去关注
+        initConcren();
     }
-    //取消关注
-    private void initCollectioned(int id) {
-        doNetGet(Apis.URL_GET_CANCLEGUANZHUYINGYUAN+"?cinemaId="+id,RegisterBean.class);
+
+    //请求数据
+    @Override
+    protected void initData() {
 
     }
 
-    //关注
-    private void initCollection(int id,int fo) {
-        doNetGet(Apis.URL_GET_GUANZHUYINGYUAN+"?cinemaId="+id,RegisterBean.class);
 
-    }
     //搜索框动画
     private void initAnimator() {
         ValueAnimator valueAnimator = ValueAnimator.ofInt(cinemaFragmentEditSearch.getLayoutParams().width, 600);
@@ -299,9 +305,8 @@ public class CinemaFragment extends BaseFragment {
 
                 int currentValue = (Integer) animator.getAnimatedValue();
 
-                cinemaFragmentEditSearch.getLayoutParams().width = currentValue;
+                relativeLayout.getLayoutParams().width = currentValue;
                 cinemaFragmentEditSearch.requestLayout();
-
             }
         });
         valueAnimator.addListener(new Animator.AnimatorListener() {

@@ -1,7 +1,5 @@
 package com.bw.movie.fragment.myfragment;
 
-
-
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -34,6 +32,7 @@ public class RccordMoneyFragment extends BaseFragment {
 
     @Override
     protected void initData() {
+        doNetGet(Apis.URL_GET_QUERYMONEY + "?page=1&count=5&status=1l", RccordBean.class);
         doNetGet(Apis.URL_GET_QUERYMONEY + "?page=1&count=5&status=1", RccordBean.class);
 
         mRccordMoneyAdapter = new RccordMoneyAdapter(getContext());

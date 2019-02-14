@@ -16,7 +16,7 @@
     <color name="red_xinnian_hb">#9b000f</color>
     <color name="red_msg_qq">#F74C32</color>
     <color name="text_gray">#999999</color>
-
+    <color name="dialog_bg">#fff</color>
     <color name="gray_hb">#deb380</color>
 
     <color name="tm">#00000000</color>

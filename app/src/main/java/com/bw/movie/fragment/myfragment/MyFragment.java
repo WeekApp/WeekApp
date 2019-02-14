@@ -220,7 +220,7 @@ public class MyFragment extends BaseFragment {
 
                     }
                 });
-                doNetGet(Apis.URL_GET_VERSION,VersionBean.class);
+
                 //startActivity(new Intent(getContext(),VersionActivity.class));
                 break;
                 //返回登录
@@ -273,6 +273,7 @@ public class MyFragment extends BaseFragment {
             VersionBean versionBean= (VersionBean) data;
 
             int flag = versionBean.getFlag();
+            ToastUtils.show(getContext(),flag+"");
             if (flag==1){
                 AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
                 builder.setTitle("有新版本");
@@ -284,13 +285,6 @@ public class MyFragment extends BaseFragment {
                     }
                 });
                 builder.setNegativeButton("取消",null);
-                builder.show();
-            }else if (flag==2){
-                AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
-                builder.setTitle("已是最新版本");
-                builder.setMessage("是否取消");
-                builder.setPositiveButton("是", null);
-                builder.setNegativeButton("否",null);
                 builder.show();
             }
         }

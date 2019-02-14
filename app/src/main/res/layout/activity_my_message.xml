@@ -5,6 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
+    android:background="#fff"
     tools:context="com.bw.movie.activity.myactivity.MyMessageActivity">
 
     <TextView
@@ -51,7 +52,7 @@
 
             <TextView
                 android:layout_width="match_parent"
-                android:layout_height="@dimen/dp_2"
+                android:layout_height="@dimen/dp_1"
                 android:layout_alignParentBottom="true"
                 android:layout_marginLeft="@dimen/dp_20"
                 android:layout_marginRight="@dimen/dp_20"
@@ -85,7 +86,7 @@
 
             <TextView
                 android:layout_width="match_parent"
-                android:layout_height="@dimen/dp_2"
+                android:layout_height="@dimen/dp_1"
                 android:layout_alignParentBottom="true"
                 android:layout_marginLeft="@dimen/dp_20"
                 android:layout_marginRight="@dimen/dp_20"
@@ -119,7 +120,7 @@
 
             <TextView
                 android:layout_width="match_parent"
-                android:layout_height="@dimen/dp_2"
+                android:layout_height="@dimen/dp_1"
                 android:layout_alignParentBottom="true"
                 android:layout_marginLeft="@dimen/dp_20"
                 android:layout_marginRight="@dimen/dp_20"
@@ -153,7 +154,7 @@
 
             <TextView
                 android:layout_width="match_parent"
-                android:layout_height="@dimen/dp_2"
+                android:layout_height="@dimen/dp_1"
                 android:layout_alignParentBottom="true"
                 android:layout_marginLeft="@dimen/dp_20"
                 android:layout_marginRight="@dimen/dp_20"
@@ -199,7 +200,7 @@
 
         <TextView
             android:layout_width="match_parent"
-            android:layout_height="@dimen/dp_2"
+            android:layout_height="@dimen/dp_1"
             android:layout_marginLeft="@dimen/dp_20"
             android:layout_marginTop="@dimen/dp_40"
             android:layout_marginRight="@dimen/dp_20"

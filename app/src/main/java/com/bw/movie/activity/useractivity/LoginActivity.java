@@ -7,16 +7,21 @@ import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.bw.movie.Utils.WeiXinUtil;
+import com.bw.movie.app.App;
+import com.bw.movie.wxapi.WXEntryActivity;
 import com.bw.movie.activity.homeactivity.HomeActivity;
 import com.bw.movie.base.BaseActivity;
 import com.bw.movie.bean.userbean.LoginBean;
 import com.bw.movie.mvp.util.Apis;
 import com.bw.movie.util.EncryptUtil;
-import com.bw.movie.util.NetworkUtils;
 import com.bw.movie.util.ToastUtils;
 import com.bw.onlymycinema.R;
+import com.tencent.mm.opensdk.modelmsg.SendAuth;
+import com.tencent.mm.opensdk.openapi.WXAPIFactory;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -38,7 +43,10 @@ public class LoginActivity extends BaseActivity {
     CheckBox mRpass;
     @BindView(R.id.login_cb_self_login)
     CheckBox mRlogin;
-
+    @BindView(R.id.login_icon_eye)
+    ImageView mEyes;
+    @BindView(R.id.disanfang_icon_wechat)
+    ImageView wechat;
     SharedPreferences sharedPreferences;
     SharedPreferences.Editor editor;
     @Override
@@ -49,6 +57,45 @@ public class LoginActivity extends BaseActivity {
         toRegister();
         //自动登录
         initRemeberPass();
+        //小眼睛
+        initEyes();
+        //微信登录
+        wechat.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                if (App.api == null) {
+                    App.api = WXAPIFactory.createWXAPI(LoginActivity.this, App.APP_ID, true);
+                }
+                if (!App.api.isWXAppInstalled()) {
+                    ToastUtils.show(LoginActivity.this,"您手机尚未安装微信，请安装后再登录");
+                    return;
+                }
+
+                SendAuth.Req req = new SendAuth.Req();
+                req.scope = "snsapi_userinfo";
+                req.state = "wechat_sdk_demo_test";
+                WeiXinUtil.reg(LoginActivity.this).sendReq(req);
+                finish();
+
+
+                //startActivity(new Intent(LoginActivity.this,WXEntryActivity.class));
+            }
+        });
+    }
+
+    private void initEyes() {
+
+        mEyes.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(mLpass.getInputType()==129){
+                    mLpass.setInputType(128);
+                }else{
+                    mLpass.setInputType(129);
+                }
+            }
+        });
     }
 
     private void toRegister() {
@@ -129,14 +176,10 @@ public class LoginActivity extends BaseActivity {
                     editor.commit();
                 }
                 if(!number.equals("")&&!encrypt.equals("")) {
-                    if (NetworkUtils.hasNetwork(LoginActivity.this)) {
                         Map<String, String> map = new HashMap<>();
                         map.put("phone", number);
                         map.put("pwd", encrypt);
                         doNetPost(Apis.URL_POST_LOGIN, map, LoginBean.class);
-                    } else {
-                        ToastUtils.show(LoginActivity.this, "当前网络不可用，请检查网络");
-                    }
                 } else{
                     ToastUtils.show(LoginActivity.this, "输入的内容不能为空");
                 }

@@ -10,6 +10,8 @@ import android.os.StrictMode;
 import com.facebook.cache.disk.DiskCacheConfig;
 import com.facebook.drawee.backends.pipeline.Fresco;
 import com.facebook.imagepipeline.core.ImagePipelineConfig;
+import com.tencent.mm.opensdk.openapi.IWXAPI;
+import com.tencent.mm.opensdk.openapi.WXAPIFactory;
 
 import java.util.Locale;
 
@@ -22,6 +24,8 @@ public class App extends Application {
 
     public static Context mContext;
 
+    public static String APP_ID="wxb3852e6a6b7d9516";
+    public static IWXAPI api;
     @SuppressLint("NewApi")
     @Override
     public void onCreate() {
@@ -31,6 +35,9 @@ public class App extends Application {
         StrictMode.VmPolicy.Builder builder = new StrictMode.VmPolicy.Builder();
         StrictMode.setVmPolicy(builder.build());
         builder.detectFileUriExposure();
+        //微信
+        api = WXAPIFactory.createWXAPI(this, APP_ID, true);
+        api.registerApp(APP_ID);
 
         initData();
         //屏幕适配

@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#fff"
+    >
+
+    <ImageView
+        android:id="@+id/sdfggfb"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@mipmap/tc"
+        android:layout_centerHorizontal="true"
+        android:layout_centerVertical="true"
+        />
+
+    <TextView
+        android:id="@+id/vf"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="糟糕，网络不给力呀！"
+        android:textSize="@dimen/sp_14"
+        android:layout_below="@id/sdfggfb"
+        android:textColor="#c7c3c3"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="@dimen/dp_60"
+        />
+
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_below="@id/vf"
+        >
+        <Button
+            android:id="@+id/qushezhi"
+            android:layout_width="@dimen/dp_70"
+            android:layout_height="@dimen/dp_30"
+            android:text="设置网络"
+            android:textColor="#807d7d"
+            android:layout_marginTop="@dimen/dp_20"
+            android:background="@drawable/d_more_buxuan"
+            />
+
+    </RelativeLayout>
+
+
+</RelativeLayout>

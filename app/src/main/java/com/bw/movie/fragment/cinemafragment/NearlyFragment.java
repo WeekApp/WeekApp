@@ -15,9 +15,11 @@ import com.bw.movie.activity.cinemaactivity.CinemaDetailActivity;
 import com.bw.movie.adapter.cinemaadapter.NearlyAdapter;
 import com.bw.movie.base.BaseFragment;
 import com.bw.movie.bean.cinemabean.RemmondBean;
+import com.bw.movie.bean.filmbean.details.buyingbean.ConcrenBean;
 import com.bw.movie.bean.userbean.RegisterBean;
 import com.bw.movie.mvp.persenter.IPersenter;
 import com.bw.movie.mvp.util.Apis;
+import com.bw.movie.util.ToastUtils;
 import com.bw.onlymycinema.R;
 
 import butterknife.BindView;
@@ -35,7 +37,7 @@ public class NearlyFragment extends BaseFragment {
     @BindView(R.id.NearlyFragment_recy)
     RecyclerView NearlyFragmentRecy;
     Unbinder unbinder;
-    private NearlyAdapter mNearlyAdapter;
+    NearlyAdapter mNearlyAdapter;
 
     //初始化布局
     @Override
@@ -50,42 +52,36 @@ public class NearlyFragment extends BaseFragment {
             @Override
             public void onClick(int id, String logo, String name, String address) {
                 Intent intent=new Intent(getContext(),CinemaDetailActivity.class);
-                intent.putExtra("id",id+"");
+                intent.putExtra("filmid",id+"");
                 intent.putExtra("logo",logo);
                 intent.putExtra("name",name);
                 intent.putExtra("address",address);
                 startActivity(intent);
             }
-
-            @Override
-            public void onColletion(int id, int followCinema) {
-                //关注
-                initCollection(id,followCinema);
-            }
-
-            @Override
-            public void onColletioned(int id) {
-                //取消关注
-                initCollectioned(id);
-
-            }
         });
-    }
-    //取消关注
-    private void initCollectioned(int id) {
-        doNetGet(Apis.URL_GET_CANCLEGUANZHUYINGYUAN+"?cinemaId="+id,RegisterBean.class);
 
+        //去关注
+        initConcren();
     }
 
-    //关注
-    private void initCollection(int id,int fo) {
-        doNetGet(Apis.URL_GET_GUANZHUYINGYUAN+"?cinemaId="+id,RegisterBean.class);
-
-    }
     //请求数据
     @Override
     protected void initData() {
         doNetGet(Apis.URL_GET_NEARLY,RemmondBean.class);
+    }
+
+    private void initConcren() {
+        mNearlyAdapter.setOnItemClick(new NearlyAdapter.OnItemClick() {
+            @Override
+            public void success(String id, boolean is) {
+                if(is){
+                    doNetGet(String.format(Apis.URL_GET_GUANZHUYINGYUAN,id),ConcrenBean.class);
+                }else{
+                    doNetGet(String.format(Apis.URL_GET_CANCLEGUANZHUYINGYUAN,id),ConcrenBean.class);
+                }
+                mNearlyAdapter.notifyDataSetChanged();
+            }
+        });
     }
 
     //返回布局
@@ -101,6 +97,17 @@ public class NearlyFragment extends BaseFragment {
             RemmondBean remmondBean= (RemmondBean) data;
 
             mNearlyAdapter.setData(remmondBean.getResult());
+        }
+
+        if(data instanceof  ConcrenBean){
+            ConcrenBean user = (ConcrenBean) data;
+            if(user.getStatus().equals("0000")){
+                ToastUtils.show(getActivity(),user.getMessage());
+                doNetGet(Apis.URL_GET_NEARLY,RemmondBean.class);
+            }else{
+                ToastUtils.show(getActivity(),user.getMessage());
+                doNetGet(Apis.URL_GET_NEARLY,RemmondBean.class);
+            }
         }
     }
 

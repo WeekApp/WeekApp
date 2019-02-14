@@ -32,7 +32,7 @@ public class AttentionFilmFragment extends BaseFragment {
     @BindView(R.id.attentionfilm_recy)
     RecyclerView attentionfilmRecy;
     Unbinder unbinder;
-    private AttentionFilmAdapter mAttentionFilmAdapter;
+    AttentionFilmAdapter mAttentionFilmAdapter;
 
     //初始化数据
     @Override
@@ -48,8 +48,6 @@ public class AttentionFilmFragment extends BaseFragment {
     @Override
     protected void initView(View view) {
         unbinder = ButterKnife.bind(this, view);
-
-
     }
     //返回布局
     @Override

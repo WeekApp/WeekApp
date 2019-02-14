@@ -1,10 +1,10 @@
-package com.bw.movie.bean.filmbean.details;
+package com.bw.movie.bean.filmbean.details.detailsbean;
 
-public class ConcrenBean {
+public class ComYesBean {
 
 
     /**
-     * message : 取消关注成功
+     * message : 评论成功
      * status : 0000
      */
 

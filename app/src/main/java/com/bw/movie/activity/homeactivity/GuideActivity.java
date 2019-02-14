@@ -38,12 +38,23 @@ public class GuideActivity extends AppCompatActivity {
         initData();
 
         initAdapter();
-
         //
         initPager();
     }
 
     private void initPager() {
+
+        mPager.setAdapter(new FragmentPagerAdapter(getSupportFragmentManager()) {
+            @Override
+            public Fragment getItem(int i) {
+                return mlist.get(i);
+            }
+
+            @Override
+            public int getCount() {
+                return mlist.size();
+            }
+        });
 
         mPager.setOnPageChangeListener(new ViewPager.OnPageChangeListener() {
             @Override
@@ -74,6 +85,26 @@ public class GuideActivity extends AppCompatActivity {
 
             }
         });
+
+        mGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(RadioGroup group, int checkedId) {
+                switch (checkedId){
+                    case R.id.g_but_one:
+                        mPager.setCurrentItem(0);
+                        break;
+                    case R.id.g_but_two:
+                        mPager.setCurrentItem(1);
+                        break;
+                    case R.id.g_but_three:
+                        mPager.setCurrentItem(2);
+                        break;
+                    case R.id.g_but_four:
+                        mPager.setCurrentItem(3);
+                        break;
+                }
+            }
+        });
     }
 
     private void initAdapter() {
@@ -98,6 +129,4 @@ public class GuideActivity extends AppCompatActivity {
         mlist.add(new GuideThreeFragment());
         mlist.add(new GuideFourFragemnt());
     }
-
-
 }

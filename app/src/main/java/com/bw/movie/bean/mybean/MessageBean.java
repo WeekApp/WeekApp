@@ -52,7 +52,7 @@ public class MessageBean {
          * nickName : 你的益达
          * phone : 18600151568
          * userSignStatus : 1
-         */
+                */
 
         private String headPic;
         private int integral;

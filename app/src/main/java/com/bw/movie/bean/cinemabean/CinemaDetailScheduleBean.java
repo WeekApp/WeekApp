@@ -59,10 +59,19 @@ public class CinemaDetailScheduleBean {
         private String duration;
         private String endTime;
         private int id;
+        private double price;
         private String screeningHall;
         private int seatsTotal;
         private int seatsUseCount;
         private int status;
+
+        public double getPrice() {
+            return price;
+        }
+
+        public void setPrice(double price) {
+            this.price = price;
+        }
 
         public String getBeginTime() {
             return beginTime;

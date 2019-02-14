@@ -4,6 +4,7 @@
     android:layout_height="match_parent"
     tools:context="com.bw.movie.fragment.myfragment.RccordFinishFragment">
 
+
     <android.support.v7.widget.RecyclerView
         android:id="@+id/rccordfinish_recy"
         android:layout_width="match_parent"

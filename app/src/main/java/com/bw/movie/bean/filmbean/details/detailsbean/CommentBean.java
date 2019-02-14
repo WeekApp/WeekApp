@@ -1,4 +1,4 @@
-package com.bw.movie.bean.filmbean.details;
+package com.bw.movie.bean.filmbean.details.detailsbean;
 
 import java.util.List;
 

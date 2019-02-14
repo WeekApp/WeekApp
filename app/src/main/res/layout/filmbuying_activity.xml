@@ -1,0 +1,176 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+
+    <TextView
+        android:id="@+id/fb_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="@dimen/sp_14"
+        android:layout_marginTop="@dimen/dp_30"
+        android:layout_marginLeft="@dimen/dp_24"
+        />
+
+    <TextView
+        android:id="@+id/fb_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="@dimen/sp_12"
+        android:layout_below="@id/fb_name"
+        android:layout_alignLeft="@id/fb_name"
+        android:layout_marginTop="@dimen/dp_10"
+        />
+
+    <ImageView
+        android:id="@+id/fb_details"
+        android:layout_width="@dimen/dp_24"
+        android:layout_height="@dimen/dp_24"
+        android:layout_marginTop="@dimen/dp_30"
+        android:layout_alignParentRight="true"
+        android:layout_marginRight="@dimen/dp_24"
+        android:src="@mipmap/com_icon_navigation_default"
+        />
+
+
+    <RelativeLayout
+        android:id="@+id/fbgn"
+        android:layout_below="@+id/fb_title"
+        android:layout_width="match_parent"
+        android:layout_marginLeft="@dimen/dp_24"
+        android:layout_marginRight="@dimen/dp_24"
+        android:layout_height="@dimen/dp_142"
+        android:layout_marginTop="@dimen/dp_10"
+        android:background="@mipmap/hdpi_"
+        >
+
+        <com.facebook.drawee.view.SimpleDraweeView
+            android:id="@+id/fb_icon"
+            android:layout_width="@dimen/dp_103"
+            android:layout_height="@dimen/dp_130"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="@dimen/dp_6"
+            app:roundedCornerRadius="@dimen/dp_6"
+            />
+
+        <TextView
+            android:id="@+id/fb_r_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="@dimen/sp_20"
+            android:textColor="#fff"
+            android:layout_toRightOf="@id/fb_icon"
+            android:layout_marginTop="@dimen/sp_10"
+            android:layout_marginLeft="@dimen/sp_20"
+            />
+
+        <TextView
+            android:id="@+id/dvfbgf"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="类型:"
+            android:textColor="#fff"
+            android:layout_below="@id/fb_r_name"
+            android:layout_alignLeft="@id/fb_r_name"
+            android:layout_marginTop="@dimen/dp_10"
+            />
+        <TextView
+            android:id="@+id/fb_r_leixing"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignTop="@id/dvfbgf"
+            android:textColor="#fff"
+            android:layout_toRightOf="@id/dvfbgf"
+            android:layout_marginLeft="@dimen/dp_5"
+            />
+        <TextView
+            android:id="@+id/sfd"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="导演:"
+            android:textColor="#fff"
+            android:layout_below="@id/dvfbgf"
+            android:layout_alignLeft="@id/fb_r_name"
+            android:layout_marginTop="@dimen/dp_5"
+            />
+        <TextView
+            android:id="@+id/fb_r_daoyan"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignTop="@id/sfd"
+            android:textColor="#fff"
+            android:layout_toRightOf="@id/dvfbgf"
+            android:layout_marginLeft="@dimen/dp_5"
+            />
+        <TextView
+            android:id="@+id/sdfbgnh"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="时长:"
+            android:textColor="#fff"
+            android:layout_below="@id/sfd"
+            android:layout_alignLeft="@id/fb_r_name"
+            android:layout_marginTop="@dimen/dp_5"
+            />
+        <TextView
+            android:id="@+id/fb_r_shichang"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignTop="@id/sdfbgnh"
+            android:textColor="#fff"
+            android:layout_toRightOf="@id/dvfbgf"
+            android:layout_marginLeft="@dimen/dp_5"
+            />
+
+
+        <TextView
+            android:id="@+id/sdfvbgh"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="产地:"
+            android:textColor="#fff"
+            android:layout_below="@id/sdfbgnh"
+            android:layout_alignLeft="@id/fb_r_name"
+            android:layout_marginTop="@dimen/dp_5"
+            />
+        <TextView
+            android:id="@+id/fb_r_chandi"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignTop="@id/sdfvbgh"
+            android:textColor="#fff"
+            android:layout_toRightOf="@id/dvfbgf"
+            android:layout_marginLeft="@dimen/dp_5"
+            />
+
+    </RelativeLayout>
+
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/fb_contents"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/fbgn"
+        android:layout_marginLeft="@dimen/dp_24"
+        android:layout_marginRight="@dimen/dp_24"
+        ></android.support.v7.widget.RecyclerView>
+
+    <ImageView
+        android:id="@+id/buying_icon_black"
+        android:layout_width="@dimen/dp_60"
+        android:layout_height="@dimen/dp_60"
+        android:src="@mipmap/com_icon_default"
+        android:layout_alignLeft="@+id/fb_contents"
+        android:layout_alignTop="@+id/fb_contents"
+        android:layout_marginTop="@dimen/dp_230"
+
+        />
+    </RelativeLayout>
+
+</RelativeLayout>

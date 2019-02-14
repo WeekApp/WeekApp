@@ -5,6 +5,7 @@ import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.CheckBox;
 import android.widget.TextView;
 
 import com.bw.movie.bean.cinemabean.CinemaSearchBean;
@@ -41,7 +42,7 @@ public class CinemaSearchAdapter extends RecyclerView.Adapter<CinemaSearchAdapte
     }
 
     @Override
-    public void onBindViewHolder(@NonNull final ViewHolder viewHolder, int i) {
+    public void onBindViewHolder(@NonNull final ViewHolder viewHolder, final int i) {
         final String logo = list.get(i).getLogo();
         final String name = list.get(i).getName();
         final String address = list.get(i).getAddress();
@@ -60,21 +61,24 @@ public class CinemaSearchAdapter extends RecyclerView.Adapter<CinemaSearchAdapte
                 mGetData.onClick(id,logo,name,address);
             }
         });
-        viewHolder.remmend_iv_collection.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                mGetData.onColletion(id,followCinema);
-                viewHolder.remmend_iv_collection.setVisibility(View.GONE);
-                viewHolder.remmend_iv_collectionselect.setVisibility(View.VISIBLE);
-            }
-        });
 
-        viewHolder.remmend_iv_collectionselect.setOnClickListener(new View.OnClickListener() {
+
+        if(followCinema==1){
+            viewHolder.checkBox.setChecked(true);
+        }else{
+            viewHolder.checkBox.setChecked(false);
+        }
+
+        viewHolder.checkBox.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                mGetData.onColletioned(id);
-                viewHolder.remmend_iv_collection.setVisibility(View.VISIBLE);
-                viewHolder.remmend_iv_collectionselect.setVisibility(View.GONE);
+                if(list.get(i).getFollowCinema()==1){
+                    list.get(i).setFollowCinema(2);
+                }else{
+                    list.get(i).setFollowCinema(1);
+                }
+                onItemClick.success(list.get(i).getId()+"",list.get(i).getFollowCinema()==1);
+                notifyItemChanged(i);
             }
         });
     }
@@ -87,27 +91,36 @@ public class CinemaSearchAdapter extends RecyclerView.Adapter<CinemaSearchAdapte
 
 
     public class ViewHolder extends RecyclerView.ViewHolder {
-        SimpleDraweeView remmend_simple_image,remmend_iv_collection,remmend_iv_collectionselect;
+        SimpleDraweeView remmend_simple_image;
         TextView remmend_tv_name,remmend_tv_title,remmend_tv_distance;
-
+        CheckBox checkBox;
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
             remmend_simple_image=itemView.findViewById(R.id.remmend_simple_image);
             remmend_tv_name=itemView.findViewById(R.id.remmend_tv_name);
             remmend_tv_title=itemView.findViewById(R.id.remmend_tv_title);
             remmend_tv_distance=itemView.findViewById(R.id.remmend_tv_distance);
-            remmend_iv_collection=itemView.findViewById(R.id.remmend_iv_collection);
-            remmend_iv_collectionselect=itemView.findViewById(R.id.remmend_iv_collectionselect);
+            checkBox = itemView.findViewById(R.id.rey_item_xin);
         }
     }
     public interface GetData{
         void onClick(int id, String logo, String name, String address);
-        void onColletion(int id,int followCinema);
-        void onColletioned(int id);
     }
     private GetData mGetData;
 
     public void setGetData(GetData getData) {
         mGetData = getData;
+    }
+
+
+
+    OnItemClick onItemClick;
+
+    public void setOnItemClick(OnItemClick onItemClick) {
+        this.onItemClick = onItemClick;
+    }
+
+    public interface OnItemClick{
+        void success(String id,boolean is);
     }
 }

@@ -1,10 +1,10 @@
-package com.bw.movie.bean.filmbean.details;
+package com.bw.movie.bean.filmbean.details.detailsbean;
 
-public class ZanBean {
+public class ConcrenBean {
 
 
     /**
-     * message : 不能重复点赞
+     * message : 取消关注成功
      * status : 0000
      */
 

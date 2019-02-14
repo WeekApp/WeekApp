@@ -10,7 +10,6 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.bw.movie.adapter.myadapter.RccordFinishAdapter;
-import com.bw.movie.adapter.myadapter.RccordMoneyAdapter;
 import com.bw.movie.base.BaseFragment;
 import com.bw.movie.bean.mybean.RccordBean;
 import com.bw.movie.mvp.util.Apis;
@@ -21,11 +20,6 @@ import butterknife.ButterKnife;
 import butterknife.Unbinder;
 
 
-/**
- * A simple {@link Fragment} subclass.
- * <p>
- * 已完成
- */
 public class RccordFinishFragment extends BaseFragment {
 
     @BindView(R.id.rccordfinish_recy)
