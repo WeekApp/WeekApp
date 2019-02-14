@@ -11,6 +11,7 @@ import android.view.ViewGroup;
 import android.widget.RelativeLayout;
 
 import com.bw.movie.activity.homeactivity.GuideActivity;
+import com.bw.movie.activity.homeactivity.HomeActivity;
 import com.bw.movie.activity.useractivity.LoginActivity;
 import com.bw.onlymycinema.R;
 
@@ -33,7 +34,7 @@ public class GuideFourFragemnt extends Fragment {
         relativeLayout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(getActivity(),LoginActivity.class));
+                startActivity(new Intent(getActivity(),HomeActivity.class));
                 ((GuideActivity)getActivity()).finish();
             }
         });

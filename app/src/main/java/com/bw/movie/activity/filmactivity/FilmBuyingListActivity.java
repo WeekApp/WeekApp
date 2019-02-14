@@ -40,7 +40,12 @@ public class FilmBuyingListActivity extends BaseActivity {
     RecyclerView mFilmContentes;
     @BindView(R.id.buying_icon_black)
     ImageView mBlack;
-    private FilmByingContentAdapter filmByingContentAdapter;
+    FilmByingContentAdapter filmByingContentAdapter;
+    String moviename;
+    String address;
+    private String movieId;
+    private String cinemasId;
+    private String string;
 
     @Override
     protected void initData() {
@@ -52,6 +57,25 @@ public class FilmBuyingListActivity extends BaseActivity {
         initManager();
         //返回键
         initBlack();
+        //点击跳转到选座页面
+        initGo();
+    }
+
+    private void initGo() {
+        filmByingContentAdapter.setOnItemClick(new FilmByingContentAdapter.OnItemClick() {
+            @Override
+            public void success(String BeginTime, String EndTime, String Hall, String price) {
+                Intent intent = new Intent(FilmBuyingListActivity.this,SelectionActivity.class);
+                intent.putExtra("BeginTime",BeginTime);
+                intent.putExtra("EndTime",EndTime);
+                intent.putExtra("Hall",Hall);
+                intent.putExtra("price",price);
+                intent.putExtra("moviename",moviename);
+                intent.putExtra("address",address);
+                intent.putExtra("string",string);
+                startActivity(intent);
+            }
+        });
     }
 
     private void initBlack() {
@@ -75,13 +99,13 @@ public class FilmBuyingListActivity extends BaseActivity {
 
     private void startRequest() {
         Intent intent = getIntent();
-        String moviename = intent.getStringExtra("moviename");
-        String cinemasId = intent.getStringExtra("cinemasId");
-        String movieId = intent.getStringExtra("movieId");
-        String address = intent.getStringExtra("address");
+        moviename = intent.getStringExtra("moviename");
+        cinemasId = intent.getStringExtra("cinemasId");
+        movieId = intent.getStringExtra("movieId");
+        address = intent.getStringExtra("address");
         title.setText(address);
-        doNetGet(String.format(Apis.URL_GET_MOVIEDETAILS,movieId),DetailsBean.class);
-        doNetGet(String.format(Apis.URL_GET_YINGYUAN,cinemasId,movieId),FilmByingBean.class);
+        doNetGet(String.format(Apis.URL_GET_MOVIEDETAILS, movieId),DetailsBean.class);
+        doNetGet(String.format(Apis.URL_GET_YINGYUAN, cinemasId, movieId),FilmByingBean.class);
         name.setText(moviename);
     }
 
@@ -103,6 +127,7 @@ public class FilmBuyingListActivity extends BaseActivity {
             if(user.getStatus().equals("0000")){
                 String imageUrl = user.getResult().getImageUrl();
                 icon.setImageURI(imageUrl);
+                string = user.getResult().getName();
                 mLeixing.setText(user.getResult().getMovieTypes());
                 mDaoyan.setText(user.getResult().getDirector());
                 mShichang.setText(user.getResult().getDuration());

@@ -1,26 +1,28 @@
 package com.bw.movie.fragment.myfragment;
 
 
+import android.content.Context;
 import android.content.Intent;
-import android.os.Bundle;
+import android.content.SharedPreferences;
 import android.support.v4.app.Fragment;
-import android.view.LayoutInflater;
+import android.util.Log;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.bw.movie.activity.myactivity.AttentionActivity;
 import com.bw.movie.activity.myactivity.MyMessageActivity;
 import com.bw.movie.activity.myactivity.RccordActivity;
 import com.bw.movie.activity.myactivity.RemindActivity;
 import com.bw.movie.activity.useractivity.LoginActivity;
+import com.bw.movie.app.App;
 import com.bw.movie.base.BaseFragment;
+import com.bw.movie.bean.cinemabean.ToastUtil;
 import com.bw.movie.bean.mybean.MessageBean;
 import com.bw.movie.bean.userbean.RegisterBean;
 import com.bw.movie.mvp.util.Apis;
+import com.bw.movie.util.ToastUtils;
 import com.bw.onlymycinema.R;
 import com.facebook.drawee.view.SimpleDraweeView;
 
@@ -72,11 +74,12 @@ public class MyFragment extends BaseFragment {
     TextView myfragmentTvLogout;
     Unbinder unbinder;
 
-
     //初始化控件
     @Override
     protected void initView(View view) {
         unbinder = ButterKnife.bind(this, view);
+
+
     }
     //获取布局
     @Override
@@ -125,39 +128,30 @@ public class MyFragment extends BaseFragment {
                 break;
                 //我的信息
             case R.id.myfragment_tv_messiage:
-                startActivity(new Intent(getContext(),MyMessageActivity.class));
+                SharedPreferences sharedPreferences = App.getApplication().getSharedPreferences("userName",Context.MODE_PRIVATE);
+                String userId = sharedPreferences.getString("userId", "");
+                String sessionId = sharedPreferences.getString("sessionId","");
+                if(userId.equals("")&&sessionId.equals("")){
+                    ToastUtils.show(getActivity(),"请先登陆");
+                    startActivity(new Intent(getContext(),LoginActivity.class));
+                }else{
+                    startActivity(new Intent(getContext(),MyMessageActivity.class));
+                }
                 break;
                 //我的关注
             case R.id.myfragment_iv_attention:
-                startActivity(new Intent(getContext(),AttentionActivity.class));
-                break;
-                //我的关注
-            case R.id.myfragment_tv_attention:
+
                 startActivity(new Intent(getContext(),AttentionActivity.class));
                 break;
                 //购买记录
             case R.id.myfragment_iv_rccord:
                 startActivity(new Intent(getContext(),RccordActivity.class));
                 break;
-                //购买记录
-            case R.id.myfragment_tv_rccord:
-                startActivity(new Intent(getContext(),RccordActivity.class));
-                break;
-                //意见反馈
-            case R.id.myfragment_iv_feedback:
-                break;
                 //意见反馈
             case R.id.myfragment_tv_feedback:
                 break;
                 //最新版本
-            case R.id.myfragment_iv_version:
-                break;
-            //最新版本
             case R.id.myfragment_tv_version:
-                break;
-                //返回登录
-            case R.id.myfragment_iv_logout:
-                startActivity(new Intent(getContext(),LoginActivity.class));
                 break;
                 //返回登录
             case R.id.myfragment_tv_logout:
@@ -194,12 +188,15 @@ public class MyFragment extends BaseFragment {
         }else if (data instanceof RegisterBean){
             RegisterBean registerBean= (RegisterBean) data;
             String message = registerBean.getMessage();
-            Toast.makeText(getContext(), message+"", Toast.LENGTH_SHORT).show();
-            initMesage();
+            if(message.equals("请先登陆")){
+                startActivity(new Intent(getActivity(),LoginActivity.class));
+                ToastUtil.showShort(getActivity(),message);
+            }else{
+                ToastUtil.showShort(getActivity(),message);
+                initMesage();
+            }
         }
     }
-
-
 
     //请求失败
     @Override

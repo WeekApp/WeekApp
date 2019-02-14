@@ -67,7 +67,6 @@ public class MyMessageActivity extends BaseActivity {
     private String path = Environment.getExternalStorageDirectory()+"/ert.png";
 
 
-
     //初始化数据
     @Override
     protected void initData() {
@@ -75,9 +74,6 @@ public class MyMessageActivity extends BaseActivity {
         //点击事件
         initCilck();
     }
-
-
-
 
     private void initCilck() {
 
@@ -196,7 +192,6 @@ public class MyMessageActivity extends BaseActivity {
             map.put("image"+"\";filename=\""+file.getName(),requestBody);
         }
         doNetPostFile(Apis.URL_POST_UPLOADHEADPIC,map,UpdateHeafpicBean.class);
-
     }
 
     //保存图片

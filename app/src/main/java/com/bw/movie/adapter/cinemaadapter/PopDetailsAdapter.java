@@ -100,7 +100,11 @@ public class PopDetailsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
 
     @Override
     public int getItemCount() {
-        return mlist.size();
+        if(mlist!=null){
+            return mlist.size();
+        }else{
+            return 0;
+        }
     }
 
     OnItemClick onItemClick;

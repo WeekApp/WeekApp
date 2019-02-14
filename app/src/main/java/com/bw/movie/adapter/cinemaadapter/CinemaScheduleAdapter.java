@@ -3,6 +3,9 @@ package com.bw.movie.adapter.cinemaadapter;
 import android.content.Context;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
+import android.text.SpannableString;
+import android.text.Spanned;
+import android.text.style.RelativeSizeSpan;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
@@ -50,10 +53,11 @@ public class CinemaScheduleAdapter extends RecyclerView.Adapter<CinemaScheduleAd
         viewHolder.cinemadetail_schedule_cinemaname.setText(screeningHall);
         viewHolder.cinemadetail_schedule_cinemastarttime.setText(beginTime);
         viewHolder.cinemadetail_schedule_cinemaendtime.setText(endTime);
-        viewHolder.cinemadetail_schedule_cinemapriceint.setText("0");
-        viewHolder.cinemadetail_schedule_cinemapricefloat.setText(".2");
-
-
+        double price = list.get(i).getPrice();
+        SpannableString spannableString = new SpannableString(price+"");
+        RelativeSizeSpan sizeSpan01 = new RelativeSizeSpan(1.4f);
+        spannableString.setSpan(sizeSpan01, 0, 1, Spanned.SPAN_INCLUSIVE_EXCLUSIVE);
+        viewHolder.cinemadetail_schedule_cinemapriceint.setText(spannableString);
         viewHolder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -72,14 +76,13 @@ public class CinemaScheduleAdapter extends RecyclerView.Adapter<CinemaScheduleAd
     public class ViewHolder extends RecyclerView.ViewHolder {
         ImageView cinemadetail_schedule_next;
         TextView cinemadetail_schedule_cinemaname,cinemadetail_schedule_cinemastarttime,cinemadetail_schedule_cinemaendtime
-                ,cinemadetail_schedule_cinemapriceint,cinemadetail_schedule_cinemapricefloat;
+                ,cinemadetail_schedule_cinemapriceint;
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
             cinemadetail_schedule_cinemaname=itemView.findViewById(R.id.cinemadetail_schedule_cinemaname);
             cinemadetail_schedule_cinemastarttime=itemView.findViewById(R.id.cinemadetail_schedule_cinemastarttime);
             cinemadetail_schedule_cinemaendtime=itemView.findViewById(R.id.cinemadetail_schedule_cinemaendtime);
             cinemadetail_schedule_cinemapriceint=itemView.findViewById(R.id.cinemadetail_schedule_cinemapriceint);
-            cinemadetail_schedule_cinemapricefloat=itemView.findViewById(R.id.cinemadetail_schedule_cinemapricefloat);
             cinemadetail_schedule_next=itemView.findViewById(R.id.cinemadetail_schedule_next);
         }
     }

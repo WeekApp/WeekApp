@@ -88,9 +88,8 @@ public class RegisterActivity extends BaseActivity {
     @Override
     protected void initView() {
         ButterKnife.bind(this);
-
         //储存方式
-        sharedPreferences = getSharedPreferences("user",MODE_PRIVATE);
+        sharedPreferences = getSharedPreferences("userName",MODE_PRIVATE);
         editor = sharedPreferences.edit();
     }
 

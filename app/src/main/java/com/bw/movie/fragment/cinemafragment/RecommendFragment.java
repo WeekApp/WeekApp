@@ -10,6 +10,7 @@ import android.view.View;
 import android.widget.Toast;
 
 import com.bw.movie.activity.cinemaactivity.CinemaDetailActivity;
+import com.bw.movie.activity.useractivity.LoginActivity;
 import com.bw.movie.adapter.cinemaadapter.NearlyAdapter;
 import com.bw.movie.adapter.cinemaadapter.RecommendAdapter;
 import com.bw.movie.base.BaseFragment;
@@ -26,18 +27,14 @@ import butterknife.ButterKnife;
 import butterknife.Unbinder;
 
 
-/**
- * A simple {@link Fragment} subclass.
- *
- * 推荐影院
- */
 public class RecommendFragment extends BaseFragment {
 
     @BindView(R.id.recommendfragment_xrecy)
     RecyclerView recommendfragmentXrecy;
     Unbinder unbinder;
-    private RecommendAdapter mRecommendAdapter;
-    private IPersenter mIPersenter;
+    RecommendAdapter mRecommendAdapter;
+    IPersenter mIPersenter;
+    String message;
 
     //初始化控件
     @Override
@@ -60,25 +57,26 @@ public class RecommendFragment extends BaseFragment {
                 startActivity(intent);
             }
         });
-
         //去关注
         initConcren();
     }
-
     //请求
     @Override
     protected void initData() {
-
-        mIPersenter.requestGetBack(Apis.URL_GET_REMMOND,RemmondBean.class);
-
+        doNetGet(Apis.URL_GET_REMMOND,RemmondBean.class);
     }
-
     private void initConcren() {
         mRecommendAdapter.setOnItemClick(new RecommendAdapter.OnItemClick() {
             @Override
             public void success(String id, boolean is) {
                 if(is){
-                    doNetGet(String.format(Apis.URL_GET_GUANZHUYINGYUAN,id),ConcrenBean.class);
+                    if(message.equals("请先登陆"))
+                    {
+                        ToastUtils.show(getActivity(),message);
+                        startActivity(new Intent(getActivity(),LoginActivity.class));
+                    }else{
+                        doNetGet(String.format(Apis.URL_GET_GUANZHUYINGYUAN,id),ConcrenBean.class);
+                    }
                 }else{
                     doNetGet(String.format(Apis.URL_GET_CANCLEGUANZHUYINGYUAN,id),ConcrenBean.class);
                 }
@@ -107,6 +105,7 @@ public class RecommendFragment extends BaseFragment {
         if(data instanceof  ConcrenBean){
             ConcrenBean user = (ConcrenBean) data;
             if(user.getStatus().equals("0000")){
+                message = user.getMessage();
                 ToastUtils.show(getActivity(),user.getMessage());
                 doNetGet(Apis.URL_GET_NEARLY,RemmondBean.class);
             }else{

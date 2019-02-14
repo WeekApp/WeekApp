@@ -10,8 +10,6 @@ import android.widget.RadioButton;
 import android.widget.RadioGroup;
 
 import com.bw.movie.base.BaseActivity;
-import com.bw.movie.fragment.myfragment.AttentionCinemaFragment;
-import com.bw.movie.fragment.myfragment.AttentionFilmFragment;
 import com.bw.movie.fragment.myfragment.RccordFinishFragment;
 import com.bw.movie.fragment.myfragment.RccordMoneyFragment;
 import com.bw.onlymycinema.R;

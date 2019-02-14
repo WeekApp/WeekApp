@@ -95,7 +95,6 @@ public class CinemaDetailActivity extends BaseActivity {
         String logo = intent.getStringExtra("logo");
         name = intent.getStringExtra("name");
         address = intent.getStringExtra("address");
-
         cinemadetailSimpleLogo.setImageURI(logo);
         cinemadetailTvName.setText(name);
         cinemadetailTvAddress.setText(address);

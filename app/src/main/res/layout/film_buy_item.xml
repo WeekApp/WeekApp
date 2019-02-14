@@ -63,6 +63,7 @@
             android:layout_marginLeft="@dimen/dp_90"
             />
         <TextView
+            android:id="@+id/sdfgb"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="￥"
@@ -76,21 +77,11 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="1"
-            android:textSize="@dimen/sp_36"
+            android:textSize="@dimen/sp_15"
             android:textColor="#b11450"
             android:layout_alignParentRight="true"
-            android:layout_marginRight="@dimen/dp_60"
-            android:layout_marginTop="@dimen/dp_20"/>
-        <TextView
-            android:id="@+id/cinemadetail_schedule_cinemapricefloat"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text=".1"
-            android:textSize="@dimen/sp_18"
-            android:textColor="#b11450"
-            android:layout_alignParentRight="true"
-            android:layout_marginRight="@dimen/dp_45"
-            android:layout_marginTop="@dimen/dp_39"/>
+            android:layout_marginTop="@dimen/dp_35"
+            android:layout_marginRight="@dimen/dp_50"/>
 
         <ImageView
             android:id="@+id/cinemadetail_schedule_next"

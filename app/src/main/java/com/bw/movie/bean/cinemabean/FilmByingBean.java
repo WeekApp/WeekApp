@@ -57,6 +57,16 @@ public class FilmByingBean {
         private int id;
         private String screeningHall;
         private int seatsTotal;
+        private double price;
+
+        public double getPrice() {
+            return price;
+        }
+
+        public void setPrice(double price) {
+            this.price = price;
+        }
+
         private int seatsUseCount;
         private int status;
 
