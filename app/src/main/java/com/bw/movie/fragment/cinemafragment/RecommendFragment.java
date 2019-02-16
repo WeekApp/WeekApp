@@ -22,6 +22,7 @@ import com.bw.movie.mvp.util.Apis;
 import com.bw.movie.util.ToastUtils;
 import com.bw.onlymycinema.R;
 
+
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
@@ -70,14 +71,10 @@ public class RecommendFragment extends BaseFragment {
             @Override
             public void success(String id, boolean is) {
                 if(is){
-                    if(message.equals("请先登陆"))
-                    {
-                        ToastUtils.show(getActivity(),message);
-                        startActivity(new Intent(getActivity(),LoginActivity.class));
-                    }else{
+                        //doNetGet(Apis.URL_GET_GUANZHUYINGYUAN+"?cinemaId="+id,ConcrenBean.class);
                         doNetGet(String.format(Apis.URL_GET_GUANZHUYINGYUAN,id),ConcrenBean.class);
-                    }
                 }else{
+                    //doNetGet(Apis.URL_GET_GUANZHUYINGYUAN+"?cinemaId="+id,ConcrenBean.class);
                     doNetGet(String.format(Apis.URL_GET_CANCLEGUANZHUYINGYUAN,id),ConcrenBean.class);
                 }
                 mRecommendAdapter.notifyDataSetChanged();

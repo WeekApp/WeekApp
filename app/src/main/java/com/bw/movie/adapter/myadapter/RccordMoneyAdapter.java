@@ -41,13 +41,13 @@ public class RccordMoneyAdapter extends RecyclerView.Adapter<RccordMoneyAdapter.
     }
 
     @Override
-    public void onBindViewHolder(@NonNull ViewHolder viewHolder, int i) {
+    public void onBindViewHolder(@NonNull ViewHolder viewHolder, final int i) {
         String movieName = list.get(i).getMovieName();
         String orderId = list.get(i).getOrderId();
         String cinemaName = list.get(i).getCinemaName();
         String screeningHall = list.get(i).getScreeningHall();
-        int beginTime = list.get(i).getBeginTime();
-        int endTime = list.get(i).getEndTime();
+        String beginTime = list.get(i).getBeginTime();
+        String endTime = list.get(i).getEndTime();
         int amount = list.get(i).getAmount();
         double price = list.get(i).getPrice();
 
@@ -58,14 +58,19 @@ public class RccordMoneyAdapter extends RecyclerView.Adapter<RccordMoneyAdapter.
         viewHolder.rccordmoney_item_time.setText("时间: "+beginTime+"——"+endTime);
         viewHolder.rccordmoney_item_num.setText("数量: "+amount+"");
         viewHolder.rccordmoney_item_money.setText("金额: "+price+"");
+
+        viewHolder.rccordmoney_item_gomoney.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onImtemClick.success(list.get(i).getOrderId());
+            }
+        });
     }
 
     @Override
     public int getItemCount() {
         return list.size();
     }
-
-
 
     public class ViewHolder extends RecyclerView.ViewHolder {
         TextView rccordmoney_item_name,rccordmoney_item_code,rccordmoney_item_cinema
@@ -82,5 +87,15 @@ public class RccordMoneyAdapter extends RecyclerView.Adapter<RccordMoneyAdapter.
             rccordmoney_item_num=itemView.findViewById(R.id.rccordmoney_item_num);
             rccordmoney_item_money=itemView.findViewById(R.id.rccordmoney_item_money);
         }
+    }
+
+    OnImtemClick onImtemClick;
+
+    public void setOnImtemClick(OnImtemClick onImtemClick) {
+        this.onImtemClick = onImtemClick;
+    }
+
+    public interface OnImtemClick{
+        void success(String order);
     }
 }

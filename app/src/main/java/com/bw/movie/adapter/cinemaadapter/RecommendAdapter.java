@@ -80,7 +80,6 @@ public class RecommendAdapter extends RecyclerView.Adapter<RecommendAdapter.View
                 notifyItemChanged(i);
             }
         });
-
     }
 
     @Override

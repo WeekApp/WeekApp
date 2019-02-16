@@ -8,6 +8,7 @@
     android:layout_marginBottom="@dimen/dp_20"
     android:layout_marginLeft="@dimen/dp_24"
     android:layout_marginRight="@dimen/dp_24"
+    android:layout_marginTop="@dimen/dp_10"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <RelativeLayout

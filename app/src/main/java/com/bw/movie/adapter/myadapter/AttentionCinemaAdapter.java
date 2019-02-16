@@ -7,6 +7,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import com.bw.movie.bean.cinemabean.ConrenYingBean;
 import com.bw.movie.bean.mybean.MessageBean;
 import com.bw.onlymycinema.R;
 import com.facebook.drawee.view.SimpleDraweeView;
@@ -22,13 +23,13 @@ import java.util.List;
 public class AttentionCinemaAdapter extends RecyclerView.Adapter<AttentionCinemaAdapter.ViewHolder> {
 
     Context mContext;
-    List<MessageBean.ResultBean.CinemasListBean> list;
+    List<ConrenYingBean.ResultBean> list;
 
     public AttentionCinemaAdapter(Context context) {
         mContext = context;
         list=new ArrayList<>();
     }
-    public void setData(List<MessageBean.ResultBean.CinemasListBean> cinemasList) {
+    public void setData(List<ConrenYingBean.ResultBean> cinemasList) {
         list.addAll(cinemasList);
         notifyDataSetChanged();
     }

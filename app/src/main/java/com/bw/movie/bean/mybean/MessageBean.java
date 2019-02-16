@@ -9,8 +9,9 @@ import java.util.List;
  */
 public class MessageBean {
 
+
     /**
-     * result : {"cinemasList":[{"address":"东城区滨河路乙1号雍和航星园74-76号楼","followCinema":2,"id":1,"logo":"http://172.17.8.100/images/movie/logo/qcgx.jpg","name":"青春光线电影院","rank":0},{"address":"西城区前门大街大栅栏街36号","followCinema":2,"id":2,"logo":"http://172.17.8.100/images/movie/logo/dgl.jpg","name":"大观楼电影院","rank":0}],"headPic":"http://172.17.8.100/images/movie/head_pic/2018-07-21/20180721120945.jpg","integral":10,"movieList":[{"id":1,"imageUrl":"http://172.17.8.100/images/movie/stills/wbsys/wbsys1.jpg","name":"我不是药神","releaseTime":1530720000000,"summary":"一位不速之客的意外到访，打破了神油店老板程勇（徐峥 饰）的平凡人生，他从一个交不起房租的男性保健品商贩，一跃成为印度仿制药\u201c格列宁\u201d的独家代理商。收获巨额利润的他，生活剧烈变化，被病患们冠以\u201c药神\u201d的称号。但是，一场关于救赎的拉锯战也在波涛暗涌中慢慢展开......"},{"id":2,"imageUrl":"http://172.17.8.100/images/movie/stills/mtyj/mtyj1.jpg","name":"摩天营救","releaseTime":1532016000000,"summary":"在香港市中心，世界上最高、结构最复杂的摩天大楼遭到破坏，危机一触即发。威尔·索耶（道恩·强森 饰）的妻子萨拉（内芙·坎贝尔 饰）和孩子们在98层被劫为人质，直接暴露在火线上。威尔，这位战争英雄、前联邦调查局救援队员，作为大楼的安保顾问，却被诬陷纵火和谋杀。他必须奋力营救家人，为自己洗脱罪名，关乎生死存亡的高空任务就此展开。"}],"nickName":"你的益达","phone":"18600151568","userSignStatus":1}
+     * result : {"cinemasList":[{"address":"朝阳区广顺北大街16号望京华彩商业中心B1","commentTotal":0,"distance":0,"followCinema":0,"id":10,"logo":"http://mobile.bwstudent.com/images/movie/logo/hyxd.jpg","name":"华谊兄弟影院"},{"address":"北京市朝阳区建国门外大街1号国贸商城区域三地下一层3B120","commentTotal":0,"distance":0,"followCinema":0,"id":7,"logo":"http://mobile.bwstudent.com/images/movie/logo/blg.jpg","name":"北京百丽宫影城"},{"address":"北京市海淀区新街口外大街25号","commentTotal":0,"distance":0,"followCinema":0,"id":14,"logo":"http://mobile.bwstudent.com/images/movie/logo/zygj.jpg","name":"中影国际影城北京小西天店"}],"headPic":"http://mobile.bwstudent.com/images/movie/head_pic/bwjy.jpg","integral":10,"movieList":[{"fare":0,"id":18,"imageUrl":"http://mobile.bwstudent.com/images/movie/stills/hjxd/hjxd1.jpg","name":"黄金兄弟","releaseTime":1537545600000,"summary":"狮王（郑伊健 饰）、火山（陈小春 饰）、Bill（谢天华 饰）、淡定（钱嘉乐 饰）、老鼠（林晓峰 饰）五个出生入死的兄弟，在恩师曹sir（曾志伟 饰）的带领下，为了救济儿童而偷取特效药，却惨遭设局，陷入枪林弹雨的险境之中。兄弟们抱着视死如归的豪情，展开一连串的追查与激战。他们明白，即使无法活着回来，也比一人活着痛快！"},{"fare":0,"id":19,"imageUrl":"http://mobile.bwstudent.com/images/movie/stills/jhen/jhen1.jpg","name":"江湖儿女","releaseTime":1537545600000,"summary":"故事起始于2001年的山西大同，模特巧巧（赵涛 饰）与出租车公司老板斌哥（廖凡 饰）是一对恋人，斌哥每天在外面呼朋唤友，巧巧却希望两人能够尽快步入婚姻的殿堂。然而一次斌哥在街头遭到竞争对手的袭击，巧巧为了保护斌哥在街头开枪，被判刑五年。巧巧出狱以后，开始寻找斌哥以便重新开始，然而事情却发生了意想不到的变化。"},{"fare":0,"id":20,"imageUrl":"http://mobile.bwstudent.com/images/movie/stills/ws/ws1.jpg","name":"无双","releaseTime":1537545600000,"summary":"以代号\u201c画家\u201d（周润发 饰）为首的犯罪团伙，掌握了制造伪钞技术，难辨真伪，并在全球进行交易获取利益，引起警方高度重视。然而\u201c画家\u201d和其他成员的身份一直成谜，警方的破案进度遭受到了前所未有的挑战。在关键时刻，擅长绘画的李问（郭富城 饰）打开了破案的突破口，而\u201c画家\u201d的真实身份却让众人意想不到\u2026\u2026"}],"nickName":"你需要","phone":"15852525555","userSignStatus":2}
      * message : 查询成功
      * status : 0000
      */
@@ -45,14 +46,14 @@ public class MessageBean {
 
     public static class ResultBean {
         /**
-         * cinemasList : [{"address":"东城区滨河路乙1号雍和航星园74-76号楼","followCinema":2,"id":1,"logo":"http://172.17.8.100/images/movie/logo/qcgx.jpg","name":"青春光线电影院","rank":0},{"address":"西城区前门大街大栅栏街36号","followCinema":2,"id":2,"logo":"http://172.17.8.100/images/movie/logo/dgl.jpg","name":"大观楼电影院","rank":0}]
-         * headPic : http://172.17.8.100/images/movie/head_pic/2018-07-21/20180721120945.jpg
+         * cinemasList : [{"address":"朝阳区广顺北大街16号望京华彩商业中心B1","commentTotal":0,"distance":0,"followCinema":0,"id":10,"logo":"http://mobile.bwstudent.com/images/movie/logo/hyxd.jpg","name":"华谊兄弟影院"},{"address":"北京市朝阳区建国门外大街1号国贸商城区域三地下一层3B120","commentTotal":0,"distance":0,"followCinema":0,"id":7,"logo":"http://mobile.bwstudent.com/images/movie/logo/blg.jpg","name":"北京百丽宫影城"},{"address":"北京市海淀区新街口外大街25号","commentTotal":0,"distance":0,"followCinema":0,"id":14,"logo":"http://mobile.bwstudent.com/images/movie/logo/zygj.jpg","name":"中影国际影城北京小西天店"}]
+         * headPic : http://mobile.bwstudent.com/images/movie/head_pic/bwjy.jpg
          * integral : 10
-         * movieList : [{"id":1,"imageUrl":"http://172.17.8.100/images/movie/stills/wbsys/wbsys1.jpg","name":"我不是药神","releaseTime":1530720000000,"summary":"一位不速之客的意外到访，打破了神油店老板程勇（徐峥 饰）的平凡人生，他从一个交不起房租的男性保健品商贩，一跃成为印度仿制药\u201c格列宁\u201d的独家代理商。收获巨额利润的他，生活剧烈变化，被病患们冠以\u201c药神\u201d的称号。但是，一场关于救赎的拉锯战也在波涛暗涌中慢慢展开......"},{"id":2,"imageUrl":"http://172.17.8.100/images/movie/stills/mtyj/mtyj1.jpg","name":"摩天营救","releaseTime":1532016000000,"summary":"在香港市中心，世界上最高、结构最复杂的摩天大楼遭到破坏，危机一触即发。威尔·索耶（道恩·强森 饰）的妻子萨拉（内芙·坎贝尔 饰）和孩子们在98层被劫为人质，直接暴露在火线上。威尔，这位战争英雄、前联邦调查局救援队员，作为大楼的安保顾问，却被诬陷纵火和谋杀。他必须奋力营救家人，为自己洗脱罪名，关乎生死存亡的高空任务就此展开。"}]
-         * nickName : 你的益达
-         * phone : 18600151568
-         * userSignStatus : 1
-                */
+         * movieList : [{"fare":0,"id":18,"imageUrl":"http://mobile.bwstudent.com/images/movie/stills/hjxd/hjxd1.jpg","name":"黄金兄弟","releaseTime":1537545600000,"summary":"狮王（郑伊健 饰）、火山（陈小春 饰）、Bill（谢天华 饰）、淡定（钱嘉乐 饰）、老鼠（林晓峰 饰）五个出生入死的兄弟，在恩师曹sir（曾志伟 饰）的带领下，为了救济儿童而偷取特效药，却惨遭设局，陷入枪林弹雨的险境之中。兄弟们抱着视死如归的豪情，展开一连串的追查与激战。他们明白，即使无法活着回来，也比一人活着痛快！"},{"fare":0,"id":19,"imageUrl":"http://mobile.bwstudent.com/images/movie/stills/jhen/jhen1.jpg","name":"江湖儿女","releaseTime":1537545600000,"summary":"故事起始于2001年的山西大同，模特巧巧（赵涛 饰）与出租车公司老板斌哥（廖凡 饰）是一对恋人，斌哥每天在外面呼朋唤友，巧巧却希望两人能够尽快步入婚姻的殿堂。然而一次斌哥在街头遭到竞争对手的袭击，巧巧为了保护斌哥在街头开枪，被判刑五年。巧巧出狱以后，开始寻找斌哥以便重新开始，然而事情却发生了意想不到的变化。"},{"fare":0,"id":20,"imageUrl":"http://mobile.bwstudent.com/images/movie/stills/ws/ws1.jpg","name":"无双","releaseTime":1537545600000,"summary":"以代号\u201c画家\u201d（周润发 饰）为首的犯罪团伙，掌握了制造伪钞技术，难辨真伪，并在全球进行交易获取利益，引起警方高度重视。然而\u201c画家\u201d和其他成员的身份一直成谜，警方的破案进度遭受到了前所未有的挑战。在关键时刻，擅长绘画的李问（郭富城 饰）打开了破案的突破口，而\u201c画家\u201d的真实身份却让众人意想不到\u2026\u2026"}]
+         * nickName : 你需要
+         * phone : 15852525555
+         * userSignStatus : 2
+         */
 
         private String headPic;
         private int integral;
@@ -120,20 +121,22 @@ public class MessageBean {
 
         public static class CinemasListBean {
             /**
-             * address : 东城区滨河路乙1号雍和航星园74-76号楼
-             * followCinema : 2
-             * id : 1
-             * logo : http://172.17.8.100/images/movie/logo/qcgx.jpg
-             * name : 青春光线电影院
-             * rank : 0
+             * address : 朝阳区广顺北大街16号望京华彩商业中心B1
+             * commentTotal : 0
+             * distance : 0
+             * followCinema : 0
+             * id : 10
+             * logo : http://mobile.bwstudent.com/images/movie/logo/hyxd.jpg
+             * name : 华谊兄弟影院
              */
 
             private String address;
+            private int commentTotal;
+            private int distance;
             private int followCinema;
             private int id;
             private String logo;
             private String name;
-            private int rank;
 
             public String getAddress() {
                 return address;
@@ -141,6 +144,22 @@ public class MessageBean {
 
             public void setAddress(String address) {
                 this.address = address;
+            }
+
+            public int getCommentTotal() {
+                return commentTotal;
+            }
+
+            public void setCommentTotal(int commentTotal) {
+                this.commentTotal = commentTotal;
+            }
+
+            public int getDistance() {
+                return distance;
+            }
+
+            public void setDistance(int distance) {
+                this.distance = distance;
             }
 
             public int getFollowCinema() {
@@ -174,30 +193,32 @@ public class MessageBean {
             public void setName(String name) {
                 this.name = name;
             }
-
-            public int getRank() {
-                return rank;
-            }
-
-            public void setRank(int rank) {
-                this.rank = rank;
-            }
         }
 
         public static class MovieListBean {
             /**
-             * id : 1
-             * imageUrl : http://172.17.8.100/images/movie/stills/wbsys/wbsys1.jpg
-             * name : 我不是药神
-             * releaseTime : 1530720000000
-             * summary : 一位不速之客的意外到访，打破了神油店老板程勇（徐峥 饰）的平凡人生，他从一个交不起房租的男性保健品商贩，一跃成为印度仿制药“格列宁”的独家代理商。收获巨额利润的他，生活剧烈变化，被病患们冠以“药神”的称号。但是，一场关于救赎的拉锯战也在波涛暗涌中慢慢展开......
+             * fare : 0
+             * id : 18
+             * imageUrl : http://mobile.bwstudent.com/images/movie/stills/hjxd/hjxd1.jpg
+             * name : 黄金兄弟
+             * releaseTime : 1537545600000
+             * summary : 狮王（郑伊健 饰）、火山（陈小春 饰）、Bill（谢天华 饰）、淡定（钱嘉乐 饰）、老鼠（林晓峰 饰）五个出生入死的兄弟，在恩师曹sir（曾志伟 饰）的带领下，为了救济儿童而偷取特效药，却惨遭设局，陷入枪林弹雨的险境之中。兄弟们抱着视死如归的豪情，展开一连串的追查与激战。他们明白，即使无法活着回来，也比一人活着痛快！
              */
 
+            private int fare;
             private int id;
             private String imageUrl;
             private String name;
             private long releaseTime;
             private String summary;
+
+            public int getFare() {
+                return fare;
+            }
+
+            public void setFare(int fare) {
+                this.fare = fare;
+            }
 
             public int getId() {
                 return id;

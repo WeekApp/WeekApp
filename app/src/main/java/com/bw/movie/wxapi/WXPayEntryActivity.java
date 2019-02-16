@@ -5,8 +5,8 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 
+import com.bw.movie.bean.cinemabean.CommonBean;
 import com.bw.movie.util.ToastUtils;
-import com.tencent.mm.opensdk.constants.ConstantsAPI;
 import com.tencent.mm.opensdk.modelbase.BaseReq;
 import com.tencent.mm.opensdk.modelbase.BaseResp;
 import com.tencent.mm.opensdk.modelpay.PayReq;
@@ -16,7 +16,6 @@ import com.tencent.mm.opensdk.openapi.WXAPIFactory;
 
 import org.greenrobot.eventbus.EventBus;
 
-import butterknife.BindView;
 import butterknife.ButterKnife;
 
 public class WXPayEntryActivity extends Activity implements IWXAPIEventHandler {
@@ -77,13 +76,15 @@ public class WXPayEntryActivity extends Activity implements IWXAPIEventHandler {
         //用户已取消
         if (resp.errCode == BaseResp.ErrCode.ERR_USER_CANCEL) {
             ToastUtils.show(this,"用户已取消");
+            EventBus.getDefault().postSticky(new CommonBean("pay_no","0000"));
             finish();
         }else if (resp.errCode == BaseResp.ErrCode.ERR_OK) {
             ToastUtils.show(this,"支付成功");
-            //EventBus.getDefault().postSticky(new CommonBean("pay_ok","0000"));
+            EventBus.getDefault().postSticky(new CommonBean("pay_ok","0000"));
             finish();
         }else if (resp.errCode== BaseResp.ErrCode.ERR_USER_CANCEL) {
             ToastUtils.show(this,"支付错误,请稍后重试");
+
             finish();
         }
     }

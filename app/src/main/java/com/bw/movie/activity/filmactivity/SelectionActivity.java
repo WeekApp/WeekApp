@@ -15,6 +15,7 @@ import android.widget.RadioButton;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.bw.movie.activity.useractivity.LoginActivity;
 import com.bw.movie.app.App;
 import com.bw.movie.base.BaseActivity;
 import com.bw.movie.bean.filmbean.details.buyingbean.PaySuccessBean;
@@ -175,6 +176,9 @@ public class SelectionActivity extends BaseActivity {
                 ToastUtils.show(this,user.getMessage());
                 //打印订单
                 orderId = user.getOrderId();
+            }else if(user.getMessage().equals("请先登陆")){
+                startActivity(new Intent(SelectionActivity.this,LoginActivity.class));
+                ToastUtils.show(SelectionActivity.this,user.getMessage());
             }
         }
 
@@ -190,7 +194,6 @@ public class SelectionActivity extends BaseActivity {
                 intent.putExtra("sign",user.getSign());
                 intent.putExtra("timeStamp",user.getTimeStamp());
                 intent.putExtra("packageValue",user.getPackageValue());
-
                 startActivity(intent);
             }
         }

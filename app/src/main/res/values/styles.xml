@@ -1,4 +1,4 @@
-<resources xmlns:tools="http://schemas.android.com/tools">
+<resources>
 
     <!-- Base application theme. -->
     <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
@@ -17,36 +17,21 @@
 
     <style name="inputDialog" parent="@android:style/Theme.Holo.Light.Dialog">
 
-                <item name="android:windowBackground">@color/dialog_bg</item>
-                <!--背景-->
-                <item name="android:windowFrame">@null</item>
-                <!--设置无边框-->
-                <item name="android:windowNoTitle">true</item>
-                <!-- 无标题 -->
-                <item name="android:backgroundDimEnabled">true</item>
-                <!-- 模糊 -->
-                <item name="android:windowSoftInputMode">stateAlwaysVisible</item>
-                <!--显示软件盘-->
+            <item name="android:windowBackground">@color/dialog_bg</item>
+            <!--背景-->
+            <item name="android:windowFrame">@null</item>
+            <!--设置无边框-->
+            <item name="android:windowNoTitle">true</item>
+            <!-- 无标题 -->
+            <item name="android:backgroundDimEnabled">true</item>
+            <!-- 模糊 -->
+            <item name="android:windowSoftInputMode">stateAlwaysVisible</item>
+            <!--显示软件盘-->
 
-            </style>
+        </style>
 
     <style name="Popupwindow">
         <item name="android:windowEnterAnimation">@anim/window_out</item>
         <item name="android:windowExitAnimation">@anim/window_back</item>
-    </style>
-
-
-    <style name="TranslucentTheme02" parent="Theme.AppCompat.Light.NoActionBar">
-        <item name="android:windowTranslucentStatus" tools:ignore="NewApi">true</item>
-        <item name="android:windowTranslucentNavigation" tools:targetApi="kitkat">true</item>
-    </style>
-
-    <style name="TranslucentTheme03" parent="Theme.AppCompat.Light.NoActionBar">
-
-        <item name="android:windowTranslucentStatus" tools:targetApi="kitkat">false</item>
-        <item name="android:windowTranslucentNavigation" tools:targetApi="kitkat">true</item>
-        <!--Android 5.x开始需要把颜色设置透明，否则导航栏会呈现系统默认的浅灰色-->
-        <item name="android:statusBarColor" tools:targetApi="lollipop">@android:color/transparent
-        </item>
     </style>
 </resources>

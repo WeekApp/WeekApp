@@ -17,6 +17,15 @@ android {
         }
     }
     useLibrary 'org.apache.http.legacy'
+    /*微信登录配置*/
+    signingConfigs {
+        debug {
+            storeFile file('movie.keystore')
+            keyAlias "bw_movie"
+            storePassword "123456"
+            keyPassword "123456"
+        }
+    }
 }
 
 dependencies {
@@ -68,4 +77,6 @@ dependencies {
     //断点续传
     implementation 'com.loopj.android:android-async-http:1.4.9'
 
+    //微信登录
+    implementation 'com.tencent.mm.opensdk:wechat-sdk-android-with-mta:+'
 }

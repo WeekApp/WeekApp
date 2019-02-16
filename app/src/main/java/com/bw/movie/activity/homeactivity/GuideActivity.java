@@ -1,5 +1,6 @@
 package com.bw.movie.activity.homeactivity;
 
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -27,6 +28,9 @@ public class GuideActivity extends AppCompatActivity {
     @BindView(R.id.guide_group)
     RadioGroup mGroup;
 
+    SharedPreferences preferences;
+    SharedPreferences.Editor editor;
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -40,7 +44,15 @@ public class GuideActivity extends AppCompatActivity {
         initAdapter();
         //
         initPager();
+
+        preferences = getSharedPreferences("zzz",MODE_PRIVATE);
+        editor = preferences.edit();
+
+        editor.putBoolean("v",true);
+        editor.commit();
     }
+
+
 
     private void initPager() {
 

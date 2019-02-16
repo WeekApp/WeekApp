@@ -33,11 +33,15 @@ public class Apis {
     public static final String URL_GET_QUXIAOGUANZHU = "movieApi/movie/v1/verify/cancelFollowMovie?movieId=%s";
     //根据电影ID和影院ID查询电影排期列表
     public static final String URL_GET_YINGYUAN = "movieApi/movie/v1/findMovieScheduleList?cinemasId=%s&movieId=%s";
+    //关注的影院
+    public static final String URL_GET_QUREYMESSAGE = "movieApi/cinema/v1/verify/findCinemaPageList?page=1&count=10000";
+    //查询用户关注的影片
+    public static final String URL_GET_WFMEF = "movieApi/movie/v1/verify/findMoviePageList?page=1&count=10000";
     //查询用户信息
-    public static final String URL_GET_QUREYMESSAGE = "movieApi/user/v1/verify/findUserHomeInfo";
+    public static final String URL_GET_QUAI = "movieApi/user/v1/verify/findUserHomeInfo";
     //评论
     public static final String URL_POST_PINGLU = "movieApi/movie/v1/verify/movieComment";
-    //查询用户信息
+    //签到
     public static final String URL_GET_USERSIGNIN = "movieApi/user/v1/verify/userSignIn";
     //查询系统消息
     public static final String URL_GET_REMIND = "movieApi/tool/v1/verify/findAllSysMsgList?page=1&count=5";
@@ -46,9 +50,9 @@ public class Apis {
     //影院用户评论列表
     public static final String URL_POST_FILMCOMMENT = "movieApi/cinema/v1/findAllCinemaComment?cinemaId=%s&page=1&count=100000";
     //关注影院
-    public static final String URL_GET_GUANZHUYINGYUAN = "movieApi/cinema/v1/verify/followCinema";
+    public static final String URL_GET_GUANZHUYINGYUAN = "movieApi/cinema/v1/verify/followCinema?cinemaId=%s";
     //取消关注影院
-    public static final String URL_GET_CANCLEGUANZHUYINGYUAN = "movieApi/cinema/v1/verify/cancelFollowCinema";
+    public static final String URL_GET_CANCLEGUANZHUYINGYUAN = "movieApi/cinema/v1/verify/cancelFollowCinema?cinemaId=%s";
     //查询电影信息明细
     public static final String URL_GET_MINGZI = "movieApi/cinema/v1/findCinemaInfo?cinemaId=%s";
     //搜索
@@ -62,13 +66,17 @@ public class Apis {
     //查询代付款
     public static final String URL_GET_QUERYMONEY = "movieApi/user/v1/verify/findUserBuyTicketRecordList";
     //意见反馈
-    public static final String URL_GET_FEEDBACK = "movieApi/tool1erify/recordFeedBack";
+    public static final String URL_GET_FEEDBACK = "movieApi/tool/v1/verify/recordFeedBack";
     //更新新版本
-    public static final String URL_GET_VERSION = "movieApi/tool1/findNewVersion";
+    public static final String URL_GET_VERSION = "movieApi/tool/v1/findNewVersion";
     //影院评论点赞
     public static final String URL_POST_ZAN = "movieApi/cinema/v1/verify/cinemaCommentGreat";
     //购票下单
     public static final String URL_SHAPE_ORDER = "movieApi/movie/v1/verify/buyMovieTicket";
+    //微信登录
+    public static final String LOGIN_WX_URL = "movieApi/user/v1/weChatBindingLogin";
     //支付
     public static final String _URL_PAG_MONEY = "movieApi/movie/v1/verify/pay";
+    //根据用户ID查询用户信息
+    public static final String URL_GET_AWFK = "movieApi/user/v1/verify/getUserInfoByUserId";
 }

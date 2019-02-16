@@ -2,7 +2,9 @@ package com.bw.movie.activity.filmactivity;
 
 
 import android.app.AlertDialog;
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.drawable.BitmapDrawable;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.OrientationHelper;
@@ -21,8 +23,10 @@ import android.widget.PopupWindow;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
+import com.bw.movie.activity.useractivity.LoginActivity;
 import com.bw.movie.adapter.filmadatper.stageadapter.FlimContentAdapter;
 import com.bw.movie.adapter.filmadatper.stageadapter.StageContentAdapter;
+import com.bw.movie.app.App;
 import com.bw.movie.base.BaseActivity;
 import com.bw.movie.bean.cinemabean.ToastUtil;
 import com.bw.movie.bean.filmbean.details.detailsbean.ComYesBean;
@@ -161,15 +165,23 @@ public class DetailsActivity extends BaseActivity {
         mFlimContentAdapter.setOnItemClick(new FlimContentAdapter.OnItemClick() {
             @Override
             public void success(String id, boolean isGreat) {
-
-                Map<String,String> map = new HashMap<>();
-                map.put("commentId",id);
-                if(isGreat){
-                    doNetPost(Apis.URL_POST_DIANZAN,map,ZanBean.class);
+                SharedPreferences sharedPreferences = App.getApplication().getSharedPreferences("userName",Context.MODE_PRIVATE);
+                String userId = sharedPreferences.getString("userId", "");
+                String sessionId = sharedPreferences.getString("sessionId","");
+                if(userId.equals("")&&sessionId.equals("")){
+                    ToastUtils.show(DetailsActivity.this,"请先登陆");
+                    startActivity(new Intent(DetailsActivity.this,LoginActivity.class));
                 }else{
-                    doNetPost(Apis.URL_POST_DIANZAN,map,ZanBean.class);
+                    Map<String,String> map = new HashMap<>();
+                    map.put("commentId",id);
+                    if(isGreat){
+                        doNetPost(Apis.URL_POST_DIANZAN,map,ZanBean.class);
+                    }else{
+                        doNetPost(Apis.URL_POST_DIANZAN,map,ZanBean.class);
+                    }
+                    mFlimContentAdapter.notifyDataSetChanged();
                 }
-                mFlimContentAdapter.notifyDataSetChanged();
+
             }
         });
     }
@@ -269,10 +281,18 @@ public class DetailsActivity extends BaseActivity {
             @Override
             public void onClick(View v) {
 
-                if(mConcren.isChecked()) {
-                    doNetGet(String.format(Apis.URL_GET_GUANZHU, id), ConcrenBean.class);
+                SharedPreferences sharedPreferences = App.getApplication().getSharedPreferences("userName",Context.MODE_PRIVATE);
+                String userId = sharedPreferences.getString("userId", "");
+                String sessionId = sharedPreferences.getString("sessionId","");
+                if(userId.equals("")&&sessionId.equals("")){
+                    ToastUtils.show(DetailsActivity.this,"请先登陆");
+                    startActivity(new Intent(DetailsActivity.this,LoginActivity.class));
                 }else{
-                    doNetGet(String.format(Apis.URL_GET_QUXIAOGUANZHU, id), ConcrenBean.class);
+                    if(mConcren.isChecked()) {
+                        doNetGet(String.format(Apis.URL_GET_GUANZHU, id), ConcrenBean.class);
+                    }else{
+                        doNetGet(String.format(Apis.URL_GET_QUXIAOGUANZHU, id), ConcrenBean.class);
+                    }
                 }
             }
         });

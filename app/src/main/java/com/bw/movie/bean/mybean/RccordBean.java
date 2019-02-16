@@ -9,8 +9,9 @@ import java.util.List;
  */
 public class RccordBean {
 
+
     /**
-     * result : [{"amount":3,"beginTime":40800000,"cinemaName":"青春光线电影院","createTime":1533805513000,"endTime":47880000,"id":52,"movieName":"西虹市首富","orderId":"20180809170513183","price":66.5,"screeningHall":"2号厅","status":1,"userId":5},{"amount":3,"beginTime":40800000,"cinemaName":"青春光线电影院","createTime":1533805499000,"endTime":47880000,"id":51,"movieName":"西虹市首富","orderId":"20180809170459908","price":66.5,"screeningHall":"2号厅","status":1,"userId":5}]
+     * result : [{"amount":1,"beginTime":"13:30:00","cinemaName":"星美国际影城","createTime":1550217245000,"endTime":"15:18:00","id":765,"movieName":"巨齿鲨","orderId":"20190215155405566","price":0.12,"screeningHall":"5号厅","status":2,"userId":138},{"amount":1,"beginTime":"15:30:00","cinemaName":"CGV星星影城","createTime":1550149650000,"endTime":"17:32:00","id":457,"movieName":"摩天营救","orderId":"20190214210730748","price":0.12,"screeningHall":"6号厅","status":2,"userId":138}]
      * message : 请求成功
      * status : 0000
      */
@@ -45,25 +46,25 @@ public class RccordBean {
 
     public static class ResultBean {
         /**
-         * amount : 3
-         * beginTime : 40800000
-         * cinemaName : 青春光线电影院
-         * createTime : 1533805513000
-         * endTime : 47880000
-         * id : 52
-         * movieName : 西虹市首富
-         * orderId : 20180809170513183
-         * price : 66.5
-         * screeningHall : 2号厅
-         * status : 1
-         * userId : 5
+         * amount : 1
+         * beginTime : 13:30:00
+         * cinemaName : 星美国际影城
+         * createTime : 1550217245000
+         * endTime : 15:18:00
+         * id : 765
+         * movieName : 巨齿鲨
+         * orderId : 20190215155405566
+         * price : 0.12
+         * screeningHall : 5号厅
+         * status : 2
+         * userId : 138
          */
 
         private int amount;
-        private int beginTime;
+        private String beginTime;
         private String cinemaName;
         private long createTime;
-        private int endTime;
+        private String endTime;
         private int id;
         private String movieName;
         private String orderId;
@@ -80,11 +81,11 @@ public class RccordBean {
             this.amount = amount;
         }
 
-        public int getBeginTime() {
+        public String getBeginTime() {
             return beginTime;
         }
 
-        public void setBeginTime(int beginTime) {
+        public void setBeginTime(String beginTime) {
             this.beginTime = beginTime;
         }
 
@@ -104,11 +105,11 @@ public class RccordBean {
             this.createTime = createTime;
         }
 
-        public int getEndTime() {
+        public String getEndTime() {
             return endTime;
         }
 
-        public void setEndTime(int endTime) {
+        public void setEndTime(String endTime) {
             this.endTime = endTime;
         }
 

@@ -8,6 +8,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import com.bw.movie.bean.cinemabean.ConrenFilmBean;
 import com.bw.movie.bean.mybean.MessageBean;
 import com.bw.onlymycinema.R;
 import com.facebook.drawee.view.SimpleDraweeView;
@@ -26,13 +27,13 @@ import java.util.TimeZone;
  */
 public class AttentionFilmAdapter extends RecyclerView.Adapter<AttentionFilmAdapter.ViewHolder> {
     Context mContext;
-    List<MessageBean.ResultBean.MovieListBean> list;
+    List<ConrenFilmBean.ResultBean> list;
 
     public AttentionFilmAdapter(Context context) {
         mContext = context;
         list=new ArrayList<>();
     }
-    public void setData(List<MessageBean.ResultBean.MovieListBean> movieList) {
+    public void setData(List<ConrenFilmBean.ResultBean> movieList) {
         list.addAll(movieList);
         notifyDataSetChanged();
     }

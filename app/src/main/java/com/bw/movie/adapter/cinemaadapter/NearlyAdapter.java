@@ -48,7 +48,6 @@ public class NearlyAdapter extends RecyclerView.Adapter<NearlyAdapter.ViewHolder
         final String address = list.get(i).getAddress();
         int distance = list.get(i).getDistance();
         final int id = list.get(i).getId();
-        //final int followCinema = list.get(i).getFollowCinema();
         double v = Math.round(distance / 100d) / 10d;
         viewHolder.remmend_simple_image.setImageURI(logo);
         viewHolder.remmend_tv_name.setText(name);

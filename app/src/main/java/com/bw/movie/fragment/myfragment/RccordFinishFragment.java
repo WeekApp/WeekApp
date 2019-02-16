@@ -1,18 +1,15 @@
 package com.bw.movie.fragment.myfragment;
 
-
-import android.os.Bundle;
-import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.view.LayoutInflater;
+import android.util.Log;
 import android.view.View;
-import android.view.ViewGroup;
 
 import com.bw.movie.adapter.myadapter.RccordFinishAdapter;
 import com.bw.movie.base.BaseFragment;
 import com.bw.movie.bean.mybean.RccordBean;
 import com.bw.movie.mvp.util.Apis;
+import com.bw.movie.util.ToastUtils;
 import com.bw.onlymycinema.R;
 
 import butterknife.BindView;
@@ -24,21 +21,34 @@ public class RccordFinishFragment extends BaseFragment {
 
     @BindView(R.id.rccordfinish_recy)
     RecyclerView rccordfinishRecy;
-    Unbinder unbinder;
-    private RccordFinishAdapter mRccordFinishAdapter;
+    RccordFinishAdapter mRccordFinishAdapter;
 
     @Override
     protected void initData() {
-        doNetGet(Apis.URL_GET_QUERYMONEY + "?page=1&count=5&status=2", RccordBean.class);
+        //开始请求网络数据
+        startRequest();
+        //设置适配器
+        initAdapter();
+        //设置布局uanliqi
+        initManager();
+    }
 
+    private void initManager() {
+        rccordfinishRecy.setLayoutManager(new LinearLayoutManager(getContext(),LinearLayoutManager.VERTICAL,false));
+    }
+
+    private void initAdapter() {
         mRccordFinishAdapter = new RccordFinishAdapter(getContext());
         rccordfinishRecy.setAdapter(mRccordFinishAdapter);
-        rccordfinishRecy.setLayoutManager(new LinearLayoutManager(getContext(),LinearLayoutManager.VERTICAL,false));
+    }
+
+    private void startRequest() {
+        doNetGet(Apis.URL_GET_QUERYMONEY + "?page=1&count=10000&status=2", RccordBean.class);
     }
 
     @Override
     protected void initView(View view) {
-        unbinder = ButterKnife.bind(this, view);
+        ButterKnife.bind(this, view);
     }
 
     @Override
@@ -50,19 +60,18 @@ public class RccordFinishFragment extends BaseFragment {
     protected void netSuccess(Object data) {
         if (data instanceof RccordBean){
             RccordBean rccordBean= (RccordBean) data;
-
-            mRccordFinishAdapter.setData(rccordBean.getResult());
+            if(rccordBean.getStatus().equals("0000")) {
+                mRccordFinishAdapter.setData(rccordBean.getResult());
+                Log.i("TTTTTTW",rccordBean.getResult()+"");
+            }else{
+                Log.i("TTTTTTA",rccordBean.getResult()+"");
+                ToastUtils.show(getActivity(),rccordBean.getMessage());
+            }
         }
     }
 
     @Override
     protected void netFail(Object data) {
-
-    }
-
-    @Override
-    public void onDestroyView() {
-        super.onDestroyView();
-        unbinder.unbind();
+        Log.i("TTTTTTD",data.toString());
     }
 }

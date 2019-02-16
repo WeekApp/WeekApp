@@ -101,25 +101,7 @@ public class VersionActivity  extends BaseActivity implements View.OnClickListen
             });
         }
     }
-    //动态权限
-    private void permission() {
-        if (Build.VERSION.SDK_INT >= 23) {
-            String[] mPermissionList = new String[]{
-                    Manifest.permission.WRITE_EXTERNAL_STORAGE,
-                    Manifest.permission.ACCESS_FINE_LOCATION,
-                    Manifest.permission.CALL_PHONE,
-                    Manifest.permission.READ_LOGS,
-                    Manifest.permission.READ_PHONE_STATE,
-                    Manifest.permission.READ_EXTERNAL_STORAGE,
-                    Manifest.permission.SET_DEBUG_APP,
-                    Manifest.permission.SYSTEM_ALERT_WINDOW,
-                    Manifest.permission.GET_ACCOUNTS,
-                    Manifest.permission.WRITE_APN_SETTINGS,
-                    Manifest.permission.CAMERA};
-            ActivityCompat.requestPermissions(VersionActivity.this, mPermissionList, 123);
-        }
 
-    }
     //返回布局
     @Override
     protected int getLayout() {
@@ -131,14 +113,10 @@ public class VersionActivity  extends BaseActivity implements View.OnClickListen
         if (data instanceof VersionBean){
             VersionBean versionBean= (VersionBean) data;
 
-            if (versionBean.getFlag()==1){
+            if (versionBean.getFlag()==1) {
                 String downloadUrl = versionBean.getDownloadUrl();
                 downloadUrll = downloadUrl;
-
-            }else{
-
             }
-
         }
     }
     //请求失败
@@ -161,18 +139,25 @@ public class VersionActivity  extends BaseActivity implements View.OnClickListen
                 break;
         }
     }
-    /**
-     * 安装apk
-     *
-     * @param file
-     */
-    private void installApk(File file) {
-        Intent intent = new Intent();
-        intent.setAction(Intent.ACTION_VIEW);
-        intent.addCategory("android.intent.category.DEFAULT");
-        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-        intent.setDataAndType(Uri.fromFile(file), "application/vnd.android.package-archive");
-        startActivity(intent);
-        android.os.Process.killProcess(android.os.Process.myPid());
+
+
+    //动态权限
+    private void permission() {
+        if (Build.VERSION.SDK_INT >= 23) {
+            String[] mPermissionList = new String[]{
+                    Manifest.permission.WRITE_EXTERNAL_STORAGE,
+                    Manifest.permission.ACCESS_FINE_LOCATION,
+                    Manifest.permission.CALL_PHONE,
+                    Manifest.permission.READ_LOGS,
+                    Manifest.permission.READ_PHONE_STATE,
+                    Manifest.permission.READ_EXTERNAL_STORAGE,
+                    Manifest.permission.SET_DEBUG_APP,
+                    Manifest.permission.SYSTEM_ALERT_WINDOW,
+                    Manifest.permission.GET_ACCOUNTS,
+                    Manifest.permission.WRITE_APN_SETTINGS,
+                    Manifest.permission.CAMERA};
+            ActivityCompat.requestPermissions(VersionActivity.this, mPermissionList, 123);
+        }
+
     }
 }
