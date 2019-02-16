@@ -28,6 +28,7 @@ import com.bw.movie.activity.myactivity.VersionActivity;
 import com.bw.movie.activity.useractivity.LoginActivity;
 import com.bw.movie.app.App;
 import com.bw.movie.base.BaseFragment;
+import com.bw.movie.bean.cinemabean.ToastUtil;
 import com.bw.movie.bean.login.UserBean;
 import com.bw.movie.bean.mybean.MessageBean;
 import com.bw.movie.bean.mybean.VersionBean;
@@ -296,24 +297,28 @@ public class MyFragment extends BaseFragment {
             //判断是否签到
             int userSignStatus = messageBean.getResult().getUserSignStatus();
             if (userSignStatus==1){
-                myfragmentBtnSignin.setText("签到");
+                myfragmentBtnSignin.setVisibility(View.VISIBLE);
+                myfragmentBtnSignined.setVisibility(View.GONE);
+
             }else if(userSignStatus==2){
-                myfragmentBtnSignin.setText("已签到");
+                myfragmentBtnSignin.setVisibility(View.GONE);
+                myfragmentBtnSignined.setVisibility(View.VISIBLE);;
             }
 
         }else if (data instanceof RegisterBean){
             //签到
             RegisterBean registerBean= (RegisterBean) data;
             String message = registerBean.getMessage();
-           if(registerBean.getStatus().equals("0000")){
+            Toast.makeText(getContext(), message+"", Toast.LENGTH_SHORT).show();
+          /* if(registerBean.getStatus().equals("0000")){
                 myfragmentBtnSignin.setText("已签到");
                 Toast.makeText(getContext(), message+"", Toast.LENGTH_SHORT).show();
                 initMesage();
             }else{
                 ToastUtils.show(getActivity(),registerBean.getMessage());
                initMesage();
-            }
-
+            }*/
+            initMesage();
         }else if (data instanceof VersionBean){
             //更新版本
             VersionBean versionBean= (VersionBean) data;

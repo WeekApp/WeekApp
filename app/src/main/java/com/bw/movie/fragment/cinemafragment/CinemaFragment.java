@@ -104,7 +104,7 @@ public class CinemaFragment extends BaseFragment {
     private double mLatitude;
     private double mLongitude;
     private CinemaSearchAdapter mCinemaSearchAdapter;
-
+    private int mA=0;
 
     //初始化控件
     @Override
@@ -172,19 +172,6 @@ public class CinemaFragment extends BaseFragment {
 
     }
 
-    //获取经纬度
-    private void initlongitude() {
-        Location location = LocationUtils.getInstance( getContext() ).showLocation();
-        if (location != null) {
-            String address = "纬度：" + location.getLatitude() + "经度：" + location.getLongitude();
-            mLatitude = location.getLatitude();
-            mLongitude = location.getLongitude();
-            System.out.println("精度: "+mLatitude+"");
-            System.out.println("精度: "+mLongitude+"");
-            Log.d( "FLY.LocationUtils", address );
-            Toast.makeText(getContext(), mLatitude+" =qaz= "+mLongitude, Toast.LENGTH_SHORT).show();
-        }
-    }
 
     private void initConcren() {
         mCinemaSearchAdapter.setOnItemClick(new CinemaSearchAdapter.OnItemClick() {
@@ -235,13 +222,14 @@ public class CinemaFragment extends BaseFragment {
 
 
     //点击事件
-    @OnClick({R.id.cinemaFragment_image_location, R.id.cinemaFragment_edit_search,R.id.cinemaFragment_tv_search})
+    @OnClick({R.id.cinemaFragment_image_location,R.id.cinemaFragment_edit_search,R.id.cinemaFragment_tv_search})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             //定位城市
             case R.id.cinemaFragment_image_location:
                 startActivityForResult(new Intent(getContext(), CityActivity.class), RequestCodeInfo.GETCITY);
                 break;
+
             //搜索框
             case R.id.cinemaFragment_tv_search:
 
@@ -265,6 +253,95 @@ public class CinemaFragment extends BaseFragment {
         }
     }
 
+    //搜索框动画
+    private void initAnimator() {
+        if (mA==0){
+            final ValueAnimator valueAnimator = ValueAnimator.ofInt(cinemaFragmentEditSearch.getLayoutParams().width, 600);
+            valueAnimator.setDuration(2000);
+
+            valueAnimator.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
+                @Override
+                public void onAnimationUpdate(ValueAnimator animator) {
+
+                    int currentValue = (Integer) animator.getAnimatedValue();
+
+                    relativeLayout.getLayoutParams().width = currentValue;
+                    cinemaFragmentEditSearch.requestLayout();
+                }
+            });
+            valueAnimator.addListener(new Animator.AnimatorListener() {
+
+
+
+                @Override
+                public void onAnimationStart(Animator animation) {
+
+                }
+
+                @Override
+                public void onAnimationEnd(Animator animation) {
+                    cinemaFragmentEditSearch.setHint("CGV影城");
+                    cinemaFragmentTvSearch.setVisibility(View.VISIBLE);
+
+                    mA = 1;
+                }
+
+                @Override
+                public void onAnimationCancel(Animator animation) {
+
+                }
+
+                @Override
+                public void onAnimationRepeat(Animator animation) {
+
+                }
+            });
+            valueAnimator.start();
+        }else if (mA==1){
+            final ValueAnimator valueAnimator = ValueAnimator.ofInt(cinemaFragmentEditSearch.getLayoutParams().width, 100);
+            valueAnimator.setDuration(000);
+
+            valueAnimator.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
+                @Override
+                public void onAnimationUpdate(ValueAnimator animator) {
+
+                    int currentValue = (Integer) animator.getAnimatedValue();
+
+                    relativeLayout.getLayoutParams().width = currentValue;
+                    cinemaFragmentEditSearch.requestLayout();
+                }
+            });
+            valueAnimator.addListener(new Animator.AnimatorListener() {
+
+
+
+                @Override
+                public void onAnimationStart(Animator animation) {
+                    cinemaFragmentEditSearch.setHint("");
+                    cinemaFragmentTvSearch.setVisibility(View.GONE);
+                }
+
+                @Override
+                public void onAnimationEnd(Animator animation) {
+                    mA = 0;
+                }
+
+                @Override
+                public void onAnimationCancel(Animator animation) {
+
+                }
+
+                @Override
+                public void onAnimationRepeat(Animator animation) {
+
+                }
+            });
+            valueAnimator.start();
+        }
+
+    }
+
+    //搜索
     private void initSearch(String s) {
         doNetGet(Apis.URL_GET_SEARCH+"?page=1&count=10&cinemaName="+s,CinemaSearchBean.class);
         mCinemaSearchAdapter = new CinemaSearchAdapter(getContext());
@@ -294,45 +371,7 @@ public class CinemaFragment extends BaseFragment {
     }
 
 
-    //搜索框动画
-    private void initAnimator() {
-        ValueAnimator valueAnimator = ValueAnimator.ofInt(cinemaFragmentEditSearch.getLayoutParams().width, 600);
-        valueAnimator.setDuration(2000);
 
-        valueAnimator.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
-            @Override
-            public void onAnimationUpdate(ValueAnimator animator) {
-
-                int currentValue = (Integer) animator.getAnimatedValue();
-
-                relativeLayout.getLayoutParams().width = currentValue;
-                cinemaFragmentEditSearch.requestLayout();
-            }
-        });
-        valueAnimator.addListener(new Animator.AnimatorListener() {
-            @Override
-            public void onAnimationStart(Animator animation) {
-
-            }
-
-            @Override
-            public void onAnimationEnd(Animator animation) {
-                cinemaFragmentEditSearch.setHint("CGV影城");
-                cinemaFragmentTvSearch.setVisibility(View.VISIBLE);
-            }
-
-            @Override
-            public void onAnimationCancel(Animator animation) {
-
-            }
-
-            @Override
-            public void onAnimationRepeat(Animator animation) {
-
-            }
-        });
-        valueAnimator.start();
-    }
 
 
     Handler handler = new Handler() {
@@ -345,6 +384,23 @@ public class CinemaFragment extends BaseFragment {
             }
         }
     };
+
+
+    //获取经纬度
+    private void initlongitude() {
+        Location location = LocationUtils.getInstance( getContext() ).showLocation();
+        if (location != null) {
+            String address = "纬度：" + location.getLatitude() + "经度：" + location.getLongitude();
+            mLatitude = location.getLatitude();
+            mLongitude = location.getLongitude();
+            System.out.println("精度: "+mLatitude+"");
+            System.out.println("精度: "+mLongitude+"");
+            Log.d( "FLY.LocationUtils", address );
+            Toast.makeText(getContext(), mLatitude+" =qaz= "+mLongitude, Toast.LENGTH_SHORT).show();
+        }
+    }
+
+
     //获取GPS定位的城市
     private void initLocation() {
 
