@@ -46,8 +46,8 @@ public class RccordMoneyAdapter extends RecyclerView.Adapter<RccordMoneyAdapter.
         String orderId = list.get(i).getOrderId();
         String cinemaName = list.get(i).getCinemaName();
         String screeningHall = list.get(i).getScreeningHall();
-        int beginTime = list.get(i).getBeginTime();
-        int endTime = list.get(i).getEndTime();
+        String beginTime = list.get(i).getBeginTime();
+        String endTime = list.get(i).getEndTime();
         int amount = list.get(i).getAmount();
         double price = list.get(i).getPrice();
 

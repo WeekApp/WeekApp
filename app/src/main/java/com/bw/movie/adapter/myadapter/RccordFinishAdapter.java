@@ -42,10 +42,10 @@ public class RccordFinishAdapter extends RecyclerView.Adapter<RccordFinishAdapte
     @Override
     public void onBindViewHolder(@NonNull ViewHolder viewHolder, int i) {
         String movieName = list.get(i).getMovieName();
-        int beginTime = list.get(i).getBeginTime();
-        int endTime = list.get(i).getEndTime();
+        String beginTime = list.get(i).getBeginTime();
+        String endTime = list.get(i).getEndTime();
         String orderId = list.get(i).getOrderId();
-        long createTime = list.get(i).getCreateTime();
+        String createTime = list.get(i).getCreateTime();
         String cinemaName = list.get(i).getCinemaName();
         String screeningHall = list.get(i).getScreeningHall();
 
@@ -83,7 +83,7 @@ public class RccordFinishAdapter extends RecyclerView.Adapter<RccordFinishAdapte
             rccordfinish_item_ordertime=itemView.findViewById(R.id.rccordfinish_item_ordertime);
             rccordfinish_item_cine=itemView.findViewById(R.id.rccordfinish_item_cine);
             rccordfinish_item_moviehall=itemView.findViewById(R.id.rccordfinish_item_moviehall);
-            rccordfinish_item_num=itemView.findViewById(R.id.rccordfinish_item_num);
+            rccordfinish_item_num=itemView.findViewById(R.id.rccordfinish_item_number);
             rccordfinish_item_money=itemView.findViewById(R.id.rccordfinish_item_money);
         }
     }

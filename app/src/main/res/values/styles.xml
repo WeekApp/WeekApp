@@ -34,4 +34,14 @@
         <item name="android:windowEnterAnimation">@anim/window_out</item>
         <item name="android:windowExitAnimation">@anim/window_back</item>
     </style>
+
+    <!--白屏-->
+    <!--SplashActivity Theme-->
+    <style name="SplashTheme" parent="AppTheme">
+        <item name="android:windowIsTranslucent">true</item>  <!-- 透明背景 -->
+        <item name="android:windowNoTitle">true</item>
+        <item name="android:windowContentOverlay">@null</item>
+        <!--<item name="android:windowBackground">@drawable/bg</item>-->
+        <item name="android:windowFullscreen">true</item>
+    </style>
 </resources>

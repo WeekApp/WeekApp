@@ -11,7 +11,10 @@ import com.bw.movie.adapter.myadapter.RccordMoneyAdapter;
 import com.bw.movie.base.BaseFragment;
 import com.bw.movie.bean.mybean.RccordBean;
 import com.bw.movie.mvp.util.Apis;
+import com.bw.movie.util.ToastUtils;
 import com.bw.onlymycinema.R;
+
+import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -32,17 +35,27 @@ public class RccordMoneyFragment extends BaseFragment {
 
     @Override
     protected void initData() {
-        doNetGet(Apis.URL_GET_QUERYMONEY + "?page=1&count=5&status=1l", RccordBean.class);
-        doNetGet(Apis.URL_GET_QUERYMONEY + "?page=1&count=5&status=1", RccordBean.class);
+        //请求网络
+        initNet();
+        //设置适配器
+        initAdapter();
 
+    }
+
+    private void initAdapter() {
         mRccordMoneyAdapter = new RccordMoneyAdapter(getContext());
         rccordmoneyRecy.setAdapter(mRccordMoneyAdapter);
         rccordmoneyRecy.setLayoutManager(new LinearLayoutManager(getContext(),LinearLayoutManager.VERTICAL,false));
     }
 
+    private void initNet() {
+        doNetGet(Apis.URL_GET_QUERYMONEY+"?page=1&count=5&status=1" , RccordBean.class);
+
+    }
+
     @Override
     protected void initView(View view) {
-        unbinder = ButterKnife.bind(this, view);
+        ButterKnife.bind(this, view);
     }
 
     @Override

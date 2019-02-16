@@ -8,12 +8,22 @@
     android:layout_marginBottom="@dimen/dp_20"
     android:layout_marginLeft="@dimen/dp_24"
     android:layout_marginRight="@dimen/dp_24"
+    android:layout_marginTop="@dimen/dp_24"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_marginLeft="@dimen/dp_10"
         android:layout_height="wrap_content">
+        <Button
+            android:id="@+id/rccordmoney_item_gomoney"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/dp_10"
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="@dimen/dp_10"
+            android:background="#fff"
+            />
 
         <TextView
             android:id="@+id/rccordfinish_item_name"
@@ -204,8 +214,9 @@
             android:text="金额："
             android:textSize="@dimen/sp_14"
             android:layout_marginTop="@dimen/dp_10"
+            android:layout_marginBottom="@dimen/dp_20"
             android:textColor="#999999"
-            android:layout_below="@+id/rccordfinish_item_movie"
+            android:layout_below="@+id/rccordfinish_item_num"
             />
 
         <TextView
@@ -216,8 +227,8 @@
             android:textSize="@dimen/sp_14"
             android:layout_marginTop="@dimen/dp_10"
             android:textColor="#999999"
-            android:layout_toRightOf="@+id/rccordfinish_item_num"
-            android:layout_below="@+id/rccordfinish_item_movie"
+            android:layout_toRightOf="@+id/rccordfinish_item_m"
+            android:layout_below="@+id/rccordfinish_item_num"
             />
 
 
