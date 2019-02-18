@@ -5,19 +5,18 @@ import android.Manifest;
 import android.animation.Animator;
 import android.animation.ValueAnimator;
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.location.Criteria;
 import android.location.Location;
 import android.location.LocationManager;
 import android.os.AsyncTask;
-import android.os.Build;
 import android.os.Handler;
 import android.os.Message;
-import android.support.annotation.NonNull;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentPagerAdapter;
-import android.support.v4.content.ContextCompat;
 import android.support.v4.view.ViewPager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -34,16 +33,12 @@ import android.widget.Toast;
 
 import com.bw.movie.activity.cinemaactivity.CinemaDetailActivity;
 import com.bw.movie.activity.homeactivity.CityActivity;
-import com.bw.movie.activity.homeactivity.MainActivity;
 import com.bw.movie.adapter.cinemaadapter.CinemaSearchAdapter;
-import com.bw.movie.adapter.cinemaadapter.RecommendAdapter;
 import com.bw.movie.base.BaseFragment;
 import com.bw.movie.bean.cinemabean.CinemaLocationBean;
 import com.bw.movie.bean.cinemabean.CinemaSearchBean;
 import com.bw.movie.bean.cinemabean.RemmondBean;
 import com.bw.movie.bean.filmbean.details.buyingbean.ConcrenBean;
-import com.bw.movie.bean.mybean.RemindBean;
-import com.bw.movie.bean.userbean.RegisterBean;
 import com.bw.movie.mvp.util.Apis;
 import com.bw.movie.util.LocationUtils;
 import com.bw.movie.Utils.cinema.RequestCodeInfo;
@@ -68,6 +63,8 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import butterknife.Unbinder;
+
+import static android.support.v4.content.ContextCompat.getSystemService;
 
 /**
  * A simple {@link Fragment} subclass
@@ -105,6 +102,7 @@ public class CinemaFragment extends BaseFragment {
     private double mLongitude;
     private CinemaSearchAdapter mCinemaSearchAdapter;
     private int mA=0;
+
 
     //初始化控件
     @Override
@@ -172,7 +170,7 @@ public class CinemaFragment extends BaseFragment {
 
     }
 
-
+    //去关注
     private void initConcren() {
         mCinemaSearchAdapter.setOnItemClick(new CinemaSearchAdapter.OnItemClick() {
             @Override
@@ -388,7 +386,37 @@ public class CinemaFragment extends BaseFragment {
 
     //获取经纬度
     private void initlongitude() {
-        Location location = LocationUtils.getInstance( getContext() ).showLocation();
+
+        LocationManager lm = (LocationManager) getContext().getSystemService(Context.LOCATION_SERVICE);
+        Criteria criteria = new Criteria();
+        criteria.setCostAllowed(false);
+        //设置位置服务免费
+        criteria.setAccuracy(Criteria.ACCURACY_COARSE); //设置水平位置精度
+        //getBestProvider 只有允许访问调用活动的位置供应商将被返回
+        String providerName = lm.getBestProvider(criteria, true);
+
+        if (providerName != null) {
+            if (ActivityCompat.checkSelfPermission(getContext(), Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(getContext(), Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+                Toast.makeText(getContext(), "没有权限", Toast.LENGTH_SHORT).show();
+                return;
+            }
+
+            Location location = lm.getLastKnownLocation(providerName);
+
+            //获取维度信息
+            mLatitude = location.getLatitude();
+            //获取经度信息
+            mLongitude = location.getLongitude();
+
+            Log.i("获取经纬度", "定位方式： " + providerName + "  维度：" + mLatitude + "  经度：" + mLongitude);
+
+        } else {
+            Toast.makeText(getContext(), "1.请检查网络连接 \n2.请打开我的位置", Toast.LENGTH_SHORT).show();
+        }
+
+
+
+        /*Location location = LocationUtils.getInstance( getContext() ).showLocation();
         if (location != null) {
             String address = "纬度：" + location.getLatitude() + "经度：" + location.getLongitude();
             mLatitude = location.getLatitude();
@@ -397,7 +425,7 @@ public class CinemaFragment extends BaseFragment {
             System.out.println("精度: "+mLongitude+"");
             Log.d( "FLY.LocationUtils", address );
             Toast.makeText(getContext(), mLatitude+" =qaz= "+mLongitude, Toast.LENGTH_SHORT).show();
-        }
+        }*/
     }
 
 

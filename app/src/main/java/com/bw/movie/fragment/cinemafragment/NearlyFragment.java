@@ -59,7 +59,6 @@ public class NearlyFragment extends BaseFragment {
                 startActivity(intent);
             }
         });
-
         //去关注
         initConcren();
     }
@@ -95,7 +94,6 @@ public class NearlyFragment extends BaseFragment {
     protected void netSuccess(Object data) {
         if (data instanceof RemmondBean){
             RemmondBean remmondBean= (RemmondBean) data;
-
             mNearlyAdapter.setData(remmondBean.getResult());
         }
 
@@ -116,7 +114,6 @@ public class NearlyFragment extends BaseFragment {
     protected void netFail(Object data) {
         Log.i("TTTERROR",data.toString());
     }
-
 
     //销毁布局
     @Override

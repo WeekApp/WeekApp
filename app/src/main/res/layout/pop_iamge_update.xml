@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#10fcfbfb"
+    >
+
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp_150"
+        android:background="@drawable/pop_white"
+        android:layout_alignParentBottom="true"
+        >
+
+        <TextView
+            android:id="@+id/xiaoji"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="@dimen/sp_20"
+            android:text="相机"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="@dimen/dp_10"
+            />
+
+            <TextView
+                android:id="@+id/dsfgr"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/dp_1"
+                android:layout_below="@id/xiaoji"
+                android:background="#ccc"
+                android:layout_marginTop="@dimen/dp_10"
+                />
+        <TextView
+            android:id="@+id/xiangce"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="@dimen/sp_20"
+            android:text="相册"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="@dimen/dp_10"
+            android:layout_below="@+id/dsfgr"
+            />
+
+        <TextView
+            android:id="@+id/sdfesfsef"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dp_10"
+            android:layout_below="@id/xiangce"
+            android:background="#dfdddd"
+            android:layout_marginTop="@dimen/dp_10"
+            />
+
+        <TextView
+            android:id="@+id/quxiao"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="取消"
+            android:textSize="@dimen/sp_18"
+            android:layout_below="@+id/sdfesfsef"
+            android:textColor="#f00"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="@dimen/dp_10"
+            />
+    </RelativeLayout>
+
+
+</RelativeLayout>

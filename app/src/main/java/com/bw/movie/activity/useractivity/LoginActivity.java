@@ -125,6 +125,7 @@ public class LoginActivity extends BaseActivity {
         boolean v_ischeck = sharedPreferences.getBoolean("v_ischeck",false);
         if(v_ischeck){
             startActivity(new Intent(this,HomeActivity.class));
+            finish();
         }
 
         //勾选了自动登录 自动勾选记住密码
@@ -209,11 +210,10 @@ public class LoginActivity extends BaseActivity {
 
             if(user.getStatus().equals("0000")){
                 //取出个人信息的状态值
-                Log.i("TTTUSERID",user.getResult().getUserId()+"");
-                Log.i("TTTSESSIONID",user.getResult().getSessionId());
                 editor.putString("userId",user.getResult().getUserId()+"")
                         .putString("sessionId",user.getResult().getSessionId()).commit();
                 startActivity(new Intent(this,HomeActivity.class));
+                finish();
             }else{
                 ToastUtils.show(this,user.getMessage());
             }

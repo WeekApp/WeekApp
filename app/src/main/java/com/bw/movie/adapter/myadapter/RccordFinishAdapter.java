@@ -45,7 +45,7 @@ public class RccordFinishAdapter extends RecyclerView.Adapter<RccordFinishAdapte
         String beginTime = list.get(i).getBeginTime();
         String endTime = list.get(i).getEndTime();
         String orderId = list.get(i).getOrderId();
-        String createTime = list.get(i).getCreateTime();
+        long createTime = list.get(i).getCreateTime();
         String cinemaName = list.get(i).getCinemaName();
         String screeningHall = list.get(i).getScreeningHall();
 
@@ -61,14 +61,18 @@ public class RccordFinishAdapter extends RecyclerView.Adapter<RccordFinishAdapte
         viewHolder.rccordfinish_item_endtime.setText(endTime+"");
         viewHolder.rccordfinish_item_num.setText(amount+"");
         viewHolder.rccordfinish_item_money.setText(price+"");
+
+
     }
 
     @Override
     public int getItemCount() {
-        return list.size();
+        if(list!=null){
+            return list.size();
+        }else{
+            return 0;
+        }
     }
-
-
 
     public class ViewHolder extends RecyclerView.ViewHolder {
         TextView rccordfinish_item_name,rccordfinish_item_starttime,rccordfinish_item_endtime,
@@ -79,6 +83,7 @@ public class RccordFinishAdapter extends RecyclerView.Adapter<RccordFinishAdapte
             rccordfinish_item_name=itemView.findViewById(R.id.rccordfinish_item_name);
             rccordfinish_item_starttime=itemView.findViewById(R.id.rccordfinish_item_starttime);
             rccordfinish_item_endtime=itemView.findViewById(R.id.rccordfinish_item_endtime);
+
             rccordfinish_item_code=itemView.findViewById(R.id.rccordfinish_item_code);
             rccordfinish_item_ordertime=itemView.findViewById(R.id.rccordfinish_item_ordertime);
             rccordfinish_item_cine=itemView.findViewById(R.id.rccordfinish_item_cine);

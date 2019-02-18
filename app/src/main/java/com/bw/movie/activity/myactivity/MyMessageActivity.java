@@ -5,6 +5,7 @@ import android.Manifest;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.graphics.drawable.BitmapDrawable;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Environment;
@@ -14,9 +15,14 @@ import android.support.annotation.Nullable;
 import android.support.annotation.RequiresApi;
 import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AlertDialog;
+import android.view.Gravity;
 import android.view.View;
+import android.view.WindowManager;
+import android.widget.LinearLayout;
+import android.widget.PopupWindow;
 import android.widget.TextView;
 
+import com.bw.movie.activity.filmactivity.DetailsActivity;
 import com.bw.movie.base.BaseActivity;
 import com.bw.movie.bean.mybean.MyMessageBean;
 import com.bw.movie.bean.mybean.UpdateHeafpicBean;
@@ -66,7 +72,7 @@ public class MyMessageActivity extends BaseActivity {
     SimpleDraweeView mymessageBack;
     private String path = Environment.getExternalStorageDirectory()+"/ert.png";
 
-
+    PopupWindow sPop;
     //初始化数据
     @Override
     protected void initData() {
@@ -108,35 +114,72 @@ public class MyMessageActivity extends BaseActivity {
 
     //修改头像阿萨德
     private void updateHeadpic() {
+
+                View view = View.inflate(MyMessageActivity.this,R.layout.pop_iamge_update,null);
+                TextView quxiao = view.findViewById(R.id.quxiao);
+                TextView xiangji = view.findViewById(R.id.xiaoji);
+                TextView xiangce = view.findViewById(R.id.xiangce);
+
+                sPop = new PopupWindow(view,LinearLayout.LayoutParams.MATCH_PARENT,LinearLayout.LayoutParams.WRAP_CONTENT);
+                //设置焦点
+                sPop.setFocusable(true);
+                //设置是否可以触摸
+                sPop.setTouchable(true);
+                sPop.setBackgroundDrawable(new BitmapDrawable());
+
+                sPop.setOnDismissListener(new PopupWindow.OnDismissListener() {
+                    @Override
+                    public void onDismiss() {
+                        changeWindowAlfa(1f);//pop消失，透明度恢复
+                    }
+                });
+                sPop.setAnimationStyle(R.style.Popupwindow);
+
+                quxiao.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        sPop.dismiss();
+                    }
+                });
+
+        xiangji.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                Intent intent=new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+                intent.putExtra(MediaStore.EXTRA_OUTPUT,Uri.fromFile(new File(path)));
+                startActivityForResult(intent,1000);
+                sPop.dismiss();
+            }
+        });
+
+        xiangce.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent=new Intent(Intent.ACTION_PICK);
+                intent.setType("image/*");
+                startActivityForResult(intent,2000);
+                sPop.dismiss();
+            }
+        });
         mymessageHeadpic.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                AlertDialog.Builder builder = new AlertDialog.Builder(MyMessageActivity.this);
-                builder.setTitle("图片");
-                builder.setMessage("上传的途径");
-                builder.setCancelable(true);
-
-                builder.setPositiveButton("相机", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-
-                        Intent intent=new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-                        intent.putExtra(MediaStore.EXTRA_OUTPUT,Uri.fromFile(new File(path)));
-                        startActivityForResult(intent,1000);
-                    }
-                });
-                builder.setNegativeButton("相册", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        Intent intent=new Intent(Intent.ACTION_PICK);
-                        intent.setType("image/*");
-                        startActivityForResult(intent,2000);
-                    }
-                });
-                builder.show();
+                //改变窗口透明度
+                changeWindowAlfa(0.6f);
+                sPop.showAtLocation(v, Gravity.BOTTOM, 0, 0);
+                sPop.update();
+                sPop.showAsDropDown(v, Gravity.BOTTOM,0 ,0 );
             }
         });
     }
+
+    private void changeWindowAlfa(float v) {
+        WindowManager.LayoutParams params = getWindow().getAttributes();
+        params.alpha = v;
+        getWindow().setAttributes(params);
+    }
+
     //返回重写
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {

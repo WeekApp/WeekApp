@@ -26,7 +26,6 @@ android {
             keyPassword "123456"
         }
     }
-
 }
 
 dependencies {

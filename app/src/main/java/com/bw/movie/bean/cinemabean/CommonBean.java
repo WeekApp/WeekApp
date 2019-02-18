@@ -1,15 +1,14 @@
-package com.bw.movie.bean.userbean;
+package com.bw.movie.bean.cinemabean;
 
-public class RegisterBean {
+public class CommonBean {
 
+    String message;
+    String status;
 
-    /**
-     * message : 今天已签到
-     * status : 1001
-     */
-
-    private String message;
-    private String status;
+    public CommonBean(String message, String status) {
+        this.message = message;
+        this.status = status;
+    }
 
     public String getMessage() {
         return message;

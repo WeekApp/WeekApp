@@ -6,12 +6,16 @@ import android.animation.ObjectAnimator;
 
 import android.app.ActivityManager;
 import android.app.AlertDialog;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -22,7 +26,9 @@ import com.bw.movie.activity.myactivity.RccordActivity;
 import com.bw.movie.activity.myactivity.RemindActivity;
 import com.bw.movie.activity.myactivity.VersionActivity;
 import com.bw.movie.activity.useractivity.LoginActivity;
+import com.bw.movie.app.App;
 import com.bw.movie.base.BaseFragment;
+import com.bw.movie.bean.login.UserBean;
 import com.bw.movie.bean.mybean.MessageBean;
 import com.bw.movie.bean.mybean.VersionBean;
 import com.bw.movie.bean.userbean.RegisterBean;
@@ -54,10 +60,6 @@ public class MyFragment extends BaseFragment {
     SimpleDraweeView myfragmentMyimage;
     @BindView(R.id.myfragment_myname)
     TextView myfragmentMyname;
-    @BindView(R.id.myfragment_iv_messiage)
-    ImageView myfragmentIvMessiage;
-    @BindView(R.id.myfragment_tv_messiage)
-    TextView myfragmentTvMessiage;
     @BindView(R.id.myfragment_iv_attention)
     ImageView myfragmentIvAttention;
     @BindView(R.id.myfragment_tv_attention)
@@ -77,7 +79,10 @@ public class MyFragment extends BaseFragment {
     @BindView(R.id.myfragment_iv_logout)
     ImageView myfragmentIvLogout;
     @BindView(R.id.myfragment_tv_logout)
+
     TextView myfragmentTvLogout;
+    @BindView(R.id.xixi)
+    RelativeLayout mLogin;
     Unbinder unbinder;
 
 
@@ -100,11 +105,52 @@ public class MyFragment extends BaseFragment {
     protected void initData() {
         //获取用户信息
         initMesage();
+        //去登陆
+        initGo();
+        initToGo();
 
     }
+
+    private void initToGo() {
+        mLogin.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                SharedPreferences sharedPreferences = App.getApplication().getSharedPreferences("userName",Context.MODE_PRIVATE);
+                String userId = sharedPreferences.getString("userId", "");
+                String sessionId = sharedPreferences.getString("sessionId","");
+                Log.i("TTTTTT",userId+"xiaofei"+sessionId);
+                if(userId.equals("")&&sessionId.equals(""))
+                {
+                    startActivity(new Intent(getActivity(),LoginActivity.class));
+                    ToastUtils.show(getActivity(),"请先登陆");
+                }else{
+                    startActivity(new Intent(getActivity(),MyMessageActivity.class));
+                }
+            }
+        });
+    }
+
+    private void initGo() {
+        myfragmentMyname.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                SharedPreferences sharedPreferences = App.getApplication().getSharedPreferences("userName",Context.MODE_PRIVATE);
+                String userId = sharedPreferences.getString("userId", "");
+                String sessionId = sharedPreferences.getString("sessionId","");
+                if(userId.equals("")&&sessionId.equals(""))
+                {
+                    startActivity(new Intent(getActivity(),LoginActivity.class));
+                }else{
+
+                }
+            }
+        });
+    }
+
     //获取用户信息
     private void initMesage() {
-        doNetGet(Apis.URL_GET_QUREYMESSAGE,MessageBean.class);
+        doNetGet(Apis.URL_GET_AWFK,UserBean.class);
+        doNetGet(Apis.URL_GET_QUAI,MessageBean.class);
     }
 
     @Override
@@ -115,7 +161,7 @@ public class MyFragment extends BaseFragment {
     }
 
     //点击事件
-    @OnClick({R.id.myfragment_Simple_remind,R.id.myfragment_btn_signined,R.id.myfragment_btn_signin, R.id.myfragment_iv_messiage, R.id.myfragment_tv_messiage, R.id.myfragment_iv_attention, R.id.myfragment_tv_attention, R.id.myfragment_iv_feedback, R.id.myfragment_tv_feedback,R.id.myfragment_iv_rccord,R.id.myfragment_tv_rccord, R.id.myfragment_iv_version, R.id.myfragment_tv_version, R.id.myfragment_iv_logout, R.id.myfragment_tv_logout})
+    @OnClick({R.id.myfragment_Simple_remind,R.id.myfragment_btn_signined,R.id.myfragment_btn_signin, R.id.myfragment_iv_attention, R.id.myfragment_tv_attention, R.id.myfragment_iv_feedback, R.id.myfragment_tv_feedback,R.id.myfragment_iv_rccord,R.id.myfragment_tv_rccord, R.id.myfragment_iv_version, R.id.myfragment_tv_version, R.id.myfragment_iv_logout, R.id.myfragment_tv_logout})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             //系统消息
@@ -131,14 +177,6 @@ public class MyFragment extends BaseFragment {
             case R.id.myfragment_btn_signined:
                 //签到
                 initSign();
-                break;
-                //我的信息
-            case R.id.myfragment_iv_messiage:
-                startActivity(new Intent(getContext(),MyMessageActivity.class));
-                break;
-                //我的信息
-            case R.id.myfragment_tv_messiage:
-                startActivity(new Intent(getContext(),MyMessageActivity.class));
                 break;
                 //我的关注
             case R.id.myfragment_iv_attention:
@@ -220,18 +258,15 @@ public class MyFragment extends BaseFragment {
 
                     }
                 });
-
                 //startActivity(new Intent(getContext(),VersionActivity.class));
                 break;
                 //返回登录
             case R.id.myfragment_iv_logout:
-
-                ActivityCollectorUtil.finishAllActivity();
-
+                startActivity(new Intent(getActivity(),LoginActivity.class));
                 break;
                 //返回登录
             case R.id.myfragment_tv_logout:
-                ActivityCollectorUtil.finishAllActivity();
+                startActivity(new Intent(getActivity(),LoginActivity.class));
                 break;
         }
     }
@@ -242,34 +277,45 @@ public class MyFragment extends BaseFragment {
     //请求成功
     @Override
     protected void netSuccess(Object data) {
+
+        if(data instanceof UserBean){
+            UserBean messageBean = (UserBean) data;
+            if(messageBean.getStatus().equals("0000")){
+                //获取头像和昵称
+                String headPic = messageBean.getResult().getHeadPic();
+                Log.i("TTTTTTT",headPic);
+                String nickName = messageBean.getResult().getNickName();
+                Log.i("TTTTTTT",nickName);
+                myfragmentMyimage.setImageURI(headPic);
+                myfragmentMyname.setText(nickName);
+            }
+        }
+
         if (data instanceof MessageBean) {
-            MessageBean messageBean= (MessageBean) data;
-
-            //获取头像和昵称
-            String headPic = messageBean.getResult().getHeadPic();
-            String nickName = messageBean.getResult().getNickName();
-            myfragmentMyimage.setImageURI(headPic);
-            myfragmentMyname.setText(nickName);
-
+            MessageBean messageBean = (MessageBean) data;
             //判断是否签到
             int userSignStatus = messageBean.getResult().getUserSignStatus();
             if (userSignStatus==1){
-                myfragmentBtnSignined.setVisibility(View.GONE);
-                myfragmentBtnSignin.setVisibility(View.VISIBLE);
-            }else{
-                myfragmentBtnSignined.setVisibility(View.VISIBLE);
-                myfragmentBtnSignin.setVisibility(View.GONE);
+                myfragmentBtnSignin.setText("签到");
+            }else if(userSignStatus==2){
+                myfragmentBtnSignin.setText("已签到");
             }
 
         }else if (data instanceof RegisterBean){
             //签到
             RegisterBean registerBean= (RegisterBean) data;
             String message = registerBean.getMessage();
-            Toast.makeText(getContext(), message+"", Toast.LENGTH_SHORT).show();
-            initMesage();
+           if(registerBean.getStatus().equals("0000")){
+                myfragmentBtnSignin.setText("已签到");
+                Toast.makeText(getContext(), message+"", Toast.LENGTH_SHORT).show();
+                initMesage();
+            }else{
+                ToastUtils.show(getActivity(),registerBean.getMessage());
+               initMesage();
+            }
+
         }else if (data instanceof VersionBean){
             //更新版本
-
             VersionBean versionBean= (VersionBean) data;
 
             int flag = versionBean.getFlag();
@@ -289,7 +335,6 @@ public class MyFragment extends BaseFragment {
             }
         }
     }
-
 
     //请求失败
     @Override

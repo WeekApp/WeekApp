@@ -62,7 +62,7 @@ public class RccordBean {
         private int amount;
         private String beginTime;
         private String cinemaName;
-        private String createTime;
+        private long createTime;
         private String endTime;
         private int id;
         private String movieName;
@@ -96,11 +96,11 @@ public class RccordBean {
             this.cinemaName = cinemaName;
         }
 
-        public String getCreateTime() {
+        public long getCreateTime() {
             return createTime;
         }
 
-        public void setCreateTime(String createTime) {
+        public void setCreateTime(long createTime) {
             this.createTime = createTime;
         }
 

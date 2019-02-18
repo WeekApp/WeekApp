@@ -39,7 +39,7 @@
                 android:id="@+id/myfragment_myname"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="冬天来了"
+                android:text="登录/注册"
                 android:textSize="@dimen/sp_14"
                 android:textColor="#ffffff"
                 android:layout_centerHorizontal="true"
@@ -94,20 +94,26 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent">
 
-                    <ImageView
-                        android:id="@+id/myfragment_iv_messiage"
-                        android:layout_width="@dimen/dp_24"
-                        android:layout_height="@dimen/dp_24"
-                        android:layout_marginTop="@dimen/dp_24"
-                        android:layout_marginLeft="@dimen/dp_40"
-                        android:src="@mipmap/my_icon_messiage_default" />
-                    <TextView
-                        android:id="@+id/myfragment_tv_messiage"
+                    <RelativeLayout
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="我的信息"
-                        android:layout_marginLeft="@dimen/dp_30"
-                        android:layout_marginTop="@dimen/dp_58"/>
+                        android:id="@+id/xixi"
+                        >
+
+                        <ImageView
+                            android:layout_width="@dimen/dp_24"
+                            android:layout_height="@dimen/dp_24"
+                            android:layout_marginTop="@dimen/dp_24"
+                            android:layout_marginLeft="@dimen/dp_40"
+                            android:src="@mipmap/my_icon_messiage_default" />
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="我的信息"
+                            android:layout_marginLeft="@dimen/dp_30"
+                            android:layout_marginTop="@dimen/dp_58"/>
+
+                    </RelativeLayout>
 
                 </RelativeLayout>
 

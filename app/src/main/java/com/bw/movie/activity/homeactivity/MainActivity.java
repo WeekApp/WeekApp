@@ -1,6 +1,7 @@
 package com.bw.movie.activity.homeactivity;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -13,6 +14,9 @@ import com.bw.onlymycinema.R;
 
 public class MainActivity extends AppCompatActivity {
 
+    SharedPreferences preferences;
+    SharedPreferences.Editor editor;
+
     int i=5;
     Handler handler = new Handler(){
         @Override
@@ -20,8 +24,14 @@ public class MainActivity extends AppCompatActivity {
 
             int z = msg.what;
             if(z==0){
-                startActivity(new Intent(MainActivity.this,GuideActivity.class));
-                finish();
+                boolean v = preferences.getBoolean("v",false);
+                if(v==false){
+                    startActivity(new Intent(MainActivity.this,GuideActivity.class));
+                    finish();
+                }else if(v==true){
+                    startActivity(new Intent(MainActivity.this,HomeActivity.class));
+                    finish();
+                }
             }
         }
     };
@@ -31,6 +41,8 @@ public class MainActivity extends AppCompatActivity {
 
         setContentView(R.layout.activity_mian);
 
+        preferences = getSharedPreferences("zzz",MODE_PRIVATE);
+        editor = preferences.edit();
         //创建一个主线程
         new Thread(){
             @Override
