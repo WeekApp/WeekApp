@@ -25,9 +25,11 @@ import com.bw.movie.adapter.cinemaadapter.CinemaScheduleAdapter;
 import com.bw.movie.base.BaseActivity;
 import com.bw.movie.bean.cinemabean.CinemaDetailBannerBean;
 import com.bw.movie.bean.cinemabean.CinemaDetailScheduleBean;
+import com.bw.movie.bean.cinemabean.CinemaIdBean;
 import com.bw.movie.fragment.cinemafragment.filmpopfragent.PopCommentFragment;
 import com.bw.movie.fragment.cinemafragment.filmpopfragent.PopDetailsFragment;
 import com.bw.movie.mvp.util.Apis;
+import com.bw.movie.util.ToastUtils;
 import com.bw.onlymycinema.R;
 import com.facebook.drawee.view.SimpleDraweeView;
 
@@ -66,6 +68,8 @@ public class CinemaDetailActivity extends BaseActivity {
     TextView textView_two;
     private String address;
     private String name;
+    private int mId1;
+
     @Override
     protected void initView() {
 
@@ -98,11 +102,9 @@ public class CinemaDetailActivity extends BaseActivity {
         cinemadetailSimpleLogo.setImageURI(logo);
         cinemadetailTvName.setText(name);
         cinemadetailTvAddress.setText(address);
-        mCinemaScheduleAdapter = new CinemaScheduleAdapter(this);
+
         initBanner(mId);
-        initGo();
-        //跳转到选择
-        initToGo();
+
     }
 
    private void initToGo() {
@@ -250,28 +252,17 @@ public class CinemaDetailActivity extends BaseActivity {
         getWindow().setAttributes(params);
     }
 
-    //排期
-    private void initRecy(String mid, int id) {
-        doNetGet(Apis.URL_GET_findMovieScheduleList + "?cinemasId=" + mid + "&movieId=" + id, CinemaDetailScheduleBean.class);
 
-        cinemadetailRecy.setAdapter(mCinemaScheduleAdapter);
-        cinemadetailRecy.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false));
-
-    }
 
     //轮播图
     private void initBanner(final String mid) {
         doNetGet(Apis.URL_GET_findMovieListByCinemaId + "?cinemaId=" + mid, CinemaDetailBannerBean.class);
 
-        mCinemaBannerAdapter = new CinemaBannerAdapter(this);
-        cinemadetailRecyBanner.setAdapter(mCinemaBannerAdapter);
-        cinemadetailRecyBanner.setOnItemSelectedListener(new CoverFlowLayoutManger.OnSelected() {//滑动监听
-            @Override
-            public void onItemSelected(int position) {
+    }
 
-                initRecy(mid, position);
-            }
-        });
+    //排期
+    private void initRecy(String mid, int id) {
+
 
     }
 
@@ -284,10 +275,39 @@ public class CinemaDetailActivity extends BaseActivity {
     protected void netSuccess(Object data) {
         if (data instanceof CinemaDetailBannerBean) {
             CinemaDetailBannerBean cinemaDetailBannerBean = (CinemaDetailBannerBean) data;
-            mCinemaBannerAdapter.setData(cinemaDetailBannerBean.getResult());
-        } else if (data instanceof CinemaDetailScheduleBean) {
+            if (cinemaDetailBannerBean.getMessage().equals("无数据")){
+                ToastUtils.show(this,"没数据");
+            }else{
+                mCinemaBannerAdapter = new CinemaBannerAdapter(this);
+                cinemadetailRecyBanner.setAdapter(mCinemaBannerAdapter);
+                mCinemaBannerAdapter.setData(cinemaDetailBannerBean.getResult());
+
+                 mCinemaScheduleAdapter = new CinemaScheduleAdapter(this);
+                cinemadetailRecy.setAdapter(mCinemaScheduleAdapter);
+                cinemadetailRecy.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false));
+
+                mId1 = mCinemaBannerAdapter.getId(0);
+                doNetGet(Apis.URL_GET_findMovieScheduleList + "?cinemasId=" + mId + "&movieId=" + mId1, CinemaDetailScheduleBean.class);
+                cinemadetailRecyBanner.setOnItemSelectedListener(new CoverFlowLayoutManger.OnSelected() {
+                    //滑动监听
+                    @Override
+                    public void onItemSelected( int position) {
+                        mId1 = mCinemaBannerAdapter.getId(position);
+                        doNetGet(Apis.URL_GET_findMovieScheduleList + "?cinemasId=" + mId + "&movieId=" + mId1, CinemaDetailScheduleBean.class);
+                    }
+                });
+                initGo();
+                //跳转到选择
+                initToGo();
+                mCinemaBannerAdapter.notifyDataSetChanged();
+            }
+
+        } else
+            if (data instanceof CinemaDetailScheduleBean) {
             CinemaDetailScheduleBean cinemaDetailScheduleBean = (CinemaDetailScheduleBean) data;
-            mCinemaScheduleAdapter.setData(cinemaDetailScheduleBean.getResult());
+
+                mCinemaScheduleAdapter.setData(cinemaDetailScheduleBean.getResult());
+            mCinemaScheduleAdapter.notifyDataSetChanged();
         }
     }
 

@@ -32,10 +32,11 @@ import me.yokeyword.indexablerv.IndexableLayout;
 /**
      * 城市侧边索引城市
      * */
+
 public class CityActivity extends AppCompatActivity {
     private ContactAdapter mAdapter;
     private BannerHeaderAdapter mBannerHeaderAdapter;
-    private String[] city = {"东莞","深圳","广州","温州","郑州","金华","佛山","上海","苏州","杭州","长沙","中山"};
+    private String[] city = {"北京","深圳","广州","温州","郑州","金华","佛山","上海","苏州","杭州","长沙","中山"};
     private IndexableLayout indexableLayout;
     private CYBChangeCityGridViewAdapter cybChangeCityGridViewAdapter;
     private ArrayList<String> list;

@@ -28,14 +28,14 @@
             android:layout_margin="@dimen/dp_30"
             android:background="@drawable/home_film_selected"
             />
+
         <RadioButton
             android:id="@+id/home_cinema"
             android:layout_width="@dimen/dp_60"
             android:layout_height="@dimen/dp_60"
-            android:button="@null"
             android:layout_margin="@dimen/dp_30"
             android:background="@drawable/home_cinema_selected"
-            />
+            android:button="@null" />
         <RadioButton
             android:id="@+id/home_my"
             android:layout_width="@dimen/dp_60"

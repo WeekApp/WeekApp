@@ -61,6 +61,8 @@ public class RccordFinishAdapter extends RecyclerView.Adapter<RccordFinishAdapte
         viewHolder.rccordfinish_item_endtime.setText(endTime+"");
         viewHolder.rccordfinish_item_num.setText(amount+"");
         viewHolder.rccordfinish_item_money.setText(price+"");
+
+
     }
 
     @Override
@@ -81,6 +83,7 @@ public class RccordFinishAdapter extends RecyclerView.Adapter<RccordFinishAdapte
             rccordfinish_item_name=itemView.findViewById(R.id.rccordfinish_item_name);
             rccordfinish_item_starttime=itemView.findViewById(R.id.rccordfinish_item_starttime);
             rccordfinish_item_endtime=itemView.findViewById(R.id.rccordfinish_item_endtime);
+
             rccordfinish_item_code=itemView.findViewById(R.id.rccordfinish_item_code);
             rccordfinish_item_ordertime=itemView.findViewById(R.id.rccordfinish_item_ordertime);
             rccordfinish_item_cine=itemView.findViewById(R.id.rccordfinish_item_cine);

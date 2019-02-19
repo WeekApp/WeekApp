@@ -27,6 +27,7 @@
         android:padding="@dimen/dp_20"
         android:textSize="@dimen/sp_12"
         android:textColor="#999999"
+        android:background="@drawable/shape_feedback"
         />
 
     <Button

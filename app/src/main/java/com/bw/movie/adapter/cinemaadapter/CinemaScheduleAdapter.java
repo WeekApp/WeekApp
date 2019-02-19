@@ -33,7 +33,7 @@ public class CinemaScheduleAdapter extends RecyclerView.Adapter<CinemaScheduleAd
         list=new ArrayList<>();
     }
     public void setData(List<CinemaDetailScheduleBean.ResultBean> result) {
-        list.addAll(result);
+        list = result;
         notifyDataSetChanged();
     }
     @NonNull

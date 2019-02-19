@@ -8,6 +8,7 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.bw.movie.bean.cinemabean.CinemaDetailBannerBean;
+import com.bw.movie.bean.cinemabean.CinemaIdBean;
 import com.bw.onlymycinema.R;
 import com.facebook.drawee.view.SimpleDraweeView;
 
@@ -27,6 +28,12 @@ public class CinemaBannerAdapter extends RecyclerView.Adapter<CinemaBannerAdapte
         list.addAll(result);
         notifyDataSetChanged();
     }
+
+    public int getId(final int i){
+        int id = list.get(i).getId();
+
+        return id;
+    }
     @NonNull
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
@@ -34,6 +41,7 @@ public class CinemaBannerAdapter extends RecyclerView.Adapter<CinemaBannerAdapte
         ViewHolder viewHolder=new ViewHolder(view);
         return viewHolder;
     }
+
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder viewHolder,final int i) {
