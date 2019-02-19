@@ -172,13 +172,36 @@ public class MyFragment extends BaseFragment {
                 break;
             //签到
             case R.id.myfragment_btn_signin:
-                //签到
-                initSign();
+                SharedPreferences sharedPreferences = App.getApplication().getSharedPreferences("userName",Context.MODE_PRIVATE);
+                String userId = sharedPreferences.getString("userId", "");
+                String sessionId = sharedPreferences.getString("sessionId","");
+                Log.i("TTTTTT",userId+"xiaofei"+sessionId);
+                if(userId.equals("")&&sessionId.equals(""))
+                {
+                    startActivity(new Intent(getActivity(),LoginActivity.class));
+                    ToastUtils.show(getActivity(),"请先登陆");
+                }else{
+                    //签到
+                    initSign();
+                }
+
+
+
                 break;
                 //已签到
             case R.id.myfragment_btn_signined:
-                //签到
-                initSign();
+                SharedPreferences sharedPreferences1 = App.getApplication().getSharedPreferences("userName",Context.MODE_PRIVATE);
+                String userId1 = sharedPreferences1.getString("userId", "");
+                String sessionId1 = sharedPreferences1.getString("sessionId","");
+                Log.i("TTTTTT",userId1+"xiaofei"+sessionId1);
+                if(userId1.equals("")&&sessionId1.equals(""))
+                {
+                    startActivity(new Intent(getActivity(),LoginActivity.class));
+                    ToastUtils.show(getActivity(),"请先登陆");
+                }else{
+                    //签到
+                    initSign();
+                }
                 break;
                 //我的关注
             case R.id.myfragment_iv_attention:

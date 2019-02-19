@@ -1,6 +1,7 @@
 package com.bw.movie.fragment.filmfragment;
 
 import android.content.Intent;
+import android.media.Image;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.OrientationHelper;
@@ -10,8 +11,10 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 
+import com.bw.movie.Utils.cinema.RequestCodeInfo;
 import com.bw.movie.activity.filmactivity.DetailsActivity;
 import com.bw.movie.activity.filmactivity.DetailsMoreActivity;
+import com.bw.movie.activity.homeactivity.CityActivity;
 import com.bw.movie.adapter.filmadatper.detailsadapter.FilmHotContentAdapter;
 import com.bw.movie.adapter.filmadatper.detailsadapter.FilmIngContentAdapter;
 import com.bw.movie.adapter.filmadatper.detailsadapter.FilmJijContentAdapter;
@@ -42,6 +45,8 @@ public class FilmFragment extends BaseFragment {
     FilmJijContentAdapter mFilmJijContentAdapter;
     FilmIngContentAdapter mFilmIngContentAdapter;
     ImageView mHotMore,mIngMore,mJijMore;
+    private ImageView mLocationiv;
+
     //初始化数据
     @Override
     protected void initData() {
@@ -116,6 +121,12 @@ public class FilmFragment extends BaseFragment {
                 startActivity(intent);
             }
         });
+        mLocationiv.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivityForResult(new Intent(getContext(), CityActivity.class), RequestCodeInfo.GETCITY);
+            }
+        });
     }
 
     private void startRequest() {
@@ -180,6 +191,9 @@ public class FilmFragment extends BaseFragment {
         mHotMore = view.findViewById(R.id.flem_icon_next_hotmoive);
         mIngMore = view.findViewById(R.id.flem_icon_int_hotmoive);
         mJijMore = view.findViewById(R.id.flem_icon_jij_hotmoive);
+        mLocationiv = view.findViewById(R.id.location_iv);
+
+
     }
 
     //获取布局

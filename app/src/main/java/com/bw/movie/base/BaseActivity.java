@@ -1,12 +1,19 @@
 package com.bw.movie.base;
 
+import android.Manifest;
 import android.app.AlertDialog;
 import android.content.ComponentName;
 import android.content.Intent;
 import android.graphics.drawable.BitmapDrawable;
+import android.os.Build;
 import android.os.Bundle;
+import android.os.StrictMode;
 import android.support.annotation.Nullable;
+import android.support.annotation.RequiresApi;
+import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.FragmentActivity;
+import android.support.v7.app.ActionBar;
+import android.support.v7.app.AppCompatActivity;
 import android.view.Gravity;
 import android.view.View;
 import android.widget.Button;
@@ -22,8 +29,8 @@ import com.bw.onlymycinema.R;
 import java.util.Map;
 
 import okhttp3.RequestBody;
-
-public  abstract class BaseActivity extends FragmentActivity implements IView {
+@RequiresApi(api = Build.VERSION_CODES.JELLY_BEAN_MR2)
+public  abstract class BaseActivity extends AppCompatActivity implements IView {
 
     IPersenter mPersenter;
     PopupWindow yPop;
@@ -34,11 +41,38 @@ public  abstract class BaseActivity extends FragmentActivity implements IView {
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(getLayout());
+        permission();
+        StrictMode.VmPolicy.Builder builder = new StrictMode.VmPolicy.Builder();
+        StrictMode.setVmPolicy(builder.build());
+        builder.detectFileUriExposure();
+
         mPersenter = new IPersenter(this);
         initView();
         initData();
 
+
+
     }
+
+    private void permission() {
+        if (Build.VERSION.SDK_INT >= 23) {
+            String[] mPermissionList = new String[]{
+                    Manifest.permission.WRITE_EXTERNAL_STORAGE,
+                    Manifest.permission.ACCESS_FINE_LOCATION,
+                    Manifest.permission.CALL_PHONE,
+                    Manifest.permission.READ_LOGS,
+                    Manifest.permission.READ_PHONE_STATE,
+                    Manifest.permission.READ_EXTERNAL_STORAGE,
+                    Manifest.permission.SET_DEBUG_APP,
+                    Manifest.permission.SYSTEM_ALERT_WINDOW,
+                    Manifest.permission.GET_ACCOUNTS,
+                    Manifest.permission.WRITE_APN_SETTINGS,
+                    Manifest.permission.CAMERA};
+            ActivityCompat.requestPermissions(this, mPermissionList, 123);
+        }
+    }
+
+
 
     //开始网络请求
     protected abstract void initData();

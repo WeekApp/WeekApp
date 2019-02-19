@@ -24,6 +24,7 @@ import com.bw.movie.view.SeatTable;
 import com.bw.movie.wxapi.WXPayEntryActivity;
 import com.bw.onlymycinema.R;
 
+import java.math.BigDecimal;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.util.HashMap;
@@ -92,13 +93,13 @@ public class SelectionActivity extends BaseActivity {
     private void initSeatTable() {
         seatTable.setScreenName(hall);
         //设置屏幕名称
-        seatTable.setMaxSelected(2);
+        seatTable.setMaxSelected(3);
         //设置最多选中
         seatTable.setSeatChecker(new SeatTable.SeatChecker() {
 
             @Override
             public boolean isValidSeat(int row, int column) {
-                if(column==2) {
+                if(column==3) {
                     return false;
                 }
                 return true;
@@ -116,8 +117,10 @@ public class SelectionActivity extends BaseActivity {
             public void checked(int row, int column) {
                 TotalNum++;
                 mPrice = Double.parseDouble(price);
-                TotalPrice+=mPrice;
-                mprice.setText(TotalPrice+"");
+                TotalPrice=mPrice*TotalNum;
+                BigDecimal bg = new BigDecimal(TotalPrice);
+                double f1 = bg.setScale(2, BigDecimal.ROUND_HALF_UP).doubleValue();
+                mprice.setText(f1+"");
             }
 
             @Override
@@ -125,7 +128,9 @@ public class SelectionActivity extends BaseActivity {
                 TotalNum--;
                 mPrice = Double.parseDouble(price);
                 TotalPrice-= mPrice;
-                mprice.setText(TotalPrice+"");
+                BigDecimal bg = new BigDecimal(TotalPrice);
+                double f1 = bg.setScale(2, BigDecimal.ROUND_HALF_UP).doubleValue();
+                mprice.setText(f1+"");
             }
 
             @Override
