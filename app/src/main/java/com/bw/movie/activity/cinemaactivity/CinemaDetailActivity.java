@@ -254,7 +254,7 @@ public class CinemaDetailActivity extends BaseActivity {
 
 
 
-    //轮播图
+    //轮播图啊
     private void initBanner(final String mid) {
         doNetGet(Apis.URL_GET_findMovieListByCinemaId + "?cinemaId=" + mid, CinemaDetailBannerBean.class);
 
