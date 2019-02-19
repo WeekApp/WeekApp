@@ -1,13 +1,17 @@
 package com.bw.movie.activity.filmactivity;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.bw.movie.activity.useractivity.LoginActivity;
 import com.bw.movie.adapter.filmadatper.detailsadapter.buyingadapter.BuyContentAdapter;
+import com.bw.movie.app.App;
 import com.bw.movie.base.BaseActivity;
 import com.bw.movie.bean.cinemabean.RemmondBean;
 import com.bw.movie.bean.filmbean.details.buyingbean.ConcrenBean;
@@ -65,12 +69,22 @@ public class BuyingListActivity extends BaseActivity {
         mBuyContentAdapter.setOnItemClick(new BuyContentAdapter.OnItemClick() {
             @Override
             public void success(String id, boolean is) {
-                if(is){
-                    doNetGet(String.format(Apis.URL_GET_GUANZHUYINGYUAN,id),ConcrenBean.class);
-                }else{
-                    doNetGet(String.format(Apis.URL_GET_CANCLEGUANZHUYINGYUAN,id),ConcrenBean.class);
+
+                SharedPreferences sharedPreferences = App.getApplication().getSharedPreferences("userName",Context.MODE_PRIVATE);
+                String userId = sharedPreferences.getString("userId", "");
+                String sessionId = sharedPreferences.getString("sessionId","");
+                if(userId.equals("")&&sessionId.equals(""))
+                {
+                    ToastUtils.show(BuyingListActivity.this,"请先登陆");
+                    startActivity(new Intent(BuyingListActivity.this,LoginActivity.class));
+                }else {
+                    if (is) {
+                        doNetGet(String.format(Apis.URL_GET_GUANZHUYINGYUAN, id), ConcrenBean.class);
+                    } else {
+                        doNetGet(String.format(Apis.URL_GET_CANCLEGUANZHUYINGYUAN, id), ConcrenBean.class);
+                    }
+                    mBuyContentAdapter.notifyDataSetChanged();
                 }
-                mBuyContentAdapter.notifyDataSetChanged();
             }
         });
     }

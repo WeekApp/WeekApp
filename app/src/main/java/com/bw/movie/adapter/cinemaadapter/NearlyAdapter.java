@@ -6,6 +6,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.CheckBox;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.bw.movie.bean.cinemabean.RemmondBean;
@@ -62,9 +63,9 @@ public class NearlyAdapter extends RecyclerView.Adapter<NearlyAdapter.ViewHolder
         });
 
         if(list.get(i).getFollowCinema()==1){
-            viewHolder.checkBox.setChecked(true);
+            viewHolder.checkBox.setBackgroundResource(R.drawable.com_icon_collection_selected);
         }else{
-            viewHolder.checkBox.setChecked(false);
+            viewHolder.checkBox.setBackgroundResource(R.drawable.com_icon_collection_default);
         }
 
         viewHolder.checkBox.setOnClickListener(new View.OnClickListener() {
@@ -86,12 +87,10 @@ public class NearlyAdapter extends RecyclerView.Adapter<NearlyAdapter.ViewHolder
         return list.size();
     }
 
-
-
     public class ViewHolder extends RecyclerView.ViewHolder {
         SimpleDraweeView remmend_simple_image;
         TextView remmend_tv_name,remmend_tv_title,remmend_tv_distance;
-        CheckBox checkBox;
+        ImageView checkBox;
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
             remmend_simple_image=itemView.findViewById(R.id.remmend_simple_image);
@@ -111,8 +110,6 @@ public class NearlyAdapter extends RecyclerView.Adapter<NearlyAdapter.ViewHolder
     public void setGetData(GetData getData) {
         mGetData = getData;
     }
-
-
 
 
     OnItemClick onItemClick;

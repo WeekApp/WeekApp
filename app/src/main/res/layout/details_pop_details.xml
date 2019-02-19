@@ -6,7 +6,6 @@
     android:layout_height="wrap_content">
 
     <RelativeLayout
-        android:id="@+id/pop_details"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@drawable/pop_white"
@@ -155,7 +154,6 @@
             />
 
         <Button
-            android:id="@+id/pop_Item_but_left"
             android:layout_width="@dimen/dp_75"
             android:layout_height="@dimen/dp_32"
             android:background="@drawable/pop_item_left"
@@ -168,7 +166,6 @@
             />
 
         <Button
-            android:id="@+id/pop_Item_but_right"
             android:layout_width="@dimen/dp_75"
             android:layout_height="@dimen/dp_32"
             android:background="@drawable/pop_item_left"

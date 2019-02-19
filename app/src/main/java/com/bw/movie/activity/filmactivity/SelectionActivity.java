@@ -1,10 +1,8 @@
 package com.bw.movie.activity.filmactivity;
 
-import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.drawable.BitmapDrawable;
-import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
 import android.view.WindowManager;
@@ -21,7 +19,6 @@ import com.bw.movie.base.BaseActivity;
 import com.bw.movie.bean.filmbean.details.buyingbean.PaySuccessBean;
 import com.bw.movie.bean.filmbean.details.detailsbean.ShopOrderBean;
 import com.bw.movie.mvp.util.Apis;
-import com.bw.movie.util.EncryptUtil;
 import com.bw.movie.util.ToastUtils;
 import com.bw.movie.view.SeatTable;
 import com.bw.movie.wxapi.WXPayEntryActivity;

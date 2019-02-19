@@ -162,7 +162,6 @@
         android:layout_centerHorizontal="true"
         />
     <TextView
-        android:id="@+id/disanfang_right_line"
         android:layout_width="match_parent"
         android:layout_height="@dimen/dp_1"
         android:background="#fff"

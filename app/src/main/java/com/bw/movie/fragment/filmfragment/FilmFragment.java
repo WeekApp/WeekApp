@@ -42,6 +42,7 @@ public class FilmFragment extends BaseFragment {
     FilmJijContentAdapter mFilmJijContentAdapter;
     FilmIngContentAdapter mFilmIngContentAdapter;
     ImageView mHotMore,mIngMore,mJijMore;
+    boolean flag = true;
     //初始化数据
     @Override
     protected void initData() {
@@ -143,9 +144,15 @@ public class FilmFragment extends BaseFragment {
         mRela.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
-                    mRela.animate().xBy(-100).setDuration(300).start();
-                    mTsearch.setVisibility(View.VISIBLE);
+                    if(flag){
+                        flag=!flag;
+                        mRela.animate().xBy(-100).setDuration(300).start();
+                        mTsearch.setVisibility(View.VISIBLE);
+                    }else{
+                        flag=!flag;
+                        mRela.animate().xBy(100).setDuration(300).start();
+                        mTsearch.setVisibility(View.INVISIBLE);
+                    }
             }
         });
     }
@@ -166,7 +173,6 @@ public class FilmFragment extends BaseFragment {
         mFilmJijContentAdapter = new FilmJijContentAdapter(getActivity());
         mJijContents.setAdapter(mFilmJijContentAdapter);
     }
-
     //初始化控件
     @Override
     protected void initView(View view) {
@@ -181,7 +187,6 @@ public class FilmFragment extends BaseFragment {
         mIngMore = view.findViewById(R.id.flem_icon_int_hotmoive);
         mJijMore = view.findViewById(R.id.flem_icon_jij_hotmoive);
     }
-
     //获取布局
     @Override
     protected int getLayout() {

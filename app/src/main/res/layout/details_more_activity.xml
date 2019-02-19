@@ -21,7 +21,6 @@
             />
 
         <TextView
-            android:id="@+id/d_more_text_bj"
             android:layout_centerVertical="true"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -42,7 +41,6 @@
             >
 
             <ImageView
-                android:id="@+id/d_more_seatch_icon"
                 android:layout_width="@dimen/dp_24"
                 android:layout_marginLeft="@dimen/dp_10"
                 android:layout_height="@dimen/dp_24"

@@ -7,6 +7,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.CheckBox;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.bw.movie.bean.cinemabean.RemmondBean;
@@ -37,7 +38,7 @@ public class BuyContentAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
 
         SimpleDraweeView icon;
         TextView name,title,mi;
-        CheckBox xin;
+        ImageView xin;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -70,11 +71,11 @@ public class BuyContentAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
         double v = Math.round(distance / 100d) / 10d;
         holder.mi.setText(v+"km");
 
-       if(mlsit.get(i).getFollowCinema()==1){
-           holder.xin.setChecked(true);
-       }else{
-           holder.xin.setChecked(false);
-       }
+        if(mlsit.get(i).getFollowCinema()==1){
+            holder.xin.setBackgroundResource(R.drawable.com_icon_collection_selected);
+        }else{
+            holder.xin.setBackgroundResource(R.drawable.com_icon_collection_default);
+        }
 
        holder.xin.setOnClickListener(new View.OnClickListener() {
            @Override

@@ -8,7 +8,7 @@
         android:layout_height="wrap_content"
         android:background="@mipmap/rectangle_16"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="@dimen/dp_170"
+        android:layout_marginTop="@dimen/dp_161"
         />
 
     <RelativeLayout
@@ -176,7 +176,9 @@
         android:background="#ffffff"
         android:layout_below="@+id/wesrthyju"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
+        android:layout_height="wrap_content"
+        android:layout_marginTop="-10dp"
+        />
 
 
 

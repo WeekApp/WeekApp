@@ -13,7 +13,7 @@
         android:layout_marginLeft="@dimen/dp_10"
         android:layout_height="wrap_content">
 
-        <Button
+            <TextView
             android:id="@+id/rccordmoney_item_gomoney"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -75,7 +75,6 @@
             />
 
         <TextView
-            android:id="@+id/rccordfinish_item_end"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="结束时间"

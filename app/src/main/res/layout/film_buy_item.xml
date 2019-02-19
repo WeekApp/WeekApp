@@ -63,7 +63,6 @@
             android:layout_marginLeft="@dimen/dp_90"
             />
         <TextView
-            android:id="@+id/sdfgb"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="￥"

@@ -29,7 +29,6 @@
         />
 
     <ImageView
-        android:id="@+id/fb_details"
         android:layout_width="@dimen/dp_24"
         android:layout_height="@dimen/dp_24"
         android:layout_marginTop="@dimen/dp_30"

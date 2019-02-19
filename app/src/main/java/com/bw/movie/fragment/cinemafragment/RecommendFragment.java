@@ -1,7 +1,9 @@
 package com.bw.movie.fragment.cinemafragment;
 
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -13,6 +15,7 @@ import com.bw.movie.activity.cinemaactivity.CinemaDetailActivity;
 import com.bw.movie.activity.useractivity.LoginActivity;
 import com.bw.movie.adapter.cinemaadapter.NearlyAdapter;
 import com.bw.movie.adapter.cinemaadapter.RecommendAdapter;
+import com.bw.movie.app.App;
 import com.bw.movie.base.BaseFragment;
 import com.bw.movie.bean.cinemabean.RemmondBean;
 import com.bw.movie.bean.filmbean.details.buyingbean.ConcrenBean;
@@ -70,14 +73,25 @@ public class RecommendFragment extends BaseFragment {
         mRecommendAdapter.setOnItemClick(new RecommendAdapter.OnItemClick() {
             @Override
             public void success(String id, boolean is) {
-                if(is){
+
+                SharedPreferences sharedPreferences = App.getApplication().getSharedPreferences("userName",Context.MODE_PRIVATE);
+                String userId = sharedPreferences.getString("userId", "");
+                String sessionId = sharedPreferences.getString("sessionId","");
+                if(userId.equals("")&&sessionId.equals(""))
+                {
+                    ToastUtils.show(getActivity(),"请先登陆");
+                    startActivity(new Intent(getActivity(),LoginActivity.class));
+                }else {
+
+                    if (is) {
                         //doNetGet(Apis.URL_GET_GUANZHUYINGYUAN+"?cinemaId="+id,ConcrenBean.class);
-                        doNetGet(String.format(Apis.URL_GET_GUANZHUYINGYUAN,id),ConcrenBean.class);
-                }else{
-                    //doNetGet(Apis.URL_GET_GUANZHUYINGYUAN+"?cinemaId="+id,ConcrenBean.class);
-                    doNetGet(String.format(Apis.URL_GET_CANCLEGUANZHUYINGYUAN,id),ConcrenBean.class);
+                        doNetGet(String.format(Apis.URL_GET_GUANZHUYINGYUAN, id), ConcrenBean.class);
+                    } else {
+                        //doNetGet(Apis.URL_GET_GUANZHUYINGYUAN+"?cinemaId="+id,ConcrenBean.class);
+                        doNetGet(String.format(Apis.URL_GET_CANCLEGUANZHUYINGYUAN, id), ConcrenBean.class);
+                    }
+                    mRecommendAdapter.notifyDataSetChanged();
                 }
-                mRecommendAdapter.notifyDataSetChanged();
             }
         });
     }

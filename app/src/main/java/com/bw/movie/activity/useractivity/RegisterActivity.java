@@ -5,6 +5,7 @@ import android.content.SharedPreferences;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.RadioButton;
 
 import com.bw.movie.activity.homeactivity.HomeActivity;
 import com.bw.movie.base.BaseActivity;
@@ -31,14 +32,16 @@ public class RegisterActivity extends BaseActivity {
     EditText mRdate;
     @BindView(R.id.register_edit_email)
     EditText mRemail;
-    @BindView(R.id.register_edit_sex)
-    EditText mRsex;
     @BindView(R.id.register_edit_number)
     EditText mRnumber;
     @BindView(R.id.register_edit_pass)
     EditText mRpass;
     @BindView(R.id.register_ok)
     Button mRegister;
+    @BindView(R.id.rb_nan)
+    RadioButton nan;
+    @BindView(R.id.rb_nv)
+    RadioButton nv;
 
     int sexboy;
     String number;
@@ -55,16 +58,15 @@ public class RegisterActivity extends BaseActivity {
 
                 String name = mRname.getText().toString();
                 String date = mRdate.getText().toString();
-                String sex = mRsex.getText().toString();
                 String emial = mRemail.getText().toString();
                 String pass = mRpass.getText().toString();
                 number = mRnumber.getText().toString();
                 //MD5进行加密
                 mpass = EncryptUtil.encrypt(pass);
 
-                if(sex.equals("男")){
+                if(nan.isChecked()){
                     sexboy = 1;
-                }else if(sex.equals("女")){
+                }else if(nv.isChecked()){
                     sexboy = 2;
                 }
                 if(NetworkUtils.hasNetwork(RegisterActivity.this)) {
@@ -132,6 +134,6 @@ public class RegisterActivity extends BaseActivity {
 
     @Override
     protected void netFail(Object data) {
-        ToastUtils.show(this,data.toString());
+
     }
 }

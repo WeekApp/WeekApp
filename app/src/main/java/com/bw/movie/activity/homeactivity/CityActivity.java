@@ -49,6 +49,7 @@ public class CityActivity extends AppCompatActivity {
         initview();
         initAdapter();
         onlisten();
+
     }
 
     public void initAdapter(){

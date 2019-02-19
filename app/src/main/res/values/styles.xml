@@ -10,28 +10,16 @@
         <item name="windowActionBar">false</item>
     </style>
     <!--隐藏状态栏-->
-    <style name="AppTheme.NoTitle_FullScreen"> <!--自定义主题名称-->
-        <item name="android:windowNoTitle">true</item>
-        <item name="android:windowFullscreen">true</item>
-    </style>
-
-    <style name="inputDialog" parent="@android:style/Theme.Holo.Light.Dialog">
-
-            <item name="android:windowBackground">@color/dialog_bg</item>
-            <!--背景-->
-            <item name="android:windowFrame">@null</item>
-            <!--设置无边框-->
-            <item name="android:windowNoTitle">true</item>
-            <!-- 无标题 -->
-            <item name="android:backgroundDimEnabled">true</item>
-            <!-- 模糊 -->
-            <item name="android:windowSoftInputMode">stateAlwaysVisible</item>
-            <!--显示软件盘-->
-
-        </style>
 
     <style name="Popupwindow">
         <item name="android:windowEnterAnimation">@anim/window_out</item>
         <item name="android:windowExitAnimation">@anim/window_back</item>
     </style>
+
+    <!--解决启动时 app白屏问题-->
+    <style name="SplashTheme" parent="AppTheme">
+        <item name="android:windowNoTitle">true</item>
+        <item name="android:windowIsTranslucent">true</item>
+    </style>
+
 </resources>

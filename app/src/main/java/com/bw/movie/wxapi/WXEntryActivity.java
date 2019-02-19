@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.util.Log;
 
 import com.bw.movie.Utils.WeiXinUtil;
+import com.bw.movie.activity.homeactivity.HomeActivity;
 import com.bw.movie.activity.homeactivity.MainActivity;
 import com.bw.movie.app.App;
 import com.bw.movie.base.BaseActivity;
@@ -34,7 +35,6 @@ public class WXEntryActivity extends BaseActivity implements IWXAPIEventHandler 
     private String mCode;
     private SharedPreferences mSP;
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -48,7 +48,9 @@ public class WXEntryActivity extends BaseActivity implements IWXAPIEventHandler 
     @Override
     protected void initData() {
         //创建SharedPreferences储存数据
-        mSP = getSharedPreferences("config", MODE_PRIVATE);
+        mSP = getSharedPreferences("userName", MODE_PRIVATE);
+
+
     }
 
     @Override
@@ -71,7 +73,7 @@ public class WXEntryActivity extends BaseActivity implements IWXAPIEventHandler 
                         .putString("userId", wXbean.getResult().getUserId() + "")
                         .putString("sessionId", wXbean.getResult().getSessionId())
                         .commit();
-                Intent intent=new Intent(WXEntryActivity.this, MainActivity.class);
+                Intent intent=new Intent(WXEntryActivity.this, HomeActivity.class);
                 startActivity(intent);
                 finish();
             }

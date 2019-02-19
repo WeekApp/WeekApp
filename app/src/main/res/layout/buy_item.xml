@@ -49,7 +49,7 @@
             android:layout_alignBottom="@id/but_item_icon"
             />
 
-        <CheckBox
+        <ImageView
             android:id="@+id/but_cb_xin"
             android:layout_width="@dimen/dp_20"
             android:layout_height="@dimen/dp_20"

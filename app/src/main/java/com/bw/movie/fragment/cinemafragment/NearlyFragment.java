@@ -1,7 +1,9 @@
 package com.bw.movie.fragment.cinemafragment;
 
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
@@ -12,7 +14,9 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.bw.movie.activity.cinemaactivity.CinemaDetailActivity;
+import com.bw.movie.activity.useractivity.LoginActivity;
 import com.bw.movie.adapter.cinemaadapter.NearlyAdapter;
+import com.bw.movie.app.App;
 import com.bw.movie.base.BaseFragment;
 import com.bw.movie.bean.cinemabean.RemmondBean;
 import com.bw.movie.bean.filmbean.details.buyingbean.ConcrenBean;
@@ -73,12 +77,22 @@ public class NearlyFragment extends BaseFragment {
         mNearlyAdapter.setOnItemClick(new NearlyAdapter.OnItemClick() {
             @Override
             public void success(String id, boolean is) {
-                if(is){
-                    doNetGet(String.format(Apis.URL_GET_GUANZHUYINGYUAN,id),ConcrenBean.class);
-                }else{
-                    doNetGet(String.format(Apis.URL_GET_CANCLEGUANZHUYINGYUAN,id),ConcrenBean.class);
+
+                SharedPreferences sharedPreferences = App.getApplication().getSharedPreferences("userName",Context.MODE_PRIVATE);
+                String userId = sharedPreferences.getString("userId", "");
+                String sessionId = sharedPreferences.getString("sessionId","");
+                if(userId.equals("")&&sessionId.equals(""))
+                {
+                    ToastUtils.show(getActivity(),"请先登陆");
+                    startActivity(new Intent(getActivity(),LoginActivity.class));
+                }else {
+                    if (is) {
+                        doNetGet(String.format(Apis.URL_GET_GUANZHUYINGYUAN, id), ConcrenBean.class);
+                    } else {
+                        doNetGet(String.format(Apis.URL_GET_CANCLEGUANZHUYINGYUAN, id), ConcrenBean.class);
+                    }
+                    mNearlyAdapter.notifyDataSetChanged();
                 }
-                mNearlyAdapter.notifyDataSetChanged();
             }
         });
     }

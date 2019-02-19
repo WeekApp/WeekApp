@@ -29,7 +29,6 @@
             android:layout_marginTop="@dimen/dp_30"
             />
         <TextView
-            android:id="@+id/details_text"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="电影详情"
@@ -40,7 +39,7 @@
             android:layout_marginTop="@dimen/dp_33"
             />
 
-        <CheckBox
+        <ImageView
             android:id="@+id/details_icon_concren"
             android:layout_alignTop="@id/details_icon"
             android:layout_width="@dimen/dp_24"

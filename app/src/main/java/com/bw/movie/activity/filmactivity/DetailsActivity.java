@@ -57,7 +57,7 @@ public class DetailsActivity extends BaseActivity {
     @BindView(R.id.details_but_details)
     Button mDetails;
     @BindView(R.id.details_icon_concren)
-    CheckBox mConcren;
+    ImageView mConcren;
     @BindView(R.id.details_but_juzhao)
     Button mStage;
     @BindView(R.id.details_but_yingping)
@@ -85,7 +85,7 @@ public class DetailsActivity extends BaseActivity {
     Button mSure;
     Button mQuxiao;
     String name;
-
+    boolean flag = false;
     @Override
     protected void initData() {
         //开始网络请求
@@ -288,9 +288,13 @@ public class DetailsActivity extends BaseActivity {
                     ToastUtils.show(DetailsActivity.this,"请先登陆");
                     startActivity(new Intent(DetailsActivity.this,LoginActivity.class));
                 }else{
-                    if(mConcren.isChecked()) {
+                    if(flag) {
+                        flag=!flag;
+
                         doNetGet(String.format(Apis.URL_GET_GUANZHU, id), ConcrenBean.class);
                     }else{
+                        flag=!flag;
+
                         doNetGet(String.format(Apis.URL_GET_QUXIAOGUANZHU, id), ConcrenBean.class);
                     }
                 }
@@ -398,9 +402,9 @@ public class DetailsActivity extends BaseActivity {
             if(user.getStatus().equals("0000")){
                 followMovie = user.getResult().getFollowMovie();
                 if(followMovie==1){
-                    mConcren.setChecked(true);
+                    mConcren.setBackgroundResource(R.drawable.com_icon_collection_selected);
                 }else{
-                    mConcren.setChecked(false);
+                    mConcren.setBackgroundResource(R.drawable.com_icon_collection_default);
                 }
                 Glide.with(this).load(user.getResult().getImageUrl()).into(pIocn);
                 pLeixing.setText(user.getResult().getMovieTypes());

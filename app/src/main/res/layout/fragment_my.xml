@@ -6,6 +6,10 @@
     android:layout_height="match_parent"
     tools:context="com.bw.movie.fragment.myfragment.MyFragment">
 
+    <com.bw.movie.view.HeadZoomScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -30,7 +34,7 @@
                 android:layout_width="@dimen/dp_72"
                 android:layout_height="@dimen/dp_72"
                 fresco:roundAsCircle="true"
-                fresco:placeholderImage="@mipmap/ic_launcher"
+                fresco:placeholderImage="@mipmap/zanwu"
                 android:layout_marginTop="@dimen/dp_60"
                 android:layout_centerHorizontal="true"
                 />
@@ -182,7 +186,8 @@
 
                 <RelativeLayout
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent">
+                    android:layout_height="match_parent"
+                    >
 
                     <ImageView
                         android:id="@+id/myfragment_iv_feedback"
@@ -216,22 +221,29 @@
                         android:layout_toRightOf="@+id/myfragment_tv_feedback"
                         android:layout_marginTop="@dimen/dp_58"/>
 
-                    <ImageView
-                        android:id="@+id/myfragment_iv_logout"
-                        android:layout_width="@dimen/dp_24"
-                        android:layout_height="@dimen/dp_24"
-                        android:layout_marginTop="@dimen/dp_24"
-                        android:layout_marginLeft="@dimen/dp_84"
-                        android:layout_toRightOf="@+id/myfragment_iv_version"
-                        android:src="@mipmap/my_icon_logout_default" />
-                    <TextView
-                        android:id="@+id/myfragment_tv_logout"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="退出登录"
-                        android:layout_marginLeft="@dimen/dp_54"
+                    <RelativeLayout
+                        android:id="@+id/tuichudengl"
                         android:layout_toRightOf="@+id/myfragment_tv_version"
-                        android:layout_marginTop="@dimen/dp_58"/>
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content">
+
+                        <ImageView
+                            android:layout_width="@dimen/dp_24"
+                            android:layout_marginTop="@dimen/dp_23"
+                            android:layout_height="@dimen/dp_24"
+                            android:layout_centerHorizontal="true"
+                            android:src="@mipmap/my_icon_logout_default" />
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="退出登录"
+                            android:layout_centerHorizontal="true"
+                            android:layout_marginLeft="@dimen/dp_54"
+                            android:layout_marginTop="@dimen/dp_58"/>
+
+                    </RelativeLayout>
+
+
 
 
                 </RelativeLayout>
@@ -242,6 +254,7 @@
 
     </LinearLayout>
 
+    </com.bw.movie.view.HeadZoomScrollView>
 
 
 </com.bw.movie.view.filmview.PersonalScrollView2>

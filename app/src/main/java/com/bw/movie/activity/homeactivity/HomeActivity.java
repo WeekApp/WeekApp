@@ -2,18 +2,23 @@ package com.bw.movie.activity.homeactivity;
 
 import android.animation.AnimatorSet;
 import android.animation.ObjectAnimator;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
+import android.view.KeyEvent;
 import android.view.View;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
+import android.widget.Toast;
 
+import com.bw.movie.bean.cinemabean.ToastUtil;
 import com.bw.movie.fragment.cinemafragment.CinemaFragment;
 import com.bw.movie.fragment.filmfragment.FilmFragment;
 import com.bw.movie.fragment.myfragment.MyFragment;
+import com.bw.movie.util.ToastUtils;
 import com.bw.onlymycinema.R;
 
 import java.util.ArrayList;
@@ -118,5 +123,26 @@ public class HomeActivity extends AppCompatActivity {
                 break;
             default:break;
         }
+    }
+
+    private long mExitTime;
+
+    @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+        if (keyCode == KeyEvent.KEYCODE_BACK) {
+            if ((System.currentTimeMillis() - mExitTime) > 2000) {
+                ToastUtils.show(this, "再按一次退出程序");
+                mExitTime = System.currentTimeMillis();
+            } else {
+                finish();
+            }
+            return true;
+        }
+
+        //拦截MENU按钮点击事件，让它无任何操作
+        if (keyCode == KeyEvent.KEYCODE_MENU) {
+            return true;
+        }
+        return super.onKeyDown(keyCode, event);
     }
 }

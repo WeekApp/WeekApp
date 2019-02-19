@@ -62,10 +62,10 @@ public class RecommendAdapter extends RecyclerView.Adapter<RecommendAdapter.View
             }
         });
 
-        if(followCinema==1){
-            viewHolder.checkBox.setChecked(true);
+        if(list.get(i).getFollowCinema()==1){
+            viewHolder.checkBox.setBackgroundResource(R.drawable.com_icon_collection_selected);
         }else{
-            viewHolder.checkBox.setChecked(false);
+            viewHolder.checkBox.setBackgroundResource(R.drawable.com_icon_collection_default);
         }
 
         viewHolder.checkBox.setOnClickListener(new View.OnClickListener() {
@@ -92,7 +92,7 @@ public class RecommendAdapter extends RecyclerView.Adapter<RecommendAdapter.View
     public class ViewHolder extends RecyclerView.ViewHolder {
         SimpleDraweeView remmend_simple_image;
         TextView remmend_tv_name,remmend_tv_title,remmend_tv_distance;
-        CheckBox checkBox;
+        ImageView checkBox;
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
             remmend_simple_image=itemView.findViewById(R.id.remmend_simple_image);

@@ -90,7 +90,6 @@
             android:layout_marginTop="@dimen/dp_30"/>
 
         <TextView
-            android:id="@+id/title2"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="馈，尽快修复和完善相关功能"

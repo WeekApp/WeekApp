@@ -27,6 +27,8 @@ public  abstract class BaseActivity extends FragmentActivity implements IView {
 
     IPersenter mPersenter;
     PopupWindow yPop;
+    private AlertDialog.Builder builder;
+    private AlertDialog alertDialog;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -50,7 +52,7 @@ public  abstract class BaseActivity extends FragmentActivity implements IView {
 
     protected void doNetGet(String url, Class aClass){
         //TODO:弹出loading
-       // hideLoading();
+        hideLoading();
         if(NetworkUtils.hasNetwork(this)) {
             mPersenter.requestGetBack(url, aClass);
         }else{
@@ -116,20 +118,30 @@ public  abstract class BaseActivity extends FragmentActivity implements IView {
 
     @Override
     public void showRequest(Object data) {
-        hideLoading();
-        netSuccess(data);
+        if(data!=null){
+            netSuccess(data);
+            alertDialog.dismiss();
+        }else{
+            hideLoading();
+        }
     }
 
     @Override
     public void showError(Object data) {
         hideLoading();
-        netFail(data);
+        if(data!=null){
+            hideLoading();
+            netFail(data);
+        }else{
+            ToastUtils.show(this,"没有数据");
+        }
     }
 
     private void hideLoading(){
-       /* builder = new AlertDialog.Builder(this);
+        /*builder = new AlertDialog.Builder(this);
         View view = View.inflate(this,R.layout.activity_loading,null);
         builder.setView(view);
+        alertDialog = builder.create();
         builder.show();*/
     }
 }

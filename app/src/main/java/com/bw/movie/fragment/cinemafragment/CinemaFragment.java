@@ -298,7 +298,7 @@ public class CinemaFragment extends BaseFragment {
             });
             valueAnimator.start();
         }else if (mA==1){
-            final ValueAnimator valueAnimator = ValueAnimator.ofInt(cinemaFragmentEditSearch.getLayoutParams().width, 100);
+            final ValueAnimator valueAnimator = ValueAnimator.ofInt(cinemaFragmentEditSearch.getLayoutParams().width, 200);
             valueAnimator.setDuration(000);
 
             valueAnimator.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {

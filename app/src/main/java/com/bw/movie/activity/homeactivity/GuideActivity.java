@@ -52,8 +52,6 @@ public class GuideActivity extends AppCompatActivity {
         editor.commit();
     }
 
-
-
     private void initPager() {
 
         mPager.setAdapter(new FragmentPagerAdapter(getSupportFragmentManager()) {
