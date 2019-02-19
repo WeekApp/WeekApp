@@ -12,11 +12,16 @@ import android.location.Criteria;
 import android.location.Location;
 import android.location.LocationManager;
 import android.os.AsyncTask;
+import android.os.Build;
 import android.os.Handler;
 import android.os.Message;
+import android.os.StrictMode;
+import android.support.annotation.NonNull;
+import android.support.annotation.RequiresApi;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentPagerAdapter;
+import android.support.v4.content.ContextCompat;
 import android.support.v4.view.ViewPager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -33,12 +38,17 @@ import android.widget.Toast;
 
 import com.bw.movie.activity.cinemaactivity.CinemaDetailActivity;
 import com.bw.movie.activity.homeactivity.CityActivity;
+import com.bw.movie.activity.homeactivity.MainActivity;
+import com.bw.movie.activity.myactivity.MyMessageActivity;
 import com.bw.movie.adapter.cinemaadapter.CinemaSearchAdapter;
+import com.bw.movie.adapter.cinemaadapter.RecommendAdapter;
 import com.bw.movie.base.BaseFragment;
 import com.bw.movie.bean.cinemabean.CinemaLocationBean;
 import com.bw.movie.bean.cinemabean.CinemaSearchBean;
 import com.bw.movie.bean.cinemabean.RemmondBean;
 import com.bw.movie.bean.filmbean.details.buyingbean.ConcrenBean;
+import com.bw.movie.bean.mybean.RemindBean;
+import com.bw.movie.bean.userbean.RegisterBean;
 import com.bw.movie.mvp.util.Apis;
 import com.bw.movie.util.LocationUtils;
 import com.bw.movie.Utils.cinema.RequestCodeInfo;
@@ -64,13 +74,12 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 import butterknife.Unbinder;
 
-import static android.support.v4.content.ContextCompat.getSystemService;
-
 /**
  * A simple {@link Fragment} subclass
  * <p>
  * 影院页面.
  */
+@RequiresApi(api = Build.VERSION_CODES.JELLY_BEAN_MR2)
 public class CinemaFragment extends BaseFragment {
 
 
@@ -108,7 +117,10 @@ public class CinemaFragment extends BaseFragment {
     @Override
     protected void initView(View view) {
         unbinder = ButterKnife.bind(this, view);
-
+        permission();
+        StrictMode.VmPolicy.Builder builder = new StrictMode.VmPolicy.Builder();
+        StrictMode.setVmPolicy(builder.build());
+        builder.detectFileUriExposure();
         final List<Fragment> lists = new ArrayList();
         lists.add(new RecommendFragment());
         lists.add(new NearlyFragment());
@@ -163,14 +175,74 @@ public class CinemaFragment extends BaseFragment {
         });
 
         //获取经纬度
-        initlongitude();
+        //initlongitude();
 
         //获取请求到的定位
-        initLocation();
+      //  initLocation();
 
     }
 
-    //去关注
+    private void permission() {
+        if (Build.VERSION.SDK_INT >= 23) {
+            String[] mPermissionList = new String[]{
+                    Manifest.permission.WRITE_EXTERNAL_STORAGE,
+                    Manifest.permission.ACCESS_FINE_LOCATION,
+                    Manifest.permission.CALL_PHONE,
+                    Manifest.permission.READ_LOGS,
+                    Manifest.permission.READ_PHONE_STATE,
+                    Manifest.permission.READ_EXTERNAL_STORAGE,
+                    Manifest.permission.SET_DEBUG_APP,
+                    Manifest.permission.SYSTEM_ALERT_WINDOW,
+                    Manifest.permission.GET_ACCOUNTS,
+                    Manifest.permission.WRITE_APN_SETTINGS,
+                    Manifest.permission.CAMERA};
+            ActivityCompat.requestPermissions(getActivity(), mPermissionList, 123);
+        }
+    }
+
+    //获取经纬度
+    private void initlongitude() {
+        LocationManager lm = (LocationManager) getContext().getSystemService(Context.LOCATION_SERVICE);
+        Criteria criteria = new Criteria();
+        criteria.setCostAllowed(false);
+        //设置位置服务免费
+        criteria.setAccuracy(Criteria.ACCURACY_COARSE); //设置水平位置精度
+        //getBestProvider 只有允许访问调用活动的位置供应商将被返回
+        String providerName = lm.getBestProvider(criteria, true);
+
+        if (providerName != null) {
+            if (ActivityCompat.checkSelfPermission(getContext(), Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(getContext(), Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+                Toast.makeText(getContext(), "没有权限", Toast.LENGTH_SHORT).show();
+                return;
+            }
+
+            Location location = lm.getLastKnownLocation(providerName);
+
+            //获取维度信息
+            mLatitude = location.getLatitude();
+            //获取经度信息
+            mLongitude = location.getLongitude();
+
+            Log.i("获取经纬度", "定位方式： " + providerName + "  维度：" + mLatitude + "  经度：" + mLongitude);
+
+        } else {
+            Toast.makeText(getContext(), "1.请检查网络连接 \n2.请打开我的位置", Toast.LENGTH_SHORT).show();
+        }
+
+
+
+        /*Location location = LocationUtils.getInstance( getContext() ).showLocation();
+        if (location != null) {
+            String address = "纬度：" + location.getLatitude() + "经度：" + location.getLongitude();
+            mLatitude = location.getLatitude();
+            mLongitude = location.getLongitude();
+            System.out.println("精度: "+mLatitude+"");
+            System.out.println("精度: "+mLongitude+"");
+            Log.d( "FLY.LocationUtils", address );
+            Toast.makeText(getContext(), mLatitude+" =qaz= "+mLongitude, Toast.LENGTH_SHORT).show();
+        }*/
+    }
+
     private void initConcren() {
         mCinemaSearchAdapter.setOnItemClick(new CinemaSearchAdapter.OnItemClick() {
             @Override
@@ -220,14 +292,13 @@ public class CinemaFragment extends BaseFragment {
 
 
     //点击事件
-    @OnClick({R.id.cinemaFragment_image_location,R.id.cinemaFragment_edit_search,R.id.cinemaFragment_tv_search})
+    @OnClick({R.id.cinemaFragment_image_location, R.id.cinemaFragment_edit_search,R.id.cinemaFragment_tv_search})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             //定位城市
             case R.id.cinemaFragment_image_location:
                 startActivityForResult(new Intent(getContext(), CityActivity.class), RequestCodeInfo.GETCITY);
                 break;
-
             //搜索框
             case R.id.cinemaFragment_tv_search:
 
@@ -250,6 +321,35 @@ public class CinemaFragment extends BaseFragment {
                 break;
         }
     }
+
+    private void initSearch(String s) {
+        doNetGet(Apis.URL_GET_SEARCH+"?page=1&count=10&cinemaName="+s,CinemaSearchBean.class);
+        mCinemaSearchAdapter = new CinemaSearchAdapter(getContext());
+        cinemaFragmentrecy.setAdapter(mCinemaSearchAdapter);
+        cinemaFragmentrecy.setLayoutManager(new LinearLayoutManager(getContext(),LinearLayoutManager.VERTICAL,false));
+
+        mCinemaSearchAdapter.setGetData(new CinemaSearchAdapter.GetData() {
+            @Override
+            public void onClick(int id, String logo, String name, String address) {
+                Intent intent=new Intent(getContext(),CinemaDetailActivity.class);
+                intent.putExtra("id",id+"");
+                intent.putExtra("logo",logo);
+                intent.putExtra("name",name);
+                intent.putExtra("address",address);
+                startActivity(intent);
+            }
+        });
+
+        //去关注
+        initConcren();
+    }
+
+    //请求数据
+    @Override
+    protected void initData() {
+
+    }
+
 
     //搜索框动画
     private void initAnimator() {
@@ -294,8 +394,10 @@ public class CinemaFragment extends BaseFragment {
 
                 }
             });
+
             valueAnimator.start();
         }else if (mA==1){
+
             final ValueAnimator valueAnimator = ValueAnimator.ofInt(cinemaFragmentEditSearch.getLayoutParams().width, 100);
             valueAnimator.setDuration(000);
 
@@ -339,38 +441,6 @@ public class CinemaFragment extends BaseFragment {
 
     }
 
-    //搜索
-    private void initSearch(String s) {
-        doNetGet(Apis.URL_GET_SEARCH+"?page=1&count=10&cinemaName="+s,CinemaSearchBean.class);
-        mCinemaSearchAdapter = new CinemaSearchAdapter(getContext());
-        cinemaFragmentrecy.setAdapter(mCinemaSearchAdapter);
-        cinemaFragmentrecy.setLayoutManager(new LinearLayoutManager(getContext(),LinearLayoutManager.VERTICAL,false));
-
-        mCinemaSearchAdapter.setGetData(new CinemaSearchAdapter.GetData() {
-            @Override
-            public void onClick(int id, String logo, String name, String address) {
-                Intent intent=new Intent(getContext(),CinemaDetailActivity.class);
-                intent.putExtra("id",id+"");
-                intent.putExtra("logo",logo);
-                intent.putExtra("name",name);
-                intent.putExtra("address",address);
-                startActivity(intent);
-            }
-        });
-
-        //去关注
-        initConcren();
-    }
-
-    //请求数据
-    @Override
-    protected void initData() {
-
-    }
-
-
-
-
 
     Handler handler = new Handler() {
         @Override
@@ -382,53 +452,6 @@ public class CinemaFragment extends BaseFragment {
             }
         }
     };
-
-
-    //获取经纬度
-    private void initlongitude() {
-
-        LocationManager lm = (LocationManager) getContext().getSystemService(Context.LOCATION_SERVICE);
-        Criteria criteria = new Criteria();
-        criteria.setCostAllowed(false);
-        //设置位置服务免费
-        criteria.setAccuracy(Criteria.ACCURACY_COARSE); //设置水平位置精度
-        //getBestProvider 只有允许访问调用活动的位置供应商将被返回
-        String providerName = lm.getBestProvider(criteria, true);
-
-        if (providerName != null) {
-            if (ActivityCompat.checkSelfPermission(getContext(), Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(getContext(), Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
-                Toast.makeText(getContext(), "没有权限", Toast.LENGTH_SHORT).show();
-                return;
-            }
-
-            Location location = lm.getLastKnownLocation(providerName);
-
-            //获取维度信息
-            mLatitude = location.getLatitude();
-            //获取经度信息
-            mLongitude = location.getLongitude();
-
-            Log.i("获取经纬度", "定位方式： " + providerName + "  维度：" + mLatitude + "  经度：" + mLongitude);
-
-        } else {
-            Toast.makeText(getContext(), "1.请检查网络连接 \n2.请打开我的位置", Toast.LENGTH_SHORT).show();
-        }
-
-
-
-        /*Location location = LocationUtils.getInstance( getContext() ).showLocation();
-        if (location != null) {
-            String address = "纬度：" + location.getLatitude() + "经度：" + location.getLongitude();
-            mLatitude = location.getLatitude();
-            mLongitude = location.getLongitude();
-            System.out.println("精度: "+mLatitude+"");
-            System.out.println("精度: "+mLongitude+"");
-            Log.d( "FLY.LocationUtils", address );
-            Toast.makeText(getContext(), mLatitude+" =qaz= "+mLongitude, Toast.LENGTH_SHORT).show();
-        }*/
-    }
-
-
     //获取GPS定位的城市
     private void initLocation() {
 
@@ -521,6 +544,7 @@ public class CinemaFragment extends BaseFragment {
     @Override
     public void onDestroy() {
         super.onDestroy();
-        LocationUtils.getInstance( getContext()).removeLocationUpdatesListener();
+
     }
+
 }

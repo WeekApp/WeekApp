@@ -1,6 +1,8 @@
 package com.bw.movie.fragment.filmfragment;
 
 import android.Manifest;
+import android.animation.Animator;
+import android.animation.ValueAnimator;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
@@ -9,8 +11,11 @@ import android.location.Criteria;
 import android.location.Location;
 import android.location.LocationManager;
 import android.os.AsyncTask;
+import android.os.Build;
 import android.os.Handler;
 import android.os.Message;
+import android.os.StrictMode;
+import android.support.annotation.RequiresApi;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
@@ -58,6 +63,7 @@ import recycler.coverflow.RecyclerCoverFlow;
  *
  *  电影页面
  */
+@RequiresApi(api = Build.VERSION_CODES.JELLY_BEAN_MR2)
 public class FilmFragment extends BaseFragment {
 
     RecyclerCoverFlow mContent;
@@ -76,6 +82,7 @@ public class FilmFragment extends BaseFragment {
     private double mLatitude;
     private double mLongitude;
     private String mCity1;
+    private int mA=0;
 
     //初始化数据
     @Override
@@ -93,10 +100,10 @@ public class FilmFragment extends BaseFragment {
         //点击箭头跳转到影片更多页面
         initMore();
         //获取经纬度
-        initlongitude();
+      //  initlongitude();
 
         //获取请求到的定位
-        initLocation();
+       // initLocation();
     }
     Handler handler = new Handler() {
         @Override
@@ -307,6 +314,9 @@ public class FilmFragment extends BaseFragment {
         });
     }
 
+
+
+
     private void initAdapter() {
         //画廊适配器
         mCoverAdapter = new RecyclerCoverAdapter(getActivity());
@@ -327,7 +337,10 @@ public class FilmFragment extends BaseFragment {
     //初始化控件
     @Override
     protected void initView(View view) {
-
+        permission();
+        StrictMode.VmPolicy.Builder builder = new StrictMode.VmPolicy.Builder();
+        StrictMode.setVmPolicy(builder.build());
+        builder.detectFileUriExposure();
         mContent = view.findViewById(R.id.film_banner_icon);
         mLocation = view.findViewById(R.id.location_icon);
         mLocationtv = view.findViewById(R.id.  location_tv);
@@ -340,6 +353,24 @@ public class FilmFragment extends BaseFragment {
         mHotMore = view.findViewById(R.id.flem_icon_next_hotmoive);
         mIngMore = view.findViewById(R.id.flem_icon_int_hotmoive);
         mJijMore = view.findViewById(R.id.flem_icon_jij_hotmoive);
+    }
+
+    private void permission() {
+        if (Build.VERSION.SDK_INT >= 23) {
+            String[] mPermissionList = new String[]{
+                    Manifest.permission.WRITE_EXTERNAL_STORAGE,
+                    Manifest.permission.ACCESS_FINE_LOCATION,
+                    Manifest.permission.CALL_PHONE,
+                    Manifest.permission.READ_LOGS,
+                    Manifest.permission.READ_PHONE_STATE,
+                    Manifest.permission.READ_EXTERNAL_STORAGE,
+                    Manifest.permission.SET_DEBUG_APP,
+                    Manifest.permission.SYSTEM_ALERT_WINDOW,
+                    Manifest.permission.GET_ACCOUNTS,
+                    Manifest.permission.WRITE_APN_SETTINGS,
+                    Manifest.permission.CAMERA};
+            ActivityCompat.requestPermissions(getActivity(), mPermissionList, 123);
+        }
     }
 
     //获取布局
