@@ -49,6 +49,7 @@ public class RegisterActivity extends BaseActivity {
 
     SharedPreferences sharedPreferences;
     SharedPreferences.Editor editor;
+    private CustomDatePicker mDatePicker;
 
     @Override
     protected void initData() {
@@ -93,6 +94,38 @@ public class RegisterActivity extends BaseActivity {
         //储存方式
         sharedPreferences = getSharedPreferences("userName",MODE_PRIVATE);
         editor = sharedPreferences.edit();
+        initDatePicker();
+        mRdate.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                mDatePicker.show(mRdate.getText().toString());
+            }
+        });
+
+    }
+
+    private void initDatePicker() {
+        long beginTimestamp = DateFormatUtils.str2Long("1990-01-01", false);
+        long endTimestamp = System.currentTimeMillis();
+
+        mRdate.setText(DateFormatUtils.long2Str(endTimestamp, false));
+
+        // 通过时间戳初始化日期，毫秒级别
+        mDatePicker = new CustomDatePicker(this, new CustomDatePicker.Callback() {
+            @Override
+            public void onTimeSelected(long timestamp) {
+                mRdate.setText(DateFormatUtils.long2Str(timestamp, false));
+            }
+        }, beginTimestamp, endTimestamp);
+        // 不允许点击屏幕或物理返回键关闭
+        mDatePicker.setCancelable(false);
+        // 不显示时和分
+        mDatePicker.setCanShowPreciseTime(false);
+        // 不允许循环滚动
+        mDatePicker.setScrollLoop(false);
+        // 不允许滚动动画
+        mDatePicker.setCanShowAnim(false);
     }
 
     @Override
@@ -135,5 +168,11 @@ public class RegisterActivity extends BaseActivity {
     @Override
     protected void netFail(Object data) {
 
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        mDatePicker.onDestroy();
     }
 }

@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <android.support.v7.widget.CardView
     xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     app:cardCornerRadius="@dimen/dp_8"
@@ -9,7 +10,9 @@
     android:layout_marginLeft="@dimen/dp_24"
     android:layout_marginRight="@dimen/dp_24"
     android:layout_marginTop="@dimen/dp_20"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    app:cardUseCompatPadding="true"
+    app:cardPreventCornerOverlap="false"
+    >
     <RelativeLayout
         android:layout_width="match_parent"
         xmlns:fresco="http://schemas.android.com/apk/res-auto"
@@ -20,8 +23,10 @@
             android:id="@+id/attentioncinema_item_image"
             android:layout_width="@dimen/dp_70"
             android:layout_height="@dimen/dp_70"
-            android:background="@drawable/shape_attention"
+            android:background="@drawable/shape_attention_film"
+
             android:layout_marginTop="@dimen/dp_10"
+            app:roundedCornerRadius="@dimen/dp_4"
             fresco:placeholderImage="@mipmap/icon"
             android:layout_marginLeft="@dimen/dp_10"/>
 
@@ -33,7 +38,7 @@
             android:text="asd"
             android:textSize="@dimen/sp_14"
             android:layout_marginLeft="@dimen/dp_20"
-            android:textColor="#2063c1"
+            android:textColor="#333333"
             android:layout_marginTop="@dimen/dp_10"
             />
 

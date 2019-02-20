@@ -308,6 +308,7 @@ public class MyFragment extends BaseFragment {
                 myfragmentMyimage.setBackgroundResource(R.mipmap.zanwu);
                 myfragmentMyname.setText("登录/注册");
                 ToastUtils.show(getActivity(),"退出账号成功");
+                initMesage();
             }
         }
 
