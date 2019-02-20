@@ -305,6 +305,9 @@ public class MyMessageActivity extends BaseActivity {
         } else if (data instanceof UpdateHeafpicBean) {
             UpdateHeafpicBean updateHeafpicBean= (UpdateHeafpicBean) data;
             ToastUtils.show(this,updateHeafpicBean.getMessage());
+
+            initData();
+
         }
     }
 

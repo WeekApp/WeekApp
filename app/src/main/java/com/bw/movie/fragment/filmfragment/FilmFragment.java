@@ -1,5 +1,6 @@
 package com.bw.movie.fragment.filmfragment;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.media.Image;
 import android.support.v4.app.Fragment;
@@ -10,6 +11,7 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
+import android.widget.TextView;
 
 import com.bw.movie.Utils.cinema.RequestCodeInfo;
 import com.bw.movie.activity.filmactivity.DetailsActivity;
@@ -46,6 +48,7 @@ public class FilmFragment extends BaseFragment {
     FilmIngContentAdapter mFilmIngContentAdapter;
     ImageView mHotMore,mIngMore,mJijMore;
     private ImageView mLocationiv;
+    private TextView mLocationtv;
 
     //初始化数据
     @Override
@@ -191,7 +194,9 @@ public class FilmFragment extends BaseFragment {
         mHotMore = view.findViewById(R.id.flem_icon_next_hotmoive);
         mIngMore = view.findViewById(R.id.flem_icon_int_hotmoive);
         mJijMore = view.findViewById(R.id.flem_icon_jij_hotmoive);
-        mLocationiv = view.findViewById(R.id.location_iv);
+        mLocationiv = view.findViewById(R.id.location_icon);
+        mLocationtv = view.findViewById(R.id.location_tv);
+
 
 
     }
@@ -228,5 +233,21 @@ public class FilmFragment extends BaseFragment {
     @Override
     protected void netFail(Object data) {
 
+    }
+
+    //回调返回方法
+    @Override public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (resultCode == Activity.RESULT_OK) {
+            switch (requestCode) {
+                case RequestCodeInfo.GETCITY:
+                    String city=data.getExtras().getString("city");
+                    if(city!= null) {
+                        System.out.println("ccccccctttttt" + city);
+                        mLocationtv.setText(city);
+                    }
+                    break;
+            }
+        }
     }
 }

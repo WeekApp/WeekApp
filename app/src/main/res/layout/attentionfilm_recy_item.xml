@@ -23,6 +23,7 @@
             android:layout_height="@dimen/dp_128"
             app:roundedCornerRadius="@dimen/dp_4"
             android:layout_marginTop="@dimen/dp_10"
+            android:background="@drawable/shape_attention"
             android:layout_marginLeft="@dimen/dp_10"/>
 
         <TextView
