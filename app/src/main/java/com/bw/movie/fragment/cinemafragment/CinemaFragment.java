@@ -172,10 +172,10 @@ public class CinemaFragment extends BaseFragment {
         });
 
         //获取经纬度
-        initlongitude();
+//        initlongitude();
 
         //获取请求到的定位
-        initLocation();
+      //  initLocation();
 
     }
 
