@@ -10,9 +10,11 @@ import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.location.Criteria;
 import android.location.Location;
+import android.location.LocationListener;
 import android.location.LocationManager;
 import android.os.AsyncTask;
 import android.os.Build;
+import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.os.StrictMode;
@@ -111,6 +113,9 @@ public class CinemaFragment extends BaseFragment {
     private double mLongitude;
     private CinemaSearchAdapter mCinemaSearchAdapter;
     private int mA=0;
+    private boolean isGpsEnabled;
+    private String locateType;
+    private String locationProvider;
 
     //初始化控件
     @Override
@@ -172,10 +177,10 @@ public class CinemaFragment extends BaseFragment {
         });
 
         //获取经纬度
-//        initlongitude();
+        initlongitude();
 
         //获取请求到的定位
-      //  initLocation();
+        initLocation();
 
     }
 
@@ -396,35 +401,33 @@ public class CinemaFragment extends BaseFragment {
 
     //获取经纬度
     private void initlongitude() {
-
-
         LocationManager lm = (LocationManager)getContext(). getSystemService(Context.LOCATION_SERVICE);
 
+
         Criteria criteria = new Criteria();
-        criteria.setCostAllowed(false);
-        //设置位置服务免费
-        criteria.setAccuracy(Criteria.ACCURACY_COARSE); //设置水平位置精度
-        //getBestProvider 只有允许访问调用活动的位置供应商将被返回
-        String providerName = lm.getBestProvider(criteria, true);
+        criteria.setAccuracy(Criteria.ACCURACY_COARSE);//低精度，如果设置为高精度，依然获取不了location。
+        criteria.setAltitudeRequired(false);//不要求海拔
+        criteria.setBearingRequired(false);//不要求方位
+        criteria.setCostAllowed(true);//允许有花费
+        criteria.setPowerRequirement(Criteria.POWER_LOW);//低功耗
 
-        if (providerName != null) {
-            if (ActivityCompat.checkSelfPermission(getContext(), Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(getContext(), Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
-                Toast.makeText(getContext(), "没有权限", Toast.LENGTH_SHORT).show();
-                return;
-            }
+        locationProvider = lm.getBestProvider(criteria, true);
 
-            Location location = lm.getLastKnownLocation(providerName);
-
-            //获取维度信息
-            double latitude = location.getLatitude();
-            //获取经度信息
-            double longitude = location.getLongitude();
-
-            Log.i("获取经纬度", "定位方式： " + providerName + "  维度：" + latitude + "  经度：" + longitude);
-
-        } else {
-            Toast.makeText(getContext(), "1.请检查网络连接 \n2.请打开我的位置", Toast.LENGTH_SHORT).show();
+        if (ActivityCompat.checkSelfPermission(getContext(), Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(getContext(), Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+            Log.d("asd", "onCreate: 没有权限 ");
+            return;
         }
+
+        Location location = lm.getLastKnownLocation(locationProvider);
+
+        if (location != null) {
+            Log.d("a", "onCreate: location");
+            //不为空,显示地理位置经纬度
+            showLocation(location);
+        }
+
+        //监视地理位置变化
+        lm.requestLocationUpdates(locationProvider, 0, 0, locationListener);
 
 
         /*Location location = LocationUtils.getInstance( getContext() ).showLocation();
@@ -438,8 +441,42 @@ public class CinemaFragment extends BaseFragment {
             Toast.makeText(getContext(), mLatitude+" =qaz= "+mLongitude, Toast.LENGTH_SHORT).show();
         }*/
     }
+    LocationListener locationListener = new LocationListener() {
+
+        @Override
+        public void onStatusChanged(String provider, int status, Bundle arg2) {
+
+        }
+
+        @Override
+        public void onProviderEnabled(String provider) {
+            Log.d("a", "onProviderEnabled: " + provider + ".." + Thread.currentThread().getName());
+        }
+
+        @Override
+        public void onProviderDisabled(String provider) {
+            Log.d("a", "onProviderDisabled: " + provider + ".." + Thread.currentThread().getName());
+        }
+
+        @Override
+        public void onLocationChanged(Location location) {
+            Log.d("a", "onLocationChanged: " + ".." + Thread.currentThread().getName());
+            //如果位置发生变化,重新显示
+            showLocation(location);
+        }
 
 
+    };
+
+    private void showLocation(Location location) {
+//获取维度信息
+        mLatitude = location.getLatitude();
+        //获取经度信息
+        mLongitude = location.getLongitude();
+
+        Log.i("获取经纬度",  "  维度：" + mLatitude + "  经度：" + mLongitude);
+
+    }
     //获取GPS定位的城市
     private void initLocation() {
 

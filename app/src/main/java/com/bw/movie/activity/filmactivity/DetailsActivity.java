@@ -457,4 +457,5 @@ public class DetailsActivity extends BaseActivity {
     protected void netFail(Object data) {
 
     }
+
 }
