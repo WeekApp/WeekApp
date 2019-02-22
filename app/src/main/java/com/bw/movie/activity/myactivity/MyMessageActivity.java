@@ -142,7 +142,7 @@ public class MyMessageActivity extends BaseActivity {
                     }
                 });
 
-        xiangji.setOnClickListener(new View.OnClickListener() {
+                xiangji.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 

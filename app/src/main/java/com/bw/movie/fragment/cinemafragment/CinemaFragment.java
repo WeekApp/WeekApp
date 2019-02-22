@@ -7,6 +7,7 @@ import android.animation.ValueAnimator;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.location.Criteria;
 import android.location.Location;
@@ -50,7 +51,9 @@ import com.bw.movie.bean.cinemabean.CinemaSearchBean;
 import com.bw.movie.bean.cinemabean.RemmondBean;
 import com.bw.movie.bean.filmbean.details.buyingbean.ConcrenBean;
 import com.bw.movie.bean.mybean.RemindBean;
+import com.bw.movie.bean.userbean.CityBean;
 import com.bw.movie.bean.userbean.RegisterBean;
+import com.bw.movie.fragment.filmfragment.FilmFragment;
 import com.bw.movie.mvp.util.Apis;
 import com.bw.movie.util.LocationUtils;
 import com.bw.movie.Utils.cinema.RequestCodeInfo;
@@ -63,6 +66,9 @@ import org.apache.http.HttpResponse;
 import org.apache.http.client.HttpClient;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.impl.client.DefaultHttpClient;
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -112,14 +118,15 @@ public class CinemaFragment extends BaseFragment {
     private double mLatitude;
     private double mLongitude;
     private CinemaSearchAdapter mCinemaSearchAdapter;
-    private int mA=0;
-    private boolean isGpsEnabled;
-    private String locateType;
+    private int mA = 0;
     private String locationProvider;
+    private String mCity = null;
+    private SharedPreferences sharedPreferences;
 
     //初始化控件
     @Override
     protected void initView(View view) {
+
 
         unbinder = ButterKnife.bind(this, view);
 
@@ -175,7 +182,6 @@ public class CinemaFragment extends BaseFragment {
                 }
             }
         });
-
         //获取经纬度
         initlongitude();
 
@@ -185,15 +191,14 @@ public class CinemaFragment extends BaseFragment {
     }
 
 
-
     private void initConcren() {
         mCinemaSearchAdapter.setOnItemClick(new CinemaSearchAdapter.OnItemClick() {
             @Override
             public void success(String id, boolean is) {
-                if(is){
-                    doNetGet(String.format(Apis.URL_GET_GUANZHUYINGYUAN,id),ConcrenBean.class);
-                }else{
-                    doNetGet(String.format(Apis.URL_GET_CANCLEGUANZHUYINGYUAN,id),ConcrenBean.class);
+                if (is) {
+                    doNetGet(String.format(Apis.URL_GET_GUANZHUYINGYUAN, id), ConcrenBean.class);
+                } else {
+                    doNetGet(String.format(Apis.URL_GET_CANCLEGUANZHUYINGYUAN, id), ConcrenBean.class);
                 }
                 mCinemaSearchAdapter.notifyDataSetChanged();
             }
@@ -205,28 +210,30 @@ public class CinemaFragment extends BaseFragment {
     protected int getLayout() {
         return R.layout.fragment_cinema;
     }
+
     //请求成功
     @Override
     protected void netSuccess(Object data) {
-        if (data instanceof CinemaSearchBean){
+        if (data instanceof CinemaSearchBean) {
 
-            CinemaSearchBean cinemaSearchBean= (CinemaSearchBean) data;
+            CinemaSearchBean cinemaSearchBean = (CinemaSearchBean) data;
             mCinemaSearchAdapter.setData(cinemaSearchBean.getResult());
 
         }
 
 
-        if(data instanceof ConcrenBean){
+        if (data instanceof ConcrenBean) {
             ConcrenBean user = (ConcrenBean) data;
-            if(user.getStatus().equals("0000")){
-                ToastUtils.show(getActivity(),user.getMessage());
-                doNetGet(Apis.URL_GET_NEARLY,RemmondBean.class);
-            }else{
-                ToastUtils.show(getActivity(),user.getMessage());
-                doNetGet(Apis.URL_GET_NEARLY,RemmondBean.class);
+            if (user.getStatus().equals("0000")) {
+                ToastUtils.show(getActivity(), user.getMessage());
+                doNetGet(Apis.URL_GET_NEARLY, RemmondBean.class);
+            } else {
+                ToastUtils.show(getActivity(), user.getMessage());
+                doNetGet(Apis.URL_GET_NEARLY, RemmondBean.class);
             }
         }
     }
+
     //请求失败
     @Override
     protected void netFail(Object data) {
@@ -235,7 +242,7 @@ public class CinemaFragment extends BaseFragment {
 
 
     //点击事件
-    @OnClick({R.id.cinemaFragment_image_location,R.id.cinemaFragment_edit_search,R.id.cinemaFragment_tv_search})
+    @OnClick({R.id.cinemaFragment_image_location, R.id.cinemaFragment_edit_search, R.id.cinemaFragment_tv_search})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             //定位城市
@@ -247,10 +254,10 @@ public class CinemaFragment extends BaseFragment {
             case R.id.cinemaFragment_tv_search:
 
                 String trim = cinemaFragmentEditSearch.getText().toString().trim();
-                if (trim.isEmpty()){
+                if (trim.isEmpty()) {
                     cinemaFragmentrecy.setVisibility(View.GONE);
                     linear.setVisibility(View.VISIBLE);
-                }else{
+                } else {
                     cinemaFragmentrecy.setVisibility(View.VISIBLE);
                     linear.setVisibility(View.GONE);
                 }
@@ -268,7 +275,7 @@ public class CinemaFragment extends BaseFragment {
 
     //搜索框动画
     private void initAnimator() {
-        if (mA==0){
+        if (mA == 0) {
             final ValueAnimator valueAnimator = ValueAnimator.ofInt(cinemaFragmentEditSearch.getLayoutParams().width, 600);
             valueAnimator.setDuration(2000);
 
@@ -283,7 +290,6 @@ public class CinemaFragment extends BaseFragment {
                 }
             });
             valueAnimator.addListener(new Animator.AnimatorListener() {
-
 
 
                 @Override
@@ -310,7 +316,7 @@ public class CinemaFragment extends BaseFragment {
                 }
             });
             valueAnimator.start();
-        }else if (mA==1){
+        } else if (mA == 1) {
             final ValueAnimator valueAnimator = ValueAnimator.ofInt(cinemaFragmentEditSearch.getLayoutParams().width, 200);
             valueAnimator.setDuration(000);
 
@@ -325,7 +331,6 @@ public class CinemaFragment extends BaseFragment {
                 }
             });
             valueAnimator.addListener(new Animator.AnimatorListener() {
-
 
 
                 @Override
@@ -356,19 +361,19 @@ public class CinemaFragment extends BaseFragment {
 
     //搜索
     private void initSearch(String s) {
-        doNetGet(Apis.URL_GET_SEARCH+"?page=1&count=10&cinemaName="+s,CinemaSearchBean.class);
+        doNetGet(Apis.URL_GET_SEARCH + "?page=1&count=10&cinemaName=" + s, CinemaSearchBean.class);
         mCinemaSearchAdapter = new CinemaSearchAdapter(getContext());
         cinemaFragmentrecy.setAdapter(mCinemaSearchAdapter);
-        cinemaFragmentrecy.setLayoutManager(new LinearLayoutManager(getContext(),LinearLayoutManager.VERTICAL,false));
+        cinemaFragmentrecy.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false));
 
         mCinemaSearchAdapter.setGetData(new CinemaSearchAdapter.GetData() {
             @Override
             public void onClick(int id, String logo, String name, String address) {
-                Intent intent=new Intent(getContext(),CinemaDetailActivity.class);
-                intent.putExtra("id",id+"");
-                intent.putExtra("logo",logo);
-                intent.putExtra("name",name);
-                intent.putExtra("address",address);
+                Intent intent = new Intent(getContext(), CinemaDetailActivity.class);
+                intent.putExtra("id", id + "");
+                intent.putExtra("logo", logo);
+                intent.putExtra("name", name);
+                intent.putExtra("address", address);
                 startActivity(intent);
             }
         });
@@ -384,16 +389,13 @@ public class CinemaFragment extends BaseFragment {
     }
 
 
-
-
-
     Handler handler = new Handler() {
         @Override
         public void handleMessage(Message msg) {
             super.handleMessage(msg);
             if (msg.what == 0) {
 
-                cinemaFragmentTvLocation.setText("城市:" + mCity1);
+                cinemaFragmentTvLocation.setText(mCity1);
             }
         }
     };
@@ -401,7 +403,7 @@ public class CinemaFragment extends BaseFragment {
 
     //获取经纬度
     private void initlongitude() {
-        LocationManager lm = (LocationManager)getContext(). getSystemService(Context.LOCATION_SERVICE);
+        LocationManager lm = (LocationManager) getContext().getSystemService(Context.LOCATION_SERVICE);
 
 
         Criteria criteria = new Criteria();
@@ -441,6 +443,7 @@ public class CinemaFragment extends BaseFragment {
             Toast.makeText(getContext(), mLatitude+" =qaz= "+mLongitude, Toast.LENGTH_SHORT).show();
         }*/
     }
+
     LocationListener locationListener = new LocationListener() {
 
         @Override
@@ -465,7 +468,6 @@ public class CinemaFragment extends BaseFragment {
             showLocation(location);
         }
 
-
     };
 
     private void showLocation(Location location) {
@@ -474,9 +476,10 @@ public class CinemaFragment extends BaseFragment {
         //获取经度信息
         mLongitude = location.getLongitude();
 
-        Log.i("获取经纬度",  "  维度：" + mLatitude + "  经度：" + mLongitude);
+        Log.i("获取经纬度", "  维度：" + mLatitude + "  经度：" + mLongitude);
 
     }
+
     //获取GPS定位的城市
     private void initLocation() {
 
@@ -501,7 +504,7 @@ public class CinemaFragment extends BaseFragment {
 
             HttpClient client = new DefaultHttpClient();
             StringBuilder stringBuilder = new StringBuilder();
-            HttpGet httpGet = new HttpGet("http://api.map.baidu.com/geocoder?output=json&location="+mLatitude+","+mLongitude+"&ak=I3Bm5iocjMlbwGayEm1B3VXkWBmV9t76");
+            HttpGet httpGet = new HttpGet("http://api.map.baidu.com/geocoder?output=json&location=" + mLatitude + "," + mLongitude + "&ak=I3Bm5iocjMlbwGayEm1B3VXkWBmV9t76");
             try {
                 HttpResponse response = client.execute(httpGet);
                 HttpEntity entity = response.getEntity();
@@ -540,13 +543,14 @@ public class CinemaFragment extends BaseFragment {
 
 
     //回调返回方法
-    @Override public void onActivityResult(int requestCode, int resultCode, Intent data) {
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if (resultCode == Activity.RESULT_OK) {
             switch (requestCode) {
                 case RequestCodeInfo.GETCITY:
-                    String city=data.getExtras().getString("city");
-                    if(city!= null) {
+                    String city = data.getExtras().getString("city");
+                    if (city != null) {
                         System.out.println("ccccccctttttt" + city);
                         cinemaFragmentTvLocation.setText(city);
                     }
@@ -569,6 +573,5 @@ public class CinemaFragment extends BaseFragment {
     @Override
     public void onDestroy() {
         super.onDestroy();
-        LocationUtils.getInstance( getContext()).removeLocationUpdatesListener();
     }
 }

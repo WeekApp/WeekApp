@@ -3,14 +3,32 @@ package com.bw.movie.util;
 import android.Manifest;
 import android.content.Context;
 import android.content.pm.PackageManager;
+import android.location.Criteria;
 import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
+import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.Message;
 import android.support.v4.app.ActivityCompat;
 import android.util.Log;
 
+import com.bw.movie.app.App;
+import com.bw.movie.bean.cinemabean.CinemaLocationBean;
+import com.bw.movie.fragment.cinemafragment.CinemaFragment;
+import com.google.gson.Gson;
+
+import org.apache.http.HttpEntity;
+import org.apache.http.HttpResponse;
+import org.apache.http.client.HttpClient;
+import org.apache.http.client.methods.HttpGet;
+import org.apache.http.impl.client.DefaultHttpClient;
+
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.util.List;
 
 /**
@@ -19,127 +37,137 @@ import java.util.List;
  * function:
  */
 public class LocationUtils {
-    private volatile static LocationUtils uniqueInstance;
-    private LocationManager locationManager;
+
+    private double mLatitude;
+    private double mLongitude;
     private String locationProvider;
-    private Location location;
-    private Context mContext;
 
-    private LocationUtils(Context context) {
-        mContext = context;
-        getLocation();
-    }
+    public void getLocation(){
+        LocationManager lm = (LocationManager) App.mContext. getSystemService(Context.LOCATION_SERVICE);
 
-    //采用Double CheckLock(DCL)实现单例
-    public static LocationUtils getInstance(Context context) {
-        if (uniqueInstance == null) {
-            synchronized (LocationUtils.class) {
-                if (uniqueInstance == null) {
-                    uniqueInstance = new LocationUtils( context );
-                }
-            }
-        }
-        return uniqueInstance;
-    }
 
-    private void getLocation() {
-        //1.获取位置管理器
-        locationManager = (LocationManager) mContext.getSystemService( Context.LOCATION_SERVICE );
-        //2.获取位置提供器，GPS或是NetWork
-        List<String> providers = locationManager.getProviders( true );
-        if (providers.contains( LocationManager.NETWORK_PROVIDER )) {
-            //如果是网络定位
-            Log.d( "TAG", "如果是网络定位" );
-            locationProvider = LocationManager.NETWORK_PROVIDER;
-        } else if (providers.contains( LocationManager.GPS_PROVIDER )) {
-            //如果是GPS定位
-            Log.d( "TAG", "如果是GPS定位" );
-            locationProvider = LocationManager.GPS_PROVIDER;
-        } else {
-            Log.d( "TAG", "没有可用的位置提供器" );
+        Criteria criteria = new Criteria();
+        criteria.setAccuracy(Criteria.ACCURACY_COARSE);//低精度，如果设置为高精度，依然获取不了location。
+        criteria.setAltitudeRequired(false);//不要求海拔
+        criteria.setBearingRequired(false);//不要求方位
+        criteria.setCostAllowed(true);//允许有花费
+        criteria.setPowerRequirement(Criteria.POWER_LOW);//低功耗
+
+        locationProvider = lm.getBestProvider(criteria, true);
+
+        if (ActivityCompat.checkSelfPermission(App.mContext, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(App.mContext, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+            Log.d("asd", "onCreate: 没有权限 ");
             return;
         }
-        // 需要检查权限,否则编译报错,想抽取成方法都不行,还是会报错。只能这样重复 code 了。
-        if (Build.VERSION.SDK_INT >= 23 &&
-                ActivityCompat.checkSelfPermission( mContext, Manifest.permission.ACCESS_FINE_LOCATION ) != PackageManager.PERMISSION_GRANTED &&
-                ActivityCompat.checkSelfPermission( mContext, Manifest.permission.ACCESS_COARSE_LOCATION ) != PackageManager.PERMISSION_GRANTED) {
-            return;
-        }
-        if (ActivityCompat.checkSelfPermission( mContext, Manifest.permission.ACCESS_FINE_LOCATION ) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission( mContext, Manifest.permission.ACCESS_COARSE_LOCATION ) != PackageManager.PERMISSION_GRANTED) {
-            return;
-        }
-        //3.获取上次的位置，一般第一次运行，此值为null
-        Location location = locationManager.getLastKnownLocation( locationProvider );
+
+        Location location = lm.getLastKnownLocation(locationProvider);
+
         if (location != null) {
-            setLocation( location );
+            Log.d("a", "onCreate: location");
+            //不为空,显示地理位置经纬度
+            showLocation(location);
         }
-        // 监视地理位置变化，第二个和第三个参数分别为更新的最短时间minTime和最短距离minDistace
-        locationManager.requestLocationUpdates( locationProvider, 0, 0, locationListener );
-    }
 
-    private void setLocation(Location location) {
-        this.location = location;
-        String address = "纬度：" + location.getLatitude() + "经度：" + location.getLongitude();
-        Log.d( "TAG", address );
-    }
+        //监视地理位置变化
+        lm.requestLocationUpdates(locationProvider, 0, 0, locationListener);
 
-    //获取经纬度
-    public Location showLocation() {
-        return location;
     }
-
-    // 移除定位监听
-    public void removeLocationUpdatesListener() {
-        // 需要检查权限,否则编译不过
-        if (Build.VERSION.SDK_INT >= 23 &&
-                ActivityCompat.checkSelfPermission( mContext, Manifest.permission.ACCESS_FINE_LOCATION ) != PackageManager.PERMISSION_GRANTED &&
-                ActivityCompat.checkSelfPermission( mContext, Manifest.permission.ACCESS_COARSE_LOCATION ) != PackageManager.PERMISSION_GRANTED) {
-            return;
-        }
-        if (locationManager != null) {
-            uniqueInstance = null;
-            locationManager.removeUpdates( locationListener );
-        }
-    }
-
-    /**
-     * LocationListern监听器
-     * 参数：地理位置提供器、监听位置变化的时间间隔、位置变化的距离间隔、LocationListener监听器
-     */
 
     LocationListener locationListener = new LocationListener() {
 
-        /**
-         * 当某个位置提供者的状态发生改变时
-         */
         @Override
         public void onStatusChanged(String provider, int status, Bundle arg2) {
 
         }
 
-        /**
-         * 某个设备打开时
-         */
         @Override
         public void onProviderEnabled(String provider) {
-
+            Log.d("a", "onProviderEnabled: " + provider + ".." + Thread.currentThread().getName());
         }
 
-        /**
-         * 某个设备关闭时
-         */
         @Override
         public void onProviderDisabled(String provider) {
-
+            Log.d("a", "onProviderDisabled: " + provider + ".." + Thread.currentThread().getName());
         }
 
-        /**
-         * 手机位置发生变动
-         */
         @Override
         public void onLocationChanged(Location location) {
-            location.getAccuracy();//精确度
-            setLocation( location );
+            Log.d("a", "onLocationChanged: " + ".." + Thread.currentThread().getName());
+            //如果位置发生变化,重新显示
+            showLocation(location);
         }
+
+
     };
+
+    public void showLocation(Location location) {
+//获取维度信息
+        mLatitude = location.getLatitude();
+        //获取经度信息
+        mLongitude = location.getLongitude();
+
+        Log.i("获取经纬度",  "  维度：" + mLatitude + "  经度：" + mLongitude);
+
+    }
+
+    //获取GPS定位的城市
+    private void initLocation() {
+
+        final MyAsyncExtue myAsyncExtue = new MyAsyncExtue();
+        new Thread() {
+            @Override
+            public void run() {
+                super.run();
+                String s = myAsyncExtue.doInBackground();
+
+                myAsyncExtue.onPostExecute(s);
+            }
+        }.start();
+    }
+
+
+    //获取当前定位的城市
+    private class MyAsyncExtue extends AsyncTask<Location, Void, String> {
+        @Override
+        protected String doInBackground(Location... params) {
+
+
+            HttpClient client = new DefaultHttpClient();
+            StringBuilder stringBuilder = new StringBuilder();
+            HttpGet httpGet = new HttpGet("http://api.map.baidu.com/geocoder?output=json&location="+mLatitude+","+mLongitude+"&ak=I3Bm5iocjMlbwGayEm1B3VXkWBmV9t76");
+            try {
+                HttpResponse response = client.execute(httpGet);
+                HttpEntity entity = response.getEntity();
+                InputStream inputStream = entity.getContent();
+                BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(inputStream));
+                String b;
+                while ((b = bufferedReader.readLine()) != null) {
+                    stringBuilder.append(b + "\n");
+                }
+                inputStream.close();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            return stringBuilder.toString();
+        }
+
+        @Override
+        protected void onPostExecute(String m_list) {
+            super.onPostExecute(m_list);
+            Log.e("str", m_list.toString());
+            String city = "";
+//                if (m_list != null && m_list.size() > 0) {
+//                    city = m_list.get(0).getLocality();//获取城市
+//                }
+            city = m_list;
+            CinemaLocationBean cinemaLocationBean = new Gson().fromJson(city, CinemaLocationBean.class);
+            //mCity1 = cinemaLocationBean.getResult().getAddressComponent().getCity();
+
+            Message msg = new Message();
+
+            msg.what = 0;
+           // handler.sendMessage(msg);
+
+        }
+    }
 }
